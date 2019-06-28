@@ -6,10 +6,11 @@ var Cuenta = thinky.createModel("Cuenta", {
     external_id: type.string().default(r.uuid()),
     correo: type.string(),
     clave: type.string(),
+    estado: type.string(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
-    id_medico: type.string()
+    id_persona: type.string()
 });
 module.exports = Cuenta;
-var Medico = require("./medico");
-Cuenta.belongsTo(Medico, "medico", "id_medico", "id");
+var Persona = require("./persona");
+Cuenta.belongsTo(Persona, "persona", "id_persona", "id");

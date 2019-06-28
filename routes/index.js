@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+//importar los modelos
+var persona = require('../modelo/persona')
+var cuenta = require('../modelo/cuenta')
+    /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express', fragmento: '_navbar' });
+    res.render('index', { title: 'Express', fragmento: 'login' });
 });
 
 /* GET home pagina principal. */
