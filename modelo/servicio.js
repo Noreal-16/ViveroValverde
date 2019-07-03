@@ -8,6 +8,9 @@ var Servicio = thinky.createModel("Servicio", {
     descripcion: type.string(),
     ruta_foto: type.string(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now())
+    updatedAt: type.date().default(r.now()),
+    id_detalle: type.string()
 });
 module.exports = Servicio;
+var Detalle_Factura = require('./detalle_factura');
+Servicio.belongsTo(Detalle_Factura, "detalle_factura", "id", "id_detalle");

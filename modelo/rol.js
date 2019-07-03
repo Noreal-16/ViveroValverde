@@ -9,3 +9,5 @@ var Rol = thinky.createModel("Rol", {
     updatedAt: type.date().default(r.now())
 });
 module.exports = Rol;
+var Persona = require('./persona');
+Rol.hasMany(Persona, "persona", "id", "id_Rol");

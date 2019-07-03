@@ -12,12 +12,13 @@ var Persona = thinky.createModel("Persona", {
     celular: type.string(),
     estado: type.string(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now())
+    updatedAt: type.date().default(r.now()),
+    id_Rol: type.string()
 });
 module.exports = Persona;
 var Cuenta = require("./cuenta");
 Persona.hasOne(Cuenta, "cuenta", "id", "id_persona");
-
-// // //realacion medico historialclinico
-// var HistoriaClinica = require("./historiaclinica");
-// Medico.hasMany(HistoriaClinica, "historiaclinica", "id", "id_medico");
+var Factura = require('./factura');
+Persona.hasMany(Factura, "factura", "id", "id_persona");
+var Rol = require('./rol');
+Persona.belongsTo(Rol, "rol", "id", "id_Rol");

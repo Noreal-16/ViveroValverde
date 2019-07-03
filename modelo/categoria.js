@@ -7,6 +7,9 @@ var Categoria = thinky.createModel("Categoria", {
     nombre: type.string(),
     descripcion: type.string(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now())
+    updatedAt: type.date().default(r.now()),
+    id_articulo: type.string()
 });
 module.exports = Categoria;
+var Articulo = require('./articulo');
+Categoria.belongsTo(Articulo, "articulo", "id", "id_articulo");
