@@ -1,79 +1,147 @@
-  <!-- service -->
-  <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
+<!-- service -->
+<script>
+    
+
+        $(function () {
+            $('#file-input').change(function (e) {
+                addImage(e);
+            });
+
+            function addImage(e) {
+                var file = e.target.files[0],
+                        imageType = /image.*/;
+
+                if (!file.type.match(imageType))
+                    return;
+
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            }
+
+            function fileOnload(e) {
+                var result = e.target.result;
+                $('#imgSalida').attr("src", result);
+            }
+        });
+    
+</script>
+<section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
     <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-      <h3 class="title text-center mb-2">Services</h3>
-      <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem ipsum
-        </p>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab1.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Vegatables
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-            </div>
-          </div>
+        <h3 class="title text-center mb-2">Servicio Jardineria</h3>
+        <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarservicio">
+                Agregar 
+            </button>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab2.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Fresh Fruits
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab1.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Vegatables
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab3.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Garden Tillage
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab2.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Fresh Fruits
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab4.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Awesome Wheats
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab3.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Garden Tillage
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab1.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Garden Tillage
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab4.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Awesome Wheats
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-          <div class="grid-wthree-service">
-            <img src="images/ab2.jpg" alt="news image" class="img-fluid">
-            <div class="ser-text-wthree mt-3">
-              <h4>
-                Agro Machinery
-              </h4>
-              <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab1.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Garden Tillage
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
+                <div class="grid-wthree-service">
+                    <img src="images/ab2.jpg" alt="news image" class="img-fluid">
+                    <div class="ser-text-wthree mt-3">
+                        <h4>
+                            Agro Machinery
+                        </h4>
+                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-  <!--//service -->
+</section>
+<div class="modal fade" id="agregarservicio" tabindex="-1" 
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Agregar</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <form>
+                    <div class="form-group">
+                        <label >Nombre</label>
+                        <input type="email" class="form-control" id="nombrejardineria" >
+
+                    </div>
+                    <div class="form-group">
+                        <label >Descripci&oacute;n</label>
+                        <textarea  class="form-control" id="descripcionjardineria" ></textarea>
+                    </div>
+                    
+                    <div class='form-group'>
+                        <label>Foto</label>
+                        <br>
+                        <input name="file-input" id="file-input" type="file" />
+                        <br />
+                        <img id="imgSalida" width="100%" height="95%" src="" />
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
+                <button class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//service -->
