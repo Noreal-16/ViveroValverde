@@ -1,12 +1,131 @@
-<!-- gallery -->
+<script>
+  
+ $(function() {
+  $('#file-input').change(function(e) {
+      addImage(e); 
+     });
+
+     function addImage(e){
+      var file = e.target.files[0],
+      imageType = /image.*/;
+    
+      if (!file.type.match(imageType))
+       return;
+  
+      var reader = new FileReader();
+      reader.onload = fileOnload;
+      reader.readAsDataURL(file);
+     }
+  
+     function fileOnload(e) {
+      var result=e.target.result;
+      $('#imgSalida').attr("src",result);
+     }
+    });
+
+</script>
  <section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
+   <!-- gallery -->
+
     <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
       <h3 class="title text-center mb-2">Gallery </h3>
       <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem ipsum
         </p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoria">
+ Categorias
+</button>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#articulo">
+ Articulo
+</button>
       </div>
-      <div class="row gallery-info">
+
+ 
+<form action="">
+<!-- Modal -->
+<div class="modal fade" id="categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro Categorias</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Nombre</label>
+    <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre de la planta" name="nombre">
+     </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Descripcion</label>
+    <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese  descripcion del articulo" name="descripcion">
+     </div>
+     
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</form>
+     <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="articulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro Articulo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+        <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Nombre</label>
+    <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre de la planta" name="nombre">
+     </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Descripcion</label>
+    <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese  descripcion del articulo" name="descripcion">
+     </div>
+      <div class="form-group">
+    <label for="exampleInputEmail1">Tamaño</label>
+    <input type="text" class="form-control" id="tamanio" aria-describedby="tamanioHelp" placeholder="Ingrese el Tamaño de la planta" name="tamanio">
+     </div>
+      <div class="form-group">
+    <label for="exampleInputEmail1">Stock</label>
+    <input type="number" class="form-control" id="stock"  name="stock">
+     </div>
+      <div class="form-group">
+    <label for="exampleInputEmail1">Pecio</label>
+    <input type="number" class="form-control" id="precio"  name="precio">
+     </div>
+     <div>
+       <label for="exampleInputEmail1">Imagen</label>
+      <input name="file-input" id="file-input" type="file" />
+   <br />
+   <img id="imgSalida" width="100%" height="100%" src="" />
+   </div>
+  <span class="badge badge-success">Categorias</span>
+ 
+   </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </form>
+  <div class="row gallery-info">
         <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
           <div class="gallery-grids">
             <a href="#gal1">
