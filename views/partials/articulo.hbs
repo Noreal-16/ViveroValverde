@@ -1,52 +1,159 @@
 <script>
-  
- $(function() {
-  $('#file-input').change(function(e) {
-      addImage(e); 
-     });
+  //para cargar imagenes
+  $(function () {
 
-     function addImage(e){
+    $(".custom-file-input").on("change", function (e) {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      console.log(fileName);
+      addImage(e);
+    });
+
+    function addImage(e) {
       var file = e.target.files[0],
-      imageType = /image.*/;
-    
+        imageType = /image.*/;
+
+      $("#ruta").val(file.name);
       if (!file.type.match(imageType))
-       return;
-  
+        return;
+
       var reader = new FileReader();
       reader.onload = fileOnload;
       reader.readAsDataURL(file);
-     }
-  
-     function fileOnload(e) {
-      var result=e.target.result;
-      $('#imgSalida').attr("src",result);
-     }
-    });
+    }
+
+    function fileOnload(e) {
+      var result = e.target.result;
+
+      $('#imagenArticulo').attr("src", result);
+    }
+  });
 
 </script>
- <section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
-   <!-- gallery -->
+<section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
+  <!-- gallery -->
 
-    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-      <h3 class="title text-center mb-2">Gallery </h3>
-      <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et Lorem ipsum
-        </p>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoria">
- Categorias
-</button>
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#articulo">
- Articulo
-</button>
+  <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+    <h3 class="title text-center mb-2">Plantas y Flores </h3>
+    <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoria">
+        Categorias
+      </button>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#articulo">
+        Articulo
+      </button>
+    </div>
+             <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Search">
+  <div class="input-group-append">
+    <button class="btn btn-success" type="submit">Go</button> 
+  </div>
+</div>
+    <div class="row gallery-info">
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal1">
+            <img src="images/g1.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
       </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal2">
+            <img src="images/bb2.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal3">
+            <img src="images/bb3.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal4">
+            <img src="images/g2.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal5">
+            <img src="images/g3.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
+        <div class="gallery-grids">
+          <a href="#gal6">
+            <img src="images/g4.jpg" alt="news image" class="img-fluid">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- popup-->
+    <div id="gal1" class="popup-effect">
+      <div class="popup">
+        <img src="images/g1.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+    <!-- popup-->
+    <div id="gal2" class="popup-effect">
+      <div class="popup">
+        <img src="images/bb2.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+    <!-- popup-->
+    <div id="gal3" class="popup-effect">
+      <div class="popup">
+        <img src="images/bb3.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+    <!-- popup-->
+    <div id="gal4" class="popup-effect">
+      <div class="popup">
+        <img src="images/g2.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+    <!-- popup-->
+    <div id="gal5" class="popup-effect">
+      <div class="popup">
+        <img src="images/g3.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+    <!-- popup-->
+    <div id="gal6" class="popup-effect">
+      <div class="popup">
+        <img src="images/g4.jpg" alt="Popup Image" class="img-fluid">
+        <a class="close" href="#gallery">×</a>
+      </div>
+    </div>
+    <!-- //popup -->
+  </div>
+</section>
+<!--//gallery -->
 
- 
-<form action="">
-<!-- Modal -->
-<div class="modal fade" id="categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+
+
+
+<!-- Modal agregar categoria -->
+<div class="modal fade" id="categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-success">
         <h5 class="modal-title" id="exampleModalLabel">Registro Categorias</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -54,169 +161,134 @@
       </div>
       <div class="modal-body">
         <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Nombre</label>
-    <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre de la planta" name="nombre">
-     </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Descripcion</label>
-    <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese  descripcion del articulo" name="descripcion">
-     </div>
-     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Guardar</button>
+          <div class="form-group col-md-4" style="background: red">
+            <label for="exampleInputEmail1">Nombre</label>
+            <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+              placeholder="Nombre Categoria" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Descripcion</label>
+            <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp"
+              placeholder="Descripcion Categoria" name="descripcion">
+          </div>
+          <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nro</th><th>Categoria</th><th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                           
+                        </td>
+                        <td>
+                          
+                        </td>
+                       
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success">Guardar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-</div>
-</form>
-     <!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="articulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- finaliza modal agregar categoria-->
+<!-- Modal  agregar articulo-->
+<div class="modal fade" id="articulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-success">
         <h5 class="modal-title" id="exampleModalLabel">Registro Articulo</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-      
-        <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Nombre</label>
-    <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre de la planta" name="nombre">
-     </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Descripcion</label>
-    <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese  descripcion del articulo" name="descripcion">
-     </div>
-      <div class="form-group">
-    <label for="exampleInputEmail1">Tamaño</label>
-    <input type="text" class="form-control" id="tamanio" aria-describedby="tamanioHelp" placeholder="Ingrese el Tamaño de la planta" name="tamanio">
-     </div>
-      <div class="form-group">
-    <label for="exampleInputEmail1">Stock</label>
-    <input type="number" class="form-control" id="stock"  name="stock">
-     </div>
-      <div class="form-group">
-    <label for="exampleInputEmail1">Pecio</label>
-    <input type="number" class="form-control" id="precio"  name="precio">
-     </div>
-     <div>
-       <label for="exampleInputEmail1">Imagen</label>
-      <input name="file-input" id="file-input" type="file" />
-   <br />
-   <img id="imgSalida" width="100%" height="100%" src="" />
-   </div>
-  <span class="badge badge-success">Categorias</span>
- 
-   </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Guardar</button>
-      </div>
+      <form>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Nombre</label>
+                <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+                  placeholder="Nombre de la planta" name="nombre">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp"
+                  placeholder="Descripcion de la planta" name="descripcion">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-5">
+                  <label for="exampleInputEmail1">Tamaño</label>
+                  <input type="text" class="form-control" id="tamanio" aria-describedby="tamanioHelp"
+                    placeholder="Tamaño planta" name="tamanio">
+                </div>
+
+                <div class="form-group col">
+                  <label for="exampleInputEmail1">Stock</label>
+                  <input type="number" min="1" max="100" class="form-control" id="stock" name="stock"
+                    placeholder="Stock">
+                </div>
+                <div class="form-group col">
+                  <label for="exampleInputEmail1">Pecio</label>
+                  <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio">
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <span class="badge badge-pill badge-primary">Categorias</span>
+                <select class="form-control" name="categoria" id="categoria">
+                  <option>Frutales</option>
+                  <option>Adorno</option>
+                  <option>Flores</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="card border-primary mb-3 " style="width: 18rem;">
+                    <div class="card-header bg-success mb-3">
+                      <h3>Cargar Imagen</h3>
+                    </div>
+                    <div class="card-body">
+                      <img src="images/fondoPlanta.png" id="imagenArticulo" class="card-img-top" alt="..."></div>
+                    <div class="card-footer">
+                      <div class="input-group">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input"  multiple="true" id="customFileLang" lang="es">
+                          {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                          <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Imagen</label>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip" data-placement="left"
+                            title="Agregar Imagen" type="button"><i class="fa fa-camera-retro"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success">Guardar</button>
+          </div>
+      </form>
     </div>
   </div>
 </div>
-  </form>
-  <div class="row gallery-info">
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal1">
-              <img src="images/g1.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal2">
-              <img src="images/bb2.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal3">
-              <img src="images/bb3.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal4">
-              <img src="images/g2.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal5">
-              <img src="images/g3.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-          <div class="gallery-grids">
-            <a href="#gal6">
-              <img src="images/g4.jpg" alt="news image" class="img-fluid">
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- popup-->
-      <div id="gal1" class="popup-effect">
-        <div class="popup">
-          <img src="images/g1.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-      <!-- popup-->
-      <div id="gal2" class="popup-effect">
-        <div class="popup">
-          <img src="images/bb2.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-      <!-- popup-->
-      <div id="gal3" class="popup-effect">
-        <div class="popup">
-          <img src="images/bb3.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-      <!-- popup-->
-      <div id="gal4" class="popup-effect">
-        <div class="popup">
-          <img src="images/g2.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-      <!-- popup-->
-      <div id="gal5" class="popup-effect">
-        <div class="popup">
-          <img src="images/g3.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-      <!-- popup-->
-      <div id="gal6" class="popup-effect">
-        <div class="popup">
-          <img src="images/g4.jpg" alt="Popup Image" class="img-fluid">
-          <a class="close" href="#gallery">×</a>
-        </div>
-      </div>
-      <!-- //popup -->
-    </div>
-  </section>
-  <!--//gallery -->
+<!--Finaliza modal registro articulo-->

@@ -6,16 +6,16 @@ var persona = require('../modelo/persona')
 var cuenta = require('../modelo/cuenta')
     /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express', fragmento: 'banner' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'banner' });
 });
 router.get('/gallery', function(req, res, next) {
-    res.render('index', { title: 'Express', fragmento: 'articulo' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'articulo' });
 });
 router.get('/service', function(req, res, next) {
-    res.render('index', { title: 'Express', fragmento: 'servicio' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'servicio' });
 });
 router.get('/contacto', function(req, res, next) {
-    res.render('index', { title: 'Express', fragmento: 'contactos' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos' });
 });
 
 /* GET home pagina principal. */
