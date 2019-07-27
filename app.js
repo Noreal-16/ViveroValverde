@@ -5,7 +5,10 @@ var hbs = require('express-handlebars');
 var cookieParser = require('cookie-parser');
 var hbs = require('express-handlebars');
 var logger = require('morgan');
-
+//dato flash agragado viernes 21 
+const session = require('express-session');
+const flash = require('connect-flash');
+//////////////////
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,9 +18,16 @@ var app = express();
 
 
 // view engine setup
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/fragmentos/'}));
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/fragmentos/' }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+// Express Session Middleware siempre despues de cargar las ventanas
+app.use(session({
+    secret: 'secret', //encripta variables de session
+    resave: false, //no se guarda de nuevo la session
+    saveUninitialized: true //inicialisa la variables al inicio de lebantar la aplicacion
+}));
 
 
 app.use(logger('dev'));
@@ -26,6 +36,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//agregando libreria de connect-flash despues del cookieParse y del session
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
