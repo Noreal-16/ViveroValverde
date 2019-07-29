@@ -15,13 +15,12 @@ var Factura = thinky.createModel("Factura", {
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
     id_persona: type.string(),
-    id_detalle: type.string(),
-    id_detalleServicio: type.string()
+
 });
 module.exports = Factura;
 var Persona = require('./persona');
 Factura.belongsTo(Persona, "persona", "id", "id_persona");
 var Detalle_Factura = require('./detalle_factura');
-Factura.belongsTo(Detalle_Factura, "detalle_factura", "id", "id_detalle");
+Factura.hasMany(Detalle_Factura, "detalle_factura", "id", "id_detalleFactura");
 var Detalle_Servicio = require('./detalle_servicio');
-Factura.belongsTo(Detalle_Servicio, "detalle_servicio", "id", "id_detalleServicio");
+Factura.hasMany(Detalle_Servicio, "detalle_servicio", "id", "id_detalleFactura");

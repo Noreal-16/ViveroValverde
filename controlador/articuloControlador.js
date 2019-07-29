@@ -1,4 +1,6 @@
 'use strict';
+var articulo = require('../modelo/articulo');
+var categoria = require('../modelo/categoria');
 class articuloControlador {
 
     /**
@@ -8,27 +10,32 @@ class articuloControlador {
      */
 
     guardar(req, res) {
-
-
-        var datos = {
-            correo: req.body.correo,
-            clave: req.body.clave
-        }
-        console.log(datos);
-        // Medico.save().then(function(result) {//
-        cuenta.filter({ correo: datos.correo }).run().then(function(result) {
-            if (result[0].clave === datos.clave) {
-                console.log(result[0].correo);
-                console.log(result[0].external_id);
-                res.render('principal', { title: 'Sistema Medico', session: true, fragmento: "fragmentos/tablaPaciente" });
+        categoria.filter({ external_id: req.body.categoria }).then(function(catg) {
+            if (catg.length > 0) {
+                var datosA = {
+                    nonbre: req.body.nombre,
+                    descripcion: req.body.descripcion,
+                    tamanio: req.body.tamanio,
+                    stok: req.body.stock,
+                    precio: req.body.precio,
+                    id_categoria: catg[0].id
+                }
+                var articuloC = new articulo(datosA);
+                articuloC.save().then(function(articuloSave) {
+                    res.send(articuloSave);
+                }).error(function(error) {
+                    res.send(error);
+                });
             } else {
-                res.send("errroroeorooeor");
+                req.flash('error', 'No existe la categoria!');
+                res.redirect('/');
             }
-        }).catch(function(error) {
-            res.send(error);
+
+        }).error(function(error) {
+            req.flash('error', 'Se produjo un error comunicarse con el desarrollador!');
+            res.redirect('/');
         });
+
     }
-
-
-
 }
+module.exports = articuloControlador;

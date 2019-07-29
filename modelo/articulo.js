@@ -9,13 +9,14 @@ var Articulo = thinky.createModel("Articulo", {
     tamanio: type.number(),
     stok: type.number(),
     precio: type.number(),
-    ruta_foto: type.string(),
+    galeria: type.string(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
-    id_detalleServicio: type.string()
+    id_categoria: type.string()
+
 });
 module.exports = Articulo;
-var Detalle_Servicio = require('./detalle_servicio');
-Articulo.belongsTo(Detalle_Servicio, "detalle_Servicio", "id", "id_detalleServicio");
+var Detalle_Factura = require('./detalle_factura');
+Articulo.hasMany(Detalle_Factura, "detalle_factura", "id", "id_articulo");
 var Categoria = require('./categoria');
-Articulo.hasMany(Categoria, "categoria", "id_articulo", "id");
+Articulo.belongsTo(Categoria, "categoria", "id_categotegoria", "id");

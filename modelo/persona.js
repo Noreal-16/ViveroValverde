@@ -11,6 +11,7 @@ var Persona = thinky.createModel("Persona", {
     telefono: type.string(),
     celular: type.string(),
     estado: type.string(),
+    correo: type.string(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
     id_Rol: type.string()

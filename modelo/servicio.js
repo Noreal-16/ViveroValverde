@@ -6,11 +6,12 @@ var Servicio = thinky.createModel("Servicio", {
     external_id: type.string().default(r.uuid()),
     nombre: type.string(),
     descripcion: type.string(),
-    ruta_foto: type.string(),
+    galeria: type.string(),
+    medidad: type.string(),
+    precio: type.string(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now()),
-    id_detalle: type.string()
+    updatedAt: type.date().default(r.now())
 });
 module.exports = Servicio;
-var Detalle_Factura = require('./detalle_factura');
-Servicio.belongsTo(Detalle_Factura, "detalle_factura", "id", "id_detalle");
+var Detalle_Servicio = require('./detalle_servicio');
+Servicio.hasMany(Detalle_Servicio, "detalle_servicio", "id", "id_servicio");

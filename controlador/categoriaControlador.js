@@ -1,46 +1,42 @@
 'use strict';
 var Categoria = require('../modelo/categoria');
-class categoriaControlador {
 
+class categoriaControlador {
 
     visualizar(req, res) {
         Categoria.then(function(result) {
             res.render('index', {
-                title: 'Pacientes',
-                andrea: "fragmentos/paciente/lista",
+                title: 'Articulos',
+                fragmento: "articulo",
                 sesion: true,
-                listado: todos,
-                nro: nro,
-                msg: { error: req.flash('error'), info: req.flash('info') }
+                lista: result,
+                msg: {
+                    error: req.flash('error'),
+                    info: req.flash('info')
+                }
             });
         }).error(function(error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/');
         });
     }
-
-
     guardar(req, res) {
-        var datos = {
-            cedula: req.body.txtcedula,
-            apellidos: req.body.txtapellidos,
-            nombres: req.body.txtnombres,
-            fecha_nac: req.body.fecha,
-            edad: req.body.txtedad,
-            direccion: req.body.txtdir,
+        var datosC = {
+            nombre: req.body.nombre,
+            descripcion: req.body.descripcion,
+            estado: true
         };
+        var categoriaC = new Categoria(datosC);
+        categoriaC.save().then(function(result) {
+            req.flash('info', 'Se guardo correctamente');
+            res.redirect('/Administrador/categorias');
 
-
-        //then es una promesa que si no hay erro se guarda
-        // Medico.save().then(function(result) {//
-        Categoria.save().then(function(result) {
-            // req.flash('info', 'Paciente registrado!');
-            res.redirect("/Paciente");
-            // res.render('principal', { title: 'Sistema Medico', session: false });
-        }).catch(function(error) {
+        }).error(function(error) {
             req.flash('error', 'No se pudo registrar!');
-            res.redirect("/Paciente");
+            res.redirect('/Administrador/categorias');
         });
 
     }
+
 }
+module.exports = categoriaControlador;

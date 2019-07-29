@@ -6,10 +6,10 @@ var Categoria = thinky.createModel("Categoria", {
     external_id: type.string().default(r.uuid()),
     nombre: type.string(),
     descripcion: type.string(),
+    estado: type.boolean(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now()),
-    id_articulo: type.string()
+    updatedAt: type.date().default(r.now())
 });
 module.exports = Categoria;
 var Articulo = require('./articulo');
-Categoria.belongsTo(Articulo, "articulo", "id", "id_articulo");
+Categoria.hasMany(Articulo, "articulo", "id", "id_articulo");

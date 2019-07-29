@@ -8,10 +8,12 @@ var Dettalle_Servicio = thinky.createModel("Dettalle_Servicio", {
     precio_unit: type.number(),
     precio_total: type.number(),
     createdAt: type.date().default(r.now()),
-    updatedAt: type.date().default(r.now())
+    updatedAt: type.date().default(r.now()),
+    id_servicio: type.string(),
+    id_factura: type.string()
 });
 module.exports = Dettalle_Servicio;
 var Factura = require('./factura');
-Dettalle_Servicio.hasMany(Factura, "factura", "id", "id_detalleServicio");
-var Articulo = require('./articulo');
-Dettalle_Servicio.hasMany(Articulo, "articulo", "id", "id_detalleServicio");
+Dettalle_Servicio.belongsTo(Factura, "factura", "id_factura", "id");
+var Servicio = require('./servicio');
+Dettalle_Servicio.belongsTo(Servicio, "servicio", "id_servicio", "id");

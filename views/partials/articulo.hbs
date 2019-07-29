@@ -53,42 +53,42 @@
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal1">
-            <img src="images/g1.jpg" alt="news image" class="img-fluid">
+            <img src="/images/g1.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal2">
-            <img src="images/bb2.jpg" alt="news image" class="img-fluid">
+            <img src="/images/bb2.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal3">
-            <img src="images/bb3.jpg" alt="news image" class="img-fluid">
+            <img src="/images/bb3.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal4">
-            <img src="images/g2.jpg" alt="news image" class="img-fluid">
+            <img src="/images/g2.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal5">
-            <img src="images/g3.jpg" alt="news image" class="img-fluid">
+            <img src="/images/g3.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
         <div class="gallery-grids">
           <a href="#gal6">
-            <img src="images/g4.jpg" alt="news image" class="img-fluid">
+            <img src="/images/g4.jpg" alt="news image" class="img-fluid">
           </a>
         </div>
       </div>
@@ -96,7 +96,7 @@
     <!-- popup-->
     <div id="gal1" class="popup-effect">
       <div class="popup">
-        <img src="images/g1.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/g1.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -104,7 +104,7 @@
     <!-- popup-->
     <div id="gal2" class="popup-effect">
       <div class="popup">
-        <img src="images/bb2.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/bb2.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -112,7 +112,7 @@
     <!-- popup-->
     <div id="gal3" class="popup-effect">
       <div class="popup">
-        <img src="images/bb3.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/bb3.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -120,7 +120,7 @@
     <!-- popup-->
     <div id="gal4" class="popup-effect">
       <div class="popup">
-        <img src="images/g2.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/g2.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -128,7 +128,7 @@
     <!-- popup-->
     <div id="gal5" class="popup-effect">
       <div class="popup">
-        <img src="images/g3.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/g3.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -136,7 +136,7 @@
     <!-- popup-->
     <div id="gal6" class="popup-effect">
       <div class="popup">
-        <img src="images/g4.jpg" alt="Popup Image" class="img-fluid">
+        <img src="/images/g4.jpg" alt="Popup Image" class="img-fluid">
         <a class="close" href="#gallery">×</a>
       </div>
     </div>
@@ -160,7 +160,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="formulario" method="POST" action="/Administrador/categorias/guardar">
           <div class="form-group col-md-4" style="background: red">
             <label for="exampleInputEmail1">Nombre</label>
             <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
@@ -178,26 +178,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                  
-                    <tr>
-                        <td>
-                            
-                        </td>
-                        <td>
-                           
-                        </td>
-                        <td>
-                          
-                        </td>
-                       
-                    </tr>
-                    
+                 
                 </tbody>
             </table>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
           </div>
         </form>
       </div>
@@ -264,7 +251,7 @@
                       <h3>Cargar Imagen</h3>
                     </div>
                     <div class="card-body">
-                      <img src="images/fondoPlanta.png" id="imagenArticulo" class="card-img-top" alt="..."></div>
+                      <img src="/images/fondoPlanta.png" id="imagenArticulo" class="card-img-top" alt="..."></div>
                     <div class="card-footer">
                       <div class="input-group">
                         <div class="custom-file">
