@@ -29,11 +29,11 @@ class categoriaControlador {
         var categoriaC = new Categoria(datosC);
         categoriaC.save().then(function(result) {
             req.flash('info', 'Se guardo correctamente');
-            res.redirect('/Administrador/categorias');
+            res.redirect('/Administra/categorias');
 
         }).error(function(error) {
             req.flash('error', 'No se pudo registrar!');
-            res.redirect('/Administrador/categorias');
+            res.redirect('/Administra/categorias');
         });
 
     }
