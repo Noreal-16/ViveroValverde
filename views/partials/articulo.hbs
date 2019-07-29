@@ -212,7 +212,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form>
+      <form id="formArticulo" method="POST" action="/Administra/Articulo/guardar">
         <div class="modal-body">
           <div class="row">
             <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
@@ -246,10 +246,10 @@
               <div class="form-group col-md-6">
                 <span class="badge badge-pill badge-primary">Categorias</span>
                 <select class="form-control" name="categoria" id="categoria">
-                  <option>Frutales</option>
-                  <option>Adorno</option>
-                  <option>Flores</option>
-                </select>
+                  {{#each lista as |listados i|}}
+                      <option value="{{listados.external_id}}" > {{listados.nombre}} </option>
+                  {{/each}}
+                   </select>
               </div>
             </div>
             <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -281,7 +281,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
           </div>
       </form>
     </div>

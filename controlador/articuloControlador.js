@@ -3,6 +3,24 @@ var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
 class articuloControlador {
 
+    visualizarRegistro(req, res) {
+        Categoria.then(function(lista) {
+            res.render('index', {
+                title: 'Articulos',
+                fragmento: "articulo",
+                sesion: true,
+                lista: lista,
+                msg: {
+                    error: req.flash('error'),
+                    info: req.flash('info')
+                }
+            });
+        }).error(function(error) {
+            req.flash('error', 'Hubo un error!');
+            res.redirect('/');
+        });
+    }
+
     /**
      * 
      * @param {*} req 

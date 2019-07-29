@@ -6,6 +6,8 @@ var persona = require('../modelo/persona');
 var cuenta = require('../modelo/cuenta');
 var categoria = require('../controlador/categoriaControlador');
 var categoriaC = new categoria();
+var articulo = require('../controlador/articuloControlador');
+var articuloC = new articulo();
 
 
 
@@ -35,6 +37,9 @@ router.get('/Administra/Servicios', servicio.visualizar);
 //Administrador de caratceteristicas
 router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
+//Articulo
+router.get('/Administra/Articulo', articuloC.visualizarRegistro);
+router.post('/Administra/Articulo/guardar', articuloC.guardar);
 /* GET home pagina principal. */
 // router.get('/principal', function(req, res, next) {
 //     res.render('principal', { title: 'Sistema Medico', session: true });
