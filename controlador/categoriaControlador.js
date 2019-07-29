@@ -37,6 +37,54 @@ class categoriaControlador {
         });
 
     }
+    visualizarModificar(req, res) {
+        var external = req.params.external;
+        Categoria.filter({ external_id: external }).then(function(categoriaLista) {
+            if (categoriaLista.length > 0) {
+                var lista = categoriaLista[0];
+                var msgListador = {
+                    error: req.flash("error"),
+                    info: req.flash("info")
+                };
+                res.render("index", {
+                    title: "Listado de Categorias",
+                    sesion: true,
+                    fragmento: 'modificarArticulo',
+                    msg: msgListador,
+                    lista: lista,
+
+                });
+
+            } else {
+                res.flash('error', 'Se produjo un error en categorias');
+                res.redirect('/Administra/categorias');
+            }
+        }).error(function(erro) {
+            res.send(erro);
+        });
+    }
+    modificarCategoris(req, res) {
+        Categoria.filter({ external_id: req.body.external }).then(function(categoriaLista) {
+            if (categoriaLista.length > 0) {
+                var catgLista = categoriaLista[0];
+                catgLista.nombre = req.body.nombre;
+                catgLista.descripcion = req.body.descripcion;
+                catgLista.save().then(function(modificaLista) {
+                    req.flash('info', 'Se guardo la categoria correctamente');
+                    res.redirect('/Administra/categorias');
+                }).error(function(error) {
+                    res.flash('error', 'Se produjo un error en categorias');
+                    res.redirect('/Administra/categorias');
+                });
+
+            } else {
+                res.flash('error', 'Se produjo un error en categorias');
+                res.redirect('/Administra/categorias');
+            }
+        }).error(function(error) {
+            res.send(error);
+        });
+    }
 
 }
 module.exports = categoriaControlador;

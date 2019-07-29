@@ -37,9 +37,12 @@ router.get('/Administra/Servicios', servicio.visualizar);
 //Administrador de caratceteristicas
 router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
+router.get('/Administrador/lista/:external', categoriaC.visualizarModificar);
+router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
 //Articulo
 router.get('/Administra/Articulo', articuloC.visualizarRegistro);
 router.post('/Administra/Articulo/guardar', articuloC.guardar);
+
 /* GET home pagina principal. */
 // router.get('/principal', function(req, res, next) {
 //     res.render('principal', { title: 'Sistema Medico', session: true });

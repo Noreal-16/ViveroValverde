@@ -4,7 +4,7 @@ var categoria = require('../modelo/categoria');
 class articuloControlador {
 
     visualizarRegistro(req, res) {
-        Categoria.then(function(lista) {
+        categoria.filter({ estado: true }).then(function(lista) {
             res.render('index', {
                 title: 'Articulos',
                 fragmento: "articulo",
@@ -54,6 +54,39 @@ class articuloControlador {
             res.redirect('/');
         });
 
+    }
+    visualizarModificar(req, res) {
+        var external = req.param.external;
+        articulo.getJoin({ categoria: true }).filter({ external_id: external }).then(function(listaArticulo) {
+            if (listaArticulo.length > 0) {
+                var artc = listaArticulo[0];
+                categoria.filter({ estado: true }).then(function(lista) {
+                    var msgListador = {
+                        error: req.flash("error"),
+                        info: req.flash("info")
+                    };
+
+                    res.render("index", {
+                        title: "lista Articulos",
+                        sesion: true,
+                        fragmento: 'modificarArticulo',
+                        msg: msgListador,
+                        listado: artc,
+                        lista: lista
+                    });
+                }).error(function(error) {
+                    req.flash('error', 'error al encontran la categoria');
+                    res.redirect('/');
+                });
+
+            } else {
+                req.flash('error', 'error no existen datos ');
+                res.redirect('/');
+            }
+        }).error(function(error) {
+            req.flash('error', 'Ocurrio un error comunicarse con el desarrollador');
+            res.redirect('/');
+        });
     }
 }
 module.exports = articuloControlador;

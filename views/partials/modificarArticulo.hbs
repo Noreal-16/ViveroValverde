@@ -160,43 +160,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="formulario" method="POST" action="/Administrador/categorias/guardar">
+        <form id="formulario" method="POST" action="/Administrador/Modificar">
+         <input type="hidden" id="external" name="external" value="{{lista.external_id}}" />
           <div class="form-group col-md-4" style="background: red">
             <label for="exampleInputEmail1">Nombre</label>
             <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
-              placeholder="Nombre Categoria" name="nombre">
+             value="{{lista.nombre}}" name="nombre">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Descripcion</label>
             <input type="text" class="form-control" id="descripcion" aria-describedby="descripcionHelp"
-              placeholder="Descripcion Categoria" name="descripcion">
+              value="{{lista.descripcion}}" name="descripcion">
           </div>
-          <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nro</th><th>Categoria</th><th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  {{#each lista as |listado i|}}
-                 <tr>
-                   <th scope="row">
-                    {{i}}
-                   </th>
-                  <td>
-                    {{listado.nombre}}
-                    </td>
-                    <td>
-                      <a href="/Administrador/lista/{{listado.external_id}}" class="btn btn-primary">Modificar</a>
-                    </td>
-                    </tr>
-                 {{/each}}
-                </tbody>
-            </table>
+         
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-success">Guardar</button>
+              <a href="/Administra/categorias" class="btn btn-danger">Regresar</a>
+                <button type="submit" class="btn btn-success">Guardar</button>
           </div>
         </form>
       </div>
@@ -222,7 +202,7 @@
               <div class="form-group">
                 <label for="exampleInputEmail1">Nombre</label>
                 <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
-                  placeholder="Nombre de la planta" name="nombre">
+                  placeholder="Nombre de la planta" name="nombre" value="{{listado.nombre}}">
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Descripcion</label>
