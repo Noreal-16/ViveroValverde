@@ -7,7 +7,7 @@ var Servicio = thinky.createModel("Servicio", {
     nombre: type.string(),
     descripcion: type.string(),
     galeria: type.string(),
-    medidad: type.string(),
+    medida: type.string(),
     precio: type.string(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now())

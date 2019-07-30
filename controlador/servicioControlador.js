@@ -1,5 +1,5 @@
 'use strict';
-var servicio = require('../modelo/servicio');
+var Servicio = require('../modelo/servicio');
 class servicioControlador {
 
     /**
@@ -8,7 +8,7 @@ class servicioControlador {
      * @param {*} res 
      */
     visualizar(req, res) {
-        servicio.then(function(resultS) {
+        Servicio.then(function(resultS) {
             res.render('index', {
                 title: 'Servicio',
                 fragmento: "servicio",
@@ -24,24 +24,23 @@ class servicioControlador {
 
     guardar(req, res) {
         var datos = {
-            cedula: req.body.txtcedula,
-            apellidos: req.body.txtapellidos,
-            nombres: req.body.txtnombres,
-            fecha_nac: req.body.fecha,
-            edad: req.body.txtedad,
-            direccion: req.body.txtdir,
+            nombre: req.body.nombre,
+            medida: req.body.medida,
+            descripcion: req.body.descripcion,
+            precio: req.body.precio
         };
+        var servicio = new Servicio(datos);
 
 
         //then es una promesa que si no hay erro se guarda
         // Medico.save().then(function(result) {//
-        Categoria.save().then(function(result) {
+        servicio.save().then(function(result) {
             // req.flash('info', 'Paciente registrado!');
-            res.redirect("/Paciente");
+            res.redirect("/");
             // res.render('principal', { title: 'Sistema Medico', session: false });
         }).catch(function(error) {
             req.flash('error', 'No se pudo registrar!');
-            res.redirect("/Paciente");
+            res.redirect("/");
         });
 
     }

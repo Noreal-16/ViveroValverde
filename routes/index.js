@@ -8,6 +8,8 @@ var categoria = require('../controlador/categoriaControlador');
 var categoriaC = new categoria();
 var articulo = require('../controlador/articuloControlador');
 var articuloC = new articulo();
+var Servicio = require('../controlador/servicioControlador');
+var servicio = new Servicio();
 
 
 
@@ -32,6 +34,10 @@ router.get('/contacto', function(req, res, next) {
 
 
 //Administracion de servicio
+//
+router.get('/Administra/Servicios/Visualizar', servicio.visualizar);
+router.post('/Administra/Servicios/Guardar', servicio.guardar);
+
 //cargar paciente en las tablas
 router.get('/Administra/Servicios', servicio.visualizar);
 //Administrador de caratceteristicas

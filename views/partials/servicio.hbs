@@ -14,7 +14,7 @@
 
         function addImage(e) {
             var file = e.target.files[0],
-                imageType = /image.*/;
+                    imageType = /image.*/;
 
             if (!file.type.match(imageType))
                 return;
@@ -54,34 +54,35 @@
                     html += '<button  class="btn btn-danger btn-sm" onclick="atras()"> << </button>';
                     html += '<button  class="btn btn-danger btn-sm" onclick="adelante()"> >>  </button>';
                     html += '</div>';
-                                      for (var i = 0; i < foto.length; i++) {
-                                            console.log("src: " + foto[i]);
-                                           /*html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
-                                            html += '  <img class="img-responsive" src="' + foto[i] + '" alt="Short alt text"   width="50" height="60"> ' ;
-                                           html += '</a>';*/
-                                        }
+                    for (var i = 0; i < foto.length; i++) {
+                        console.log("src: " + foto[i]);
+                        /*html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
+                         html += '  <img class="img-responsive" src="' + foto[i] + '" alt="Short alt text"   width="50" height="60"> ' ;
+                         html += '</a>';*/
+                    }
                     $("#srcimagen").html(html);
                 }
             }
 
         });
     });
-      function atras() {
-          console.log("atras");
-            tamanio++;
-            if (tamanio > foto.length - 1) {
-                tamanio = 1;
-            }
-            $('#foto').attr("src", foto[tamanio]);
-        };
-       function adelante() {
-           console.log("adelante");
-            tamanio--;
-            if (tamanio < 1) {
-                tamanio = foto.length - 1;
-            }
-            $('#foto').attr("src", foto[tamanio]);
-        };
+    function atras() {
+        console.log("atras");
+        tamanio++;
+        if (tamanio > foto.length - 1) {
+            tamanio = 1;
+        }
+        $('#foto').attr("src", foto[tamanio]);
+    }
+    ;
+    function adelante() {
+        console.log("adelante");
+        tamanio--;
+        if (tamanio < 1) {
+            tamanio = foto.length - 1;
+        }
+        $('#foto').attr("src", foto[tamanio]);
+    };
 </script>
 <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
     <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
@@ -91,12 +92,12 @@
                 Agregar
             </button>
         </div>
-         <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Buscar">
-  <div class="input-group-append">
-    <button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button> 
-  </div>
-</div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button> 
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
@@ -179,18 +180,30 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form id="formulario" method="POST" action="/Administra/Servicios/Guardar">
                 <div class="modal-body mx-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
                             <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="email" class="form-control" name="nombrejar" id="nombrejar"
-                                    placeholder="Nombre servicio">
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                       placeholder="Nombre servicio">
                             </div>
                             <div class="form-group">
+                                <label>Medida</label>
+                                <input type="text" class="form-control" name="medida" id="medida"
+                                       placeholder="Medida">
+                            </div>
+                            
+                            
+                            <div class="form-group">
                                 <label>Descripci&oacute;n</label>
-                                <textarea class="form-control" name="descripcionjar" id="descripcionjar"></textarea>
+                                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Descripci&oacute;n"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" class="form-control" name="precio" id="precio"
+                                       placeholder="Precio">
                             </div>
                             <div class="container">
                                 <div class="row">
@@ -210,20 +223,20 @@
                                         <div class="card-body">
                                             <div id="error"></div>
                                             <img src="images/jardin.jpg" id="imagenArticulo" class="card-img-top"
-                                                alt="..." style="max-width:100%;width:auto;height:auto;">
+                                                 alt="..." style="max-width:100%;width:auto;height:auto;">
                                         </div>
                                         <div class="card-footer">
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" multiple="true"
-                                                        id="customFileLang" lang="es">
+                                                           id="customFileLang" lang="es">
                                                     {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
                                                     <label class="custom-file-label" for="customFileLang"
-                                                        data-browse="Elegir">Imagen</label>
+                                                           data-browse="Elegir">Imagen</label>
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip"
-                                                        data-placement="left" title="Agregar Imagen" type="button"><i
+                                                            data-placement="left" title="Agregar Imagen" type="button"><i
                                                             class="fa fa-camera-retro"></i></button>
                                                 </div>
                                             </div>
