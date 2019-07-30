@@ -40,11 +40,12 @@ a:hover {
 
 /* fondo de modal */
 
-.modal-body {
+
+/* .modal-body {
     background-image: url(../images/fondoModal2.jpg);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
 input[type="button"],
 input[type="submit"] {

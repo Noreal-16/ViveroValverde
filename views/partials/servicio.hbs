@@ -49,16 +49,16 @@
                     //var path = $('img[alt="imagenArticulo"]').attr('src');
                     foto[index] = newPath;
                     var html = '';
-                    html += '<img src="' + foto[index] + '" width="100" height="150" id="foto">';
+                   /* html += '<img src="' + foto[index] + '" width="100" height="150" id="foto">';
                     html += '<div class="form-group">';
                     html += '<button  class="btn btn-danger btn-sm" onclick="atras()"> << </button>';
                     html += '<button  class="btn btn-danger btn-sm" onclick="adelante()"> >>  </button>';
-                    html += '</div>';
+                    html += '</div>';*/
                     for (var i = 0; i < foto.length; i++) {
                         console.log("src: " + foto[i]);
-                        /*html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
+                        html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
                          html += '  <img class="img-responsive" src="' + foto[i] + '" alt="Short alt text"   width="50" height="60"> ' ;
-                         html += '</a>';*/
+                         html += '</a>';
                     }
                     $("#srcimagen").html(html);
                 }
@@ -99,20 +99,24 @@
             </div>
         </div>
         <div class="row">
+<!--Inicio foreach-->
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab1.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab1.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Vegatables
                         </h4>
                         <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
                     </div>
+                     <button type="button" class="btn btn-outline-primary">Guaradar</button>
                 </div>
+               
             </div>
+            <!--Finaliza foreach-->
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab2.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab2.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Fresh Fruits
@@ -123,7 +127,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab3.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab3.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Garden Tillage
@@ -134,7 +138,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab4.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab4.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Awesome Wheats
@@ -145,7 +149,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab1.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab1.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Garden Tillage
@@ -156,7 +160,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
                 <div class="grid-wthree-service">
-                    <img src="images/ab2.jpg" alt="news image" class="img-fluid">
+                    <img src="/images/ab2.jpg" alt="news image" class="img-fluid">
                     <div class="ser-text-wthree mt-3">
                         <h4>
                             Agro Machinery
@@ -194,7 +198,7 @@
                                 <input type="text" class="form-control" name="medida" id="medida"
                                        placeholder="Medida">
                             </div>
-                            
+
                             
                             <div class="form-group">
                                 <label>Descripci&oacute;n</label>
@@ -202,7 +206,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Precio</label>
-                                <input type="number" class="form-control" name="precio" id="precio"
+                                <input type="text" class="form-control" name="precio" id="precio"
                                        placeholder="Precio">
                             </div>
                             <div class="container">
@@ -222,7 +226,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div id="error"></div>
-                                            <img src="images/jardin.jpg" id="imagenArticulo" class="card-img-top"
+                                            <img src="/images/jardin.jpg" id="imagenArticulo" class="card-img-top"
                                                  alt="..." style="max-width:100%;width:auto;height:auto;">
                                         </div>
                                         <div class="card-footer">
