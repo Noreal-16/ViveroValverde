@@ -7,7 +7,7 @@ class articuloControlador {
         categoria.filter({ estado: true }).then(function(lista) {
             res.render('index', {
                 title: 'Articulos',
-                fragmento: "articulo",
+                fragmento: "articulo/articulo",
                 sesion: true,
                 lista: lista,
                 msg: {

@@ -11,50 +11,50 @@ var articuloC = new articulo();
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
-
-
 //controlador servicio
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
+var Rol = require("../controlador/rolControlador");
+var rol = new Rol();
+rol.crearRol();
 
-/* GET home page. */
+
+
+
+/* visualizar la pantalla principal. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Vivero Valverde', fragmento: 'banner' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
-// router.get('/gallery', function(req, res, next) {
-//     res.render('index', { title: 'Vivero Valverde', fragmento: 'articulo' });
-// });
-// router.get('/service', function(req, res, next) {
-//     res.render('index', { title: 'Vivero Valverde', fragmento: 'servicio' });
-// });
 router.get('/contacto', function(req, res, next) {
-    res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos' });
+    res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });
 
 
-//Administracion de servicio
-//
-router.get('/Administra/Servicios/Visualizar', servicio.visualizar);
+/**
+ * Adminitracion de servicio de jardineria
+ */
 router.post('/Administra/Servicios/Guardar', servicio.guardar);
-
-//cargar paciente en las tablas
 router.get('/Administra/Servicios', servicio.visualizar);
-//Administrador de caratceteristicas
+
+/***
+ * Adminitracion de categotias de plantas 
+ * visualizar
+ * guardar
+ * modificar
+ */
+
 router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
 router.get('/Administrador/lista/:external', categoriaC.visualizarModificar);
 router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
-//Articulo
+
+
+/**
+ * Adminitracion de articulo plantas
+ */
 router.get('/Administra/Articulo', articuloC.visualizarRegistro);
 router.post('/Administra/Articulo/guardar', articuloC.guardar);
 
-/* GET home pagina principal. */
-// router.get('/principal', function(req, res, next) {
-//     res.render('principal', { title: 'Sistema Medico', session: true });
-// });
-// router.get('/', function(req, res, next) {
-//     res.render('index', { title: 'Registro Medico' });
-// });
 
 module.exports = router;

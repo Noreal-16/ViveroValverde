@@ -11,7 +11,7 @@ class servicioControlador {
         Servicio.then(function(resultS) {
             res.render('index', {
                 title: 'Servicio',
-                fragmento: "servicio",
+                fragmento: "servicio/servicio",
                 listado: resultS,
                 msg: { error: req.flash('error'), info: req.flash('info') }
             });

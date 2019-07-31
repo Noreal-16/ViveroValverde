@@ -7,7 +7,7 @@ class categoriaControlador {
         Categoria.then(function(result) {
             res.render('index', {
                 title: 'Articulos',
-                fragmento: "articulo",
+                fragmento: "articulo/articulo",
                 sesion: true,
                 lista: result,
                 msg: {
