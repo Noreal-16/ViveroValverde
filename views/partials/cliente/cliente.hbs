@@ -1,0 +1,40 @@
+<section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
+    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+<h3 class="title text-center mb-2">{{title}} </h3>
+<div class="card">
+    <div class="card-header bg-secondary text-white">
+        Listado de Clientes  <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarCliente">NUEVO</a>
+    </div>
+    <div class="card-body" style="background: #EFF7F1">
+           
+        <div class="table-responsive" >
+            <table id="tabla" class="table ">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>Cedula</th>
+                        <th>Nombres</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+ {{> 'cliente/agregarcliente'}}
+ {{> 'cliente/modificarCliente' }}
+     </div>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

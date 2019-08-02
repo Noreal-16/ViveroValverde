@@ -20,6 +20,12 @@ class categoriaControlador {
             res.redirect('/');
         });
     }
+
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
     guardar(req, res) {
         var datosC = {
             nombre: req.body.nombre,
@@ -29,11 +35,11 @@ class categoriaControlador {
         var categoriaC = new Categoria(datosC);
         categoriaC.save().then(function(result) {
             req.flash('info', 'Se guardo correctamente');
-            res.redirect('/Administra/categorias');
+            res.redirect('/Administra/Articulo');
 
         }).error(function(error) {
             req.flash('error', 'No se pudo registrar!');
-            res.redirect('/Administra/categorias');
+            res.redirect('/Administra/Articulo');
         });
 
     }

@@ -7,10 +7,24 @@ class servicioControlador {
      * @param {*} req 
      * @param {*} res 
      */
-    visualizar(req, res) {
+    visualizarLista(req, res) {
         Servicio.then(function(resultS) {
             res.render('index', {
-                title: 'Servicio',
+                title: 'Administra Servicio',
+                fragmento: "servicio/listaServicio",
+                listado: resultS,
+                msg: { error: req.flash('error'), info: req.flash('info') }
+            });
+        }).error(function(error) {
+            req.flash('error', 'Hubo un error!');
+            res.redirect('/');
+        });
+    }
+
+    visualizarServicio(req, res) {
+        Servicio.then(function(resultS) {
+            res.render('index', {
+                title: 'Servicio Jardineria',
                 fragmento: "servicio/servicio",
                 listado: resultS,
                 msg: { error: req.flash('error'), info: req.flash('info') }

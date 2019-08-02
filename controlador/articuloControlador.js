@@ -6,7 +6,7 @@ class articuloControlador {
     visualizarRegistro(req, res) {
         categoria.filter({ estado: true }).then(function(lista) {
             res.render('index', {
-                title: 'Articulos',
+                title: 'Plantas y Flores',
                 fragmento: "articulo/articulo",
                 sesion: true,
                 lista: lista,
@@ -20,6 +20,34 @@ class articuloControlador {
             res.redirect('/');
         });
     }
+
+    visualizarLista(req, res) {
+        articulo.then(function(listaA) {
+            categoria.filter({ estado: true }).then(function(listaC) {
+                res.render('index', {
+                    title: 'Administra Articulos',
+                    fragmento: "articulo/listaArticulo",
+                    sesion: true,
+                    lista: listaC,
+                    listaA: listaA,
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info')
+                    }
+                });
+            }).error(function(error) {
+                req.flash('error', 'Hubo un error!');
+                res.redirect('/');
+            });
+        }).error(function(error) {
+            req.flash('error', 'Hubo un error!');
+            res.redirect('/');
+        });
+
+    }
+
+
+
 
     /**
      * 

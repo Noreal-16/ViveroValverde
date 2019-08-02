@@ -1,0 +1,127 @@
+<!--Agregar persona--->
+<div class="modal fade" id="agregarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content " style="background: #EFF7F1">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Registro de Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="idformulario" name="idformulario" method="POST" action="/registrar"></form>
+            <div class="modal-body">
+                <div id="error"></div>
+                <div class="info"></div>
+                <div>
+                    <label class="badge badge-danger">Datos generales</label>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="cedula">Cedula</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                            <input type="text" class="form-control" placeholder="Cedula..." name="txtCedula"
+                                id="cedula">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nombres">Nombres</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-info"></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre..." name="txtnombre"
+                                id="txtnombre">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="Apellidos">Apellidos</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-info"></i></span>
+                            <input type="text" class="form-control" placeholder="Apellido..." name="txtapellido"
+                                id="txtapellido">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="telefono">Telefono</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                            <input type="text" class="form-control" placeholder="Telefono..." name="txttelefono"
+                                id="txttelefono">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="direccion">Direccion</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" class="form-control" placeholder="Direccion..." name="txtdireccion"
+                                id="txtdireccion">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Celular">Celular</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            <input type="text" class="form-control" placeholder="Celular..." name="txtcelular"
+                                id="txtcelular">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="rol">Rol</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            <select class="form-control" name="txtrol" id="txtrol">
+                                {{#each listaR as |listados i|}}
+                                    <option value="{{listados.external_id}}" > {{listados.nombre}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="badge badge-danger">Datos cuenta</span>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="correo">Correo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-at"></i></span>
+                            <input type="email" class="form-control" placeholder="Email..." name="txtcorreo" id="textcorreo">
+                        </div><br>
+                        <label for="usuario">Nombre usuario</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="Usuario..." name="usser">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="contrasenia">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                            <input type="text" class="form-control" placeholder="Contraseña..." name="clave" id="clave">
+                        </div><br>
+                        <label for="repetircontrasenia"> Verificar Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                            <input type="text" class="form-control" placeholder="Contraseña..." name="clave1"
+                                id="clave1">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="/Administra/clientes" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Finaliza agregar persona--->

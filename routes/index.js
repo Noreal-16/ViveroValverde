@@ -2,12 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 //importar los modelos
-var persona = require('../modelo/persona');
-var cuenta = require('../modelo/cuenta');
+
 var categoria = require('../controlador/categoriaControlador');
 var categoriaC = new categoria();
+
+var Personas = require('../controlador/personaControlador');
+var persona = new Personas();
+
 var articulo = require('../controlador/articuloControlador');
 var articuloC = new articulo();
+
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
@@ -15,15 +19,13 @@ var servicio = new Servicio();
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
-var Rol = require("../controlador/rolControlador");
-var rol = new Rol();
-rol.crearRol();
-
+var rol = require("../controlador/rolControlador");
 
 
 
 /* visualizar la pantalla principal. */
 router.get('/', function(req, res, next) {
+    rol.crearRol();
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
 router.get('/contacto', function(req, res, next) {
@@ -34,8 +36,9 @@ router.get('/contacto', function(req, res, next) {
 /**
  * Adminitracion de servicio de jardineria
  */
+router.get('/Servicios', servicio.visualizarServicio);
 router.post('/Administra/Servicios/Guardar', servicio.guardar);
-router.get('/Administra/Servicios', servicio.visualizar);
+router.get('/Administra/Servicios', servicio.visualizarLista);
 
 /***
  * Adminitracion de categotias de plantas 
@@ -44,7 +47,7 @@ router.get('/Administra/Servicios', servicio.visualizar);
  * modificar
  */
 
-router.get('/Administra/categorias', categoriaC.visualizar);
+// router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
 router.get('/Administrador/lista/:external', categoriaC.visualizarModificar);
 router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
@@ -53,8 +56,16 @@ router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
 /**
  * Adminitracion de articulo plantas
  */
-router.get('/Administra/Articulo', articuloC.visualizarRegistro);
+router.get('/Articulo', articuloC.visualizarRegistro);
+router.get('/Administra/Articulo', articuloC.visualizarLista);
 router.post('/Administra/Articulo/guardar', articuloC.guardar);
+
+/**
+ * Administra clientes
+ */
+
+router.get('/Administra/clientes', persona.visualizarCliente);
+
 
 
 module.exports = router;

@@ -1,17 +1,79 @@
+<script>
+  //para cargar imagenes
+  $(function () {
+
+ var foto = new Array();
+    var index = -1;
+    var tamanio = 1;
+    $(".custom-file-input").on("change", function (e) {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      console.log(fileName);
+      addImage(e);
+    });
+
+    function addImage(e) {
+      var file = e.target.files[0],
+        imageType = /image.*/;
+
+      $("#ruta").val(file.name);
+      if (!file.type.match(imageType))
+        return;
+
+      var reader = new FileReader();
+      reader.onload = fileOnload;
+      reader.readAsDataURL(file);
+    }
+
+    function fileOnload(e) {
+      var result = e.target.result;
+      $('#imagenArticulo').attr("src", result);
+    }
+      $("#btnagregar").click(function () {
+            if (($("#customFileLang").val()) != "") {
+                index++;
+                var path = jQuery("#imagenArticulo").attr('src');
+                var newPath = path.replace('file:///home/angel/Descargas/', '');
+                console.log(newPath);
+                if (foto.includes(newPath)) {
+                    /* OK, value exists! */
+                    index--;
+                    var mensaje = '<div class="alert alert-danger" style="font-size: 10px">';
+                    mensaje += "Imagen ya agregada";
+                    mensaje += "</div>";
+                    $("#error").show();
+                    $("#error").html(mensaje);
+                    $("#error").hide(4000);
+                } else {
+                    //var path = $('img[alt="imagenArticulo"]').attr('src');
+                    foto[index] = newPath;
+                    var html = '';
+                    for (var i = 0; i < foto.length; i++) {
+                        console.log("src: " + foto[i]);
+                        html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
+                         html += '  <img class="img-responsive" src="' + foto[i] + '" alt="Short alt text"   width="50" height="60"> ' ;
+                         html += '</a>';
+                    }
+                    $("#srcimagen").html(html);
+                }
+            }
+      })
+  });
+
+</script>
 <!-- Modal  agregar articulo-->
-<div class="modal fade" id="modificarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="agregarArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="background: #EFF7F1">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="exampleModalLabel">Modificar Articulo</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registro Articulo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form id="formArticulo" method="POST" action="/Administra/Articulo/guardar">
                 <div class="modal-body">
-                 <input type="hidden" value="0" id="external" name="external" />
                     <div class="row">
                         <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
                             <label for="nombre">Nombre</label>

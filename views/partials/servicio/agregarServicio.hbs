@@ -1,0 +1,174 @@
+<!-- service -->
+<script>
+
+    var foto = new Array();
+    var index = -1;
+    var tamanio = 1;
+    $(function () {
+        $(".custom-file-input").on("change", function (e) {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            //console.log(this.files);
+            addImage(e);
+        });
+
+        function addImage(e) {
+            var file = e.target.files[0],
+                    imageType = /image.*/;
+
+            if (!file.type.match(imageType))
+                return;
+
+            var reader = new FileReader();
+            reader.onload = fileOnload;
+            reader.readAsDataURL(file);
+        }
+
+        function fileOnload(e) {
+            var result = e.target.result;
+            $('#imagenArticulo').attr("src", result);
+        }
+
+        $("#btnagregar").click(function () {
+
+            if (($("#customFileLang").val()) != "") {
+                index++;
+                var path = jQuery("#imagenArticulo").attr('src');
+                var newPath = path.replace('file:///home/angel/Descargas/', '');
+                console.log(newPath);
+                if (foto.includes(newPath)) {
+                    /* OK, value exists! */
+                    index--;
+                    var mensaje = '<div class="alert alert-danger" style="font-size: 10px">';
+                    mensaje += "Imagen ya agregada";
+                    mensaje += "</div>";
+                    $("#error").show();
+                    $("#error").html(mensaje);
+                    $("#error").hide(4000);
+                } else {
+                    //var path = $('img[alt="imagenArticulo"]').attr('src');
+                    foto[index] = newPath;
+                    var html = '';
+                   /* html += '<img src="' + foto[index] + '" width="100" height="150" id="foto">';
+                    html += '<div class="form-group">';
+                    html += '<button  class="btn btn-danger btn-sm" onclick="atras()"> << </button>';
+                    html += '<button  class="btn btn-danger btn-sm" onclick="adelante()"> >>  </button>';
+                    html += '</div>';*/
+                    for (var i = 0; i < foto.length; i++) {
+                        console.log("src: " + foto[i]);
+                        html += ' <a class="thumbnail" href="#" data-image-id="" data-toggle="modal"data-title="This is my title" data-caption="Some lovely red flowers" data-image="' + foto[i] + '" data-target="#image-gallery">';
+                         html += '  <img class="img-responsive" src="' + foto[i] + '" alt="Short alt text"   width="50" height="60"> ' ;
+                         html += '</a>';
+                    }
+                    $("#srcimagen").html(html);
+                }
+            }
+
+        });
+    });
+    function atras() {
+        console.log("atras");
+        tamanio++;
+        if (tamanio > foto.length - 1) {
+            tamanio = 1;
+        }
+        $('#foto').attr("src", foto[tamanio]);
+    }
+    ;
+    function adelante() {
+        console.log("adelante");
+        tamanio--;
+        if (tamanio < 1) {
+            tamanio = foto.length - 1;
+        }
+        $('#foto').attr("src", foto[tamanio]);
+    };
+</script>
+
+
+<!--Modal registro servicio--->
+<div class="modal fade" id="agregarServicio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Registrar Servicio</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formulario" method="POST" action="/Administra/Servicios/Guardar">
+                <div class="modal-body mx-3">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+                            <label>Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-info"></i></span>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    placeholder="Nombre servicio">
+                            </div>
+                            <label>Medida</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-text-height"></i></span>
+                                <input type="text" class="form-control" name="medida" id="medida" placeholder="Medida">
+                            </div>
+                            <label>Descripci&oacute;n</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-info"></i></span>
+                                <textarea class="form-control" name="descripcion" id="descripcion"
+                                    placeholder="Descripci&oacute;n"></textarea>
+                            </div>
+                            <label>Precio</label>
+                            <div class="input-group">
+                                <span class="input-group-text"> <i class="fas fa-dollar-sign"></i></span>
+                                <input type="text" class="form-control" name="precio" id="precio" placeholder="Precio">
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="srcimagen">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="card border-primary mb-3 " style="width: 18rem;">
+                                        <div class="card-header bg-success mb-3">
+                                            <h3>Cargar Imagen</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="error"></div>
+                                            <img src="/images/jardin.jpg" id="imagenArticulo" class="card-img-top"
+                                                alt="..." style="max-width:100%;width:auto;height:auto;">
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" multiple="true"
+                                                        id="customFileLang" lang="es">
+                                                    {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                                    <label class="custom-file-label" for="customFileLang"
+                                                        data-browse="Elegir">Imagen</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip"
+                                                        data-placement="left" title="Agregar Imagen" type="button"><i
+                                                            class="fa fa-camera-retro"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{!-- finaliza modal registro --}}

@@ -2,7 +2,7 @@
 var Rol = require('../modelo/rol');
 var Persona = require('../modelo/persona');
 var Cuenta = require('../modelo/cuenta');
-class categoriaControlador {
+class personaControlador {
 
 
     guardar(req, res) {
@@ -48,4 +48,30 @@ class categoriaControlador {
 
         });
     }
+
+    visualizarCliente(req, res) {
+        Persona.then(function(lista) {
+            Rol.then(function(resultR) {
+                res.render('index', {
+                    title: 'Administra Persona',
+                    fragmento: "cliente/cliente",
+                    sesion: true,
+                    lista: lista,
+                    listaR: resultR,
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info')
+                    }
+                });
+            }).error(function(error) {
+                req.flash('error', 'Hubo un error!');
+                res.redirect('/');
+            });
+
+        }).error(function(error) {
+            req.flash('error', 'Hubo un error!');
+            res.redirect('/');
+        });
+    }
 }
+module.exports = personaControlador;
