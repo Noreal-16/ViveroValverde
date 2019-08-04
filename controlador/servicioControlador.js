@@ -50,7 +50,7 @@ class servicioControlador {
         // Medico.save().then(function(result) {//
         servicio.save().then(function(result) {
             // req.flash('info', 'Paciente registrado!');
-            res.redirect("/");
+            res.redirect("/Administra/Servicios");
             // res.render('principal', { title: 'Sistema Medico', session: false });
         }).catch(function(error) {
             req.flash('error', 'No se pudo registrar!');
@@ -58,5 +58,35 @@ class servicioControlador {
         });
 
     }
+    modificar(req, res) {
+        Servicio.filter({id: req.body.id}).then(function (data) {
+            if (data.length > 0) {
+                var arreglo = data[0];
+                arreglo.nombre = req.body.nombrem;
+                arreglo.medida = req.body.medidam;
+                arreglo.precio = req.body.preciom;
+                arreglo.descripcion = req.body.descripcionm;
+                
+
+                arreglo.saveAll().then(function (result) {
+                    req.flash('info', 'Se ha modificado correctamente');
+                    res.redirect('/Administra/Servicios');
+                }).error(function (error) {
+                    console.log(error);
+                    req.flash('error', 'No se pudo modificar');
+                    res.redirect('/');
+                });
+
+
+            } else {
+                req.flash('error', 'No existe el dato a buscar');
+                res.redirect('/administracion/pacientes');
+            }
+        }).error(function (error) {
+            req.flash('error', 'se produjo un error');
+            res.redirect('/administracion/pacientes');
+        });
+    }
+   
 }
 module.exports = servicioControlador;

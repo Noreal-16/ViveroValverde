@@ -39,6 +39,9 @@ router.get('/contacto', function(req, res, next) {
 router.get('/Servicios', servicio.visualizarServicio);
 router.post('/Administra/Servicios/Guardar', servicio.guardar);
 router.get('/Administra/Servicios', servicio.visualizarLista);
+router.post('/Administra/Servicios/Modificar', servicio.modificar);
+
+
 
 /***
  * Adminitracion de categotias de plantas 

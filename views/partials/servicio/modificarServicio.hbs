@@ -3,36 +3,37 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Agregar</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Modificar</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formulario" method="POST" action="/Administra/Servicios/Guardar">
+            <form id="formulario" method="POST" action="/Administra/Servicios/Modificar">
                 <div class="modal-body mx-3">
                     <div class="row">
+                        <input type="hidden" id="id" name="id" >
                         <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
                               <label>Nombre</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-info"></i></span>
-                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                <input type="text" class="form-control" name="nombrem" id="nombrem"
                                     placeholder="Nombre servicio">
                             </div>
                             <label>Medida</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-text-height"></i></span>
-                                <input type="text" class="form-control" name="medida" id="medida" placeholder="Medida">
+                                <input type="text" class="form-control" name="medidam" id="medidam" placeholder="Medida">
                             </div>
                             <label>Descripci&oacute;n</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-info"></i></span>
-                                <textarea class="form-control" name="descripcion" id="descripcion"
+                                <textarea class="form-control" name="descripcionm" id="descripcionm"
                                     placeholder="Descripci&oacute;n"></textarea>
                             </div>
                             <label>Precio</label>
                             <div class="input-group">
                                 <span class="input-group-text"> <i class="fas fa-dollar-sign"></i></span>
-                                <input type="text" class="form-control" name="precio" id="precio" placeholder="Precio">
+                                <input type="text" class="form-control" name="preciom" id="preciom" placeholder="Precio">
                             </div>
                             <div class="container">
                                 <div class="row">
@@ -77,7 +78,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary">Guardar</button>
+                    <button type="submit"class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
