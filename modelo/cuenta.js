@@ -6,7 +6,8 @@ var Cuenta = thinky.createModel("Cuenta", {
     external_id: type.string().default(r.uuid()),
     correo: type.string(),
     clave: type.string(),
-    estado: type.string(),
+    estado: type.boolean(),
+    nombreUsuario: type.string(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
     id_persona: type.string()

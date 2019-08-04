@@ -22,8 +22,9 @@ class articuloControlador {
     }
 
     visualizarLista(req, res) {
-        articulo.then(function(listaA) {
+        articulo.filter({ estado: true }).then(function(listaA) {
             categoria.filter({ estado: true }).then(function(listaC) {
+
                 res.render('index', {
                     title: 'Administra Articulos',
                     fragmento: "articulo/listaArticulo",
@@ -46,9 +47,6 @@ class articuloControlador {
 
     }
 
-
-
-
     /**
      * 
      * @param {*} req 
@@ -64,13 +62,17 @@ class articuloControlador {
                     tamanio: req.body.tamanio,
                     stok: req.body.stock,
                     precio: req.body.precio,
+                    estado: true,
                     id_categoria: catg[0].id
                 }
                 var articuloC = new articulo(datosA);
                 articuloC.save().then(function(articuloSave) {
-                    res.send(articuloSave);
+                    req.flash('info', 'El articulo se guardo correctamente');
+                    res.redirect('/Administra/Articulo');
                 }).error(function(error) {
                     res.send(error);
+                    req.flash('error', 'Ocurrio un error ');
+                    res.redirect('/Administra/Articulo');
                 });
             } else {
                 req.flash('error', 'No existe la categoria!');
