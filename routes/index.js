@@ -19,13 +19,13 @@ var servicio = new Servicio();
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
-var rol = require("../controlador/rolControlador");
+var rol = require('../controlador/rolControlador');
 
 
 
 /* visualizar la pantalla principal. */
 router.get('/', function(req, res, next) {
-    rol.crearRol();
+    rol.crear_roles();
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
 router.get('/contacto', function(req, res, next) {
@@ -52,7 +52,7 @@ router.post('/Administra/Servicios/Modificar', servicio.modificar);
 
 // router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
-router.get('/Administrador/lista/:external', categoriaC.visualizarModificar);
+router.get('/Administrador/lista', categoriaC.cargarCategorias);
 router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
 
 
@@ -68,6 +68,7 @@ router.post('/Administra/Articulo/guardar', articuloC.guardar);
  */
 
 router.get('/Administra/clientes', persona.visualizarCliente);
+router.post('/Administra/guardar', persona.guardar);
 
 
 

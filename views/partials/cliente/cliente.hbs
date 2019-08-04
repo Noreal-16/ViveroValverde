@@ -21,7 +21,33 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    {{#each listado as |listas i|}}
+                    <tr> 
+                        <th scope="row">
+                         {{i}}
+                         </th>
+                  <td>
+                       {{listas.cedula}}
+                  </td>
+                  <td>
+                       {{listas.nombres}}  {{listas.apellidos}}
+                  </td>
+                  <td>
+                       {{listas.direccion}}
+                  </td>
+                  <td>
+                       {{listas.telefono}}
+                  </td>
+                  <td>
+                       {{#if listas.estado }} 
+                         Activo
+                         {{else}} 
+                         Desactivado
+                     {{/if }} 
+                      
+                  </td>
+                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
