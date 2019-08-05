@@ -3,75 +3,31 @@ var Categoria = require('../modelo/categoria');
 
 class categoriaControlador {
 
-    visualizar(req, res) {
-        Categoria.then(function(result) {
-            res.render('index', {
-                title: 'Articulos',
-                fragmento: "articulo/articulo",
-                sesion: true,
-                lista: result,
-                msg: {
-                    error: req.flash('error'),
-                    info: req.flash('info')
-                }
-            });
-        }).error(function(error) {
-            req.flash('error', 'Hubo un error!');
-            res.redirect('/');
-        });
-    }
-
     /**
-     * 
+     * Guardar categorias recibiendo datos por body
      * @param {*} req 
      * @param {*} res 
      */
     guardar(req, res) {
-            var datosC = {
-                nombre: req.body.nombre,
-                descripcion: req.body.descripcion,
-                estado: true
-            };
-            var categoriaC = new Categoria(datosC);
-            categoriaC.save().then(function(result) {
-                req.flash('info', 'Se guardo correctamente');
-                res.redirect('/Administra/Articulo');
+        var datosC = {
+            nombre: req.body.nombre,
+            descripcion: req.body.descripcion,
+            estado: true
+        };
+        var categoriaC = new Categoria(datosC);
+        categoriaC.save().then(function(result) {
+            req.flash('info', 'Se guardo correctamente');
+            res.redirect('/Administra/Articulo');
 
-            }).error(function(error) {
-                req.flash('error', 'No se pudo registrar!');
-                res.redirect('/Administra/Articulo');
-            });
+        }).error(function(error) {
+            req.flash('error', 'No se pudo registrar!');
+            res.redirect('/Administra/Articulo');
+        });
 
-        }
-        // visualizarModificar(req, res) {
-        //     var external = req.params.external;
-        //     console.log(external);
-        //     Categoria.filter({ external_id: external }).then(function(categoriaLista) {
-        //         if (categoriaLista.length > 0) {
-        //             var lista = categoriaLista[0];
-        //             var msgListador = {
-        //                 error: req.flash("error"),
-        //                 info: req.flash("info")
-        //             };
-        //             res.render("index", {
-        //                 title: "Listado de Categorias",
-        //                 sesion: true,
-        //                 fragmento: 'modificarCategoria',
-        //                 msg: msgListador,
-        //                 lista: lista
-        //             });
-
-    //         } else {
-    //             res.flash('error', 'Se produjo un error en categorias');
-    //             res.redirect('/Administra/categorias');
-    //         }
-    //     }).error(function(erro) {
-    //         res.send(erro);
-    //     });
-    // }
+    }
 
     /**
-     * Cargara datos en le modal
+     * Cargara datos en le modal para modificar categoria
      * @param {*} req 
      * @param {*} res 
      */
@@ -79,9 +35,9 @@ class categoriaControlador {
         var external = req.query.external;
         var data = {};
         console.log("Aqui esta el EXTERNAL => " + external);
-        Categoria.then(function(result) {
+        Categoria.filter({ external_id: external }).then(function(result) {
             var item = result[0];
-            console.log("Aqui esta el RESULT => " + item.nombre);
+            console.log(result);
             data = {
                 external_id: item.external_id,
                 nombre: item.nombre,
@@ -95,23 +51,27 @@ class categoriaControlador {
         });
     }
 
+    /**
+     * Modificar categoria recibiendo datos por body
+     * @param {*} req 
+     * @param {*} res 
+     */
     modificarCategoris(req, res) {
-        Categoria.filter({ external_id: req.body.external }).then(function(categoriaLista) {
-            if (categoriaLista.length > 0) {
-                var catgLista = categoriaLista[0];
-                catgLista.nombre = req.body.nombre;
-                catgLista.descripcion = req.body.descripcion;
-                catgLista.save().then(function(modificaLista) {
+        Categoria.filter({ external_id: req.body.external }).then(function(resultC) {
+            if (resultC.length > 0) {
+                var categoria = resultC[0];
+                categoria.nombre = req.body.nombre1;
+                categoria.descripcion = req.body.descripcion1;
+                categoria.save().then(function(modificaLista) {
                     req.flash('info', 'Se guardo la categoria correctamente');
-                    res.redirect('/Administra/categorias');
+                    res.redirect('/Administra/Articulo');
                 }).error(function(error) {
                     res.flash('error', 'Se produjo un error en categorias');
-                    res.redirect('/Administra/categorias');
+                    res.redirect('/Administra/Articulo');
                 });
-
             } else {
                 res.flash('error', 'Se produjo un error en categorias');
-                res.redirect('/Administra/categorias');
+                res.redirect('Administra/Articulo');
             }
         }).error(function(error) {
             res.send(error);

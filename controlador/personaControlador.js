@@ -30,6 +30,7 @@ class personaControlador {
     }
 
     guardar(req, res) {
+        console.log(req.body.txtrol);
         Rol.filter({ external_id: req.body.txtrol }).run().then(function(rolesResul) {
             if (rolesResul.length > 0) {
                 Cuenta.filter({ correo: req.body.txtcorreo }).run().then(function(exite) {
@@ -64,7 +65,7 @@ class personaControlador {
                         });
                     } else {
                         req.filter('error', 'Correo ya registrado!');
-                        res.redirect('/');
+                        res.redirect('/Administra/clientes');
                     }
                 }).error(function(error) {
                     res.send(error);
@@ -74,6 +75,47 @@ class personaControlador {
             }
         }).error(function(error) {
 
+        });
+    }
+
+    /**
+     * Permite obtener datos del cleinte y cargarlos en la vista
+     * @param {*} req 
+     * @param {*} res 
+     */
+    cargarPersona(req, res) {
+        var external = req.query.external;
+        var data;
+        Persona.getJoin({ cuenta: true }).filter({ external_id: external }).then(function(resultPers) {
+            var persona = resultPers[0];
+            Rol.filter({ id: persona.id_Rol }).then(function(resultR) {
+                // console.log(resultR);
+                Rol.then(function(listaR) {
+                    data = {
+                        cedula: persona.cedula,
+                        nombre: persona.nombres,
+                        apellido: persona.apellidos,
+                        direccion: persona.direccion,
+                        telefono: persona.telefono,
+                        celular: persona.celular,
+                        external_id: persona.external_id,
+                        correo: persona.cuenta.correo,
+                        clave: persona.cuenta.clave,
+                        usuario: persona.cuenta.nombreUsuario,
+                        external_idR: resultR[0].external_id,
+                        lista: listaR
+                    };
+                    res.json(data);
+                }).error(function(error) {
+
+                })
+            }).error(function(error) {
+                req.flash('error', 'error al encontran la categoria');
+                res.redirect('/');
+            });
+        }).error(function(error) {
+            req.flash('error', 'Ocurrio un error comunicarse con el desarrollador');
+            res.redirect('/');
         });
     }
 

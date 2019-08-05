@@ -136,3 +136,52 @@ function validarCedula(cedula) {
         }
     }
 }
+
+
+//metodo para visualizar contraseña
+$(function() {
+    $('#verContrasenia1').addClass('fas fa-eye-slash')
+    $("#verContrasenia1").click(function() {
+        var cambio = document.getElementById("claveM");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('#verContrasenia1').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+        } else {
+            cambio.type = "password";
+            $('#verContrasenia1').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+        }
+    });
+    $('#verContrasenia2').addClass('fas fa-eye-slash')
+    $("#verContrasenia2").click(function() {
+        var cambio = document.getElementById("clave1M");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('#verContrasenia2').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+        } else {
+            cambio.type = "password";
+            $('#verContrasenia2').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+        }
+    });
+    $('#verContrasenia').addClass('fas fa-eye-slash')
+    $("#verContrasenia").click(function() {
+        var cambio = document.getElementById("clave");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('#verContrasenia').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+        } else {
+            cambio.type = "password";
+            $('#verContrasenia').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+        }
+    });
+    $('#verContraseniag').addClass('fas fa-eye-slash')
+    $("#verContraseniag").click(function() {
+        var cambio = document.getElementById("clave1");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('#verContraseniag').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+        } else {
+            cambio.type = "password";
+            $('#verContraseniag').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+        }
+    });
+})

@@ -1,66 +1,76 @@
-<section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
-    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-<h3 class="title text-center mb-2">{{title}} </h3>
-<div class="card">
-    <div class="card-header bg-secondary text-white">
-        Listado de Clientes  <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarCliente">NUEVO</a>
-    </div>
-    <div class="card-body" style="background: #EFF7F1">
-           
-        <div class="table-responsive" >
-            <table id="tabla" class="table ">
-                <thead>
-                    <tr>
-                        <th>Nro</th>
-                        <th>Cedula</th>
-                        <th>Nombres</th>
-                        <th>Direccion</th>
-                        <th>Telefono</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each listado as |listas i|}}
-                    <tr> 
-                        <th scope="row">
-                         {{i}}
-                         </th>
-                  <td>
-                       {{listas.cedula}}
-                  </td>
-                  <td>
-                       {{listas.nombres}}  {{listas.apellidos}}
-                  </td>
-                  <td>
-                       {{listas.direccion}}
-                  </td>
-                  <td>
-                       {{listas.telefono}}
-                  </td>
-                  <td>
-                       {{#if listas.estado }} 
-                         Activo
-                         {{else}} 
-                         Desactivado
-                     {{/if }} 
-                      
-                  </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+<div class="main-principal"></div>
+<div class="container">
+    <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
+        <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+            <h3 class="title text-center mb-2">{{title}} </h3>
+            {{> msg }}
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    Listado de Clientes <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                        data-target="#agregarCliente">NUEVO</a>
+                </div>
+                <div class="card-body" style="background: #EFF7F1">
+
+                    <div class="table-responsive">
+                        <table id="tabla" class="table ">
+                            <thead>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Cedula</th>
+                                    <th>Nombres</th>
+                                    <th>Direccion</th>
+                                    <th>Telefono</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each listado as |listas i|}}
+                                <tr>
+                                    <th scope="row">
+                                        {{i}}
+                                    </th>
+                                    <td>
+                                        {{listas.cedula}}
+                                    </td>
+                                    <td>
+                                        {{listas.nombres}} {{listas.apellidos}}
+                                    </td>
+                                    <td>
+                                        {{listas.direccion}}
+                                    </td>
+                                    <td>
+                                        {{listas.telefono}}
+                                    </td>
+                                    <td>
+                                       {{#if listas.estado}}
+                                        <span class="badge badge-success">Activo</span>
+                                        {{else}}
+                                        <span class="badge badge-danger">Inactivo</span>
+                                        {{/if}}
+                                    </td>
+                                    <td>
+                                         <div class="btn-group">
+                                            <a href="#" data-toggle="modal" data-target="#modificarCliente" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargardatosPersona('{{listas.external_id}}')"><i class="far fa-edit"></i></a>
+                                        </div>
+                                         <div class="btn-group">
+                                            {{#if listas.estado}}
+                                             <a href="#" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
+                                             {{else}}
+                                            <a href="#" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-lock"></i></a>
+                                            {{/if}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{> 'cliente/agregarcliente'}}
+            {{> 'cliente/modificarCliente' }}
         </div>
-    </div>
+    </section>
 </div>
- {{> 'cliente/agregarcliente'}}
- {{> 'cliente/modificarCliente' }}
-     </div>
-</section>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</div>

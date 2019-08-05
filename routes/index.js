@@ -37,10 +37,10 @@ router.get('/contacto', function(req, res, next) {
  * Adminitracion de servicio de jardineria
  */
 router.get('/Servicios', servicio.visualizarServicio);
-router.post('/Administra/Servicios/Guardar', servicio.guardar);
+router.get('/cargarServicio', servicio.cargarServicio);
 router.get('/Administra/Servicios', servicio.visualizarLista);
+router.post('/Administra/Servicios/Guardar', servicio.guardar);
 router.post('/Administra/Servicios/Modificar', servicio.modificar);
-
 
 
 /***
@@ -52,7 +52,7 @@ router.post('/Administra/Servicios/Modificar', servicio.modificar);
 
 // router.get('/Administra/categorias', categoriaC.visualizar);
 router.post('/Administrador/categorias/guardar', categoriaC.guardar);
-router.get('/Administrador/lista', categoriaC.cargarCategorias);
+router.get('/cargarCategoria', categoriaC.cargarCategorias);
 router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
 
 
@@ -61,14 +61,17 @@ router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
  */
 router.get('/Articulo', articuloC.visualizarRegistro);
 router.get('/Administra/Articulo', articuloC.visualizarLista);
+router.get('/cargarArticulo', articuloC.cargarArticulo);
+router.get('/desactivarArticulo', articuloC.descativar);
 router.post('/Administra/Articulo/guardar', articuloC.guardar);
+router.post('/Administra/Articulo/modificar', articuloC.modificar);
 
 /**
  * Administra clientes
  */
-
 router.get('/Administra/clientes', persona.visualizarCliente);
-router.post('/Administra/guardar', persona.guardar);
+router.post('/Administra/clientes/guardar', persona.guardar);
+router.get('/cargarPersona', persona.cargarPersona);
 
 
 
