@@ -40,6 +40,7 @@ class articuloControlador {
                     sesion: true,
                     listaA: listaA,
                     lista: listaC,
+                    msg1: true,
                     msg: {
                         error: req.flash('error'),
                         info: req.flash('info'),

@@ -72,6 +72,7 @@ router.post('/Administra/Articulo/modificar', articuloC.modificar);
 router.get('/Administra/clientes', persona.visualizarCliente);
 router.post('/Administra/clientes/guardar', persona.guardar);
 router.get('/cargarPersona', persona.cargarPersona);
+router.post('/Administra/cliente/modificar', persona.modificar);
 
 
 

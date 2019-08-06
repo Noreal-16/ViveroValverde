@@ -13,6 +13,7 @@ class personaControlador {
                     sesion: true,
                     listado: lista,
                     listaR: resultR,
+                    msg1: true,
                     msg: {
                         error: req.flash('error'),
                         info: req.flash('info')
@@ -64,7 +65,7 @@ class personaControlador {
                             res.redirect("/Administra/clientes");
                         });
                     } else {
-                        req.filter('error', 'Correo ya registrado!');
+                        req.flash('error', 'Correo ya registrado!');
                         res.redirect('/Administra/clientes');
                     }
                 }).error(function(error) {
@@ -84,38 +85,78 @@ class personaControlador {
      * @param {*} res 
      */
     cargarPersona(req, res) {
-        var external = req.query.external;
-        var data;
-        Persona.getJoin({ cuenta: true }).filter({ external_id: external }).then(function(resultPers) {
-            var persona = resultPers[0];
-            Rol.filter({ id: persona.id_Rol }).then(function(resultR) {
-                // console.log(resultR);
-                Rol.then(function(listaR) {
-                    data = {
-                        cedula: persona.cedula,
-                        nombre: persona.nombres,
-                        apellido: persona.apellidos,
-                        direccion: persona.direccion,
-                        telefono: persona.telefono,
-                        celular: persona.celular,
-                        external_id: persona.external_id,
-                        correo: persona.cuenta.correo,
-                        clave: persona.cuenta.clave,
-                        usuario: persona.cuenta.nombreUsuario,
-                        external_idR: resultR[0].external_id,
-                        lista: listaR
-                    };
-                    res.json(data);
-                }).error(function(error) {
+            var external = req.query.external;
+            var data;
+            Persona.getJoin({ cuenta: true }).filter({ external_id: external }).then(function(resultPers) {
+                var persona = resultPers[0];
+                Rol.filter({ id: persona.id_Rol }).then(function(resultR) {
+                    // console.log(resultR);
+                    Rol.then(function(listaR) {
+                        data = {
+                            cedula: persona.cedula,
+                            nombre: persona.nombres,
+                            apellido: persona.apellidos,
+                            direccion: persona.direccion,
+                            telefono: persona.telefono,
+                            celular: persona.celular,
+                            external_id: persona.external_id,
+                            correo: persona.cuenta.correo,
+                            clave: persona.cuenta.clave,
+                            usuario: persona.cuenta.nombreUsuario,
+                            external_idR: resultR[0].external_id,
+                            lista: listaR
+                        };
+                        res.json(data);
+                    }).error(function(error) {
 
-                })
+                    })
+                }).error(function(error) {
+                    req.flash('error', 'error al encontran la categoria');
+                    res.redirect('/');
+                });
             }).error(function(error) {
-                req.flash('error', 'error al encontran la categoria');
+                req.flash('error', 'Ocurrio un error comunicarse con el desarrollador');
                 res.redirect('/');
             });
+        }
+        /**
+         * Metodo que permite modificar los datos de la persona 
+         * @param {*} req 
+         * @param {*} res 
+         */
+    modificar(req, res) {
+        Persona.filter({ external_id: req.body.external }).getJoin({ cuenta: true }).then(function(resultPer) {
+
+            if (resultPer.length > 0) {
+                var person = resultPer[0];
+                Rol.filter({ external_id: req.body.txtrolM }).then(function(resultRol) {
+                    person.cedula = req.body.txtCedulaM;
+                    person.nombres = req.body.txtnombreM;
+                    person.apellidos = req.body.txtapellidoM;
+                    person.direccion = req.body.txtdireccionM;
+                    person.telefono = req.body.txttelefonoM;
+                    person.celular = req.body.txtcelularM;
+                    person.cuenta.correo = req.body.txtcorreoM;
+                    person.cuenta.clave = req.body.claveM;
+                    person.cuenta.nombreUsuario = req.body.userM;
+                    person.id_Rol = resultRol[0].id;
+                    person.saveAll({ cuenta: true }).then(function(resultPersona) {
+                        req.flash('success', 'Persona modificado correctamente');
+                        res.redirect('/Administra/clientes');
+                    }).error(function(error) {
+                        res.flash('error', 'Se produjo un error al modificar persona');
+                        res.redirect('/Administra/clientes');
+                    });
+                }).error(function(error) {
+                    res.flash('error', 'Se produjo un error en Rol');
+                    res.redirect('/Administra/clientes');
+                });
+            } else {
+                res.flash('error', 'Se produjo un error en Persona');
+                res.redirect('/Administra/clientes');
+            }
         }).error(function(error) {
-            req.flash('error', 'Ocurrio un error comunicarse con el desarrollador');
-            res.redirect('/');
+            res.send(error);
         });
     }
 

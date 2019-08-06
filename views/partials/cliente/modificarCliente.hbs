@@ -9,11 +9,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="idformulario" name="idformulario" method="POST" action="/registrar">
             <div class="modal-body">
+            <form id="idformulario" name="idformulario" method="POST" action="/Administra/cliente/modificar">
+            
                 <div id="error"></div>
                 <div class="info"></div>
-                <input type="hidden" value="0" id="external" name="external" />
+                <input type="text" class="form-control" value="0" id="external" name="external" />
                 <div>
                     <label class="badge badge-danger">Datos generales</label>
                 </div>
@@ -77,9 +78,7 @@
                         <div class="input-group">
                             <span class="input-group-text"><i class="fa fa-key"></i></span>
                             <select class="form-control" name="txtrolM" id="txtrolM">
-                                {{!-- {{#each listaR as |listados i|}}
-                                <option value="{{listados.external_id}}"> {{listados.nombre}} </option>
-                                {{/each}} --}}
+                                
                             </select>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ class servicioControlador {
                 title: 'Administra Servicio',
                 fragmento: "servicio/listaServicio",
                 listado: resultS,
+                msg1: true,
                 msg: { error: req.flash('error'), info: req.flash('info') }
             });
         }).error(function(error) {
