@@ -13,7 +13,7 @@ class personaControlador {
                     sesion: true,
                     listado: lista,
                     listaR: resultR,
-                    msg1: true,
+                    'msg1': false,
                     msg: {
                         error: req.flash('error'),
                         info: req.flash('info')

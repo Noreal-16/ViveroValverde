@@ -1,24 +1,24 @@
-{{#if  msg1 }}
-<div class="form-group">
-    {{#if msg.error }}
-    <div class="alert alert-danger" role="alert" style="font-size: 12px" id="mensaje">
-        {{ msg.error}}
+ {{#if msg1 }}
+    <div class="form-group">
+        {{#if msg.error }}
+        <div class="alert alert-danger" role="alert" style="font-size: 12px" id="mensaje">
+            {{ msg.error}}
+        </div>
+        {{/if}}
+        {{#if msg.success }}
+        <div class="alert alert-success" role="alert" style="font-size: 12px" id="mensaje">
+            {{msg.success}}
+        </div>
+        {{/if}}
+        {{#if msg.info }}
+        <div class="alert alert-info" role="alert" style="font-size: 12px" id="mensaje">
+            {{msg.info}}
+        </div>
+        {{/if}}
     </div>
-    {{/if}}
-    {{#if msg.success }}
-    <div class="alert alert-success" role="alert" style="font-size: 12px" id="mensaje">
-        {{msg.success}}
-    </div>
-    {{/if}}
-    {{#if msg.info }}
-    <div class="alert alert-info" role="alert" style="font-size: 12px" id="mensaje">
-        {{msg.info}}
-    </div>
-    {{/if}}
-</div>
-<script type="text/javascript">
-    $(function () {
-        $('#mensaje').hide(4000);
-    });
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $('#mensaje').hide(4000);
+        });
+    </script>
 {{/if}}

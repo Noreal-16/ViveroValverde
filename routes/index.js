@@ -28,6 +28,9 @@ router.get('/', function(req, res, next) {
     rol.crear_roles();
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
+router.get('/Admin', function(req, res, next) {
+    res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal' });
+});
 router.get('/contacto', function(req, res, next) {
     res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });
