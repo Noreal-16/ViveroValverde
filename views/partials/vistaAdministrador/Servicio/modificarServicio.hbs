@@ -1,0 +1,80 @@
+<!--Modalmodifica servicio--->
+<div class="modal fade" id="modificarServicio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="background: #EFF7F1" >
+            <div class="modal-header bg-info">
+                <h4 class="modal-title font-weight-bold">Modificar Servicio <i class="fas fa-pencil-alt"></i></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formularioM" method="POST" action="/Administra/Servicios/Modificar">
+                <div class="modal-body mx-3">
+                    <div class="row">
+                        <input type="hidden" class="form-control" id="external" name="external">
+                        <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
+                            <label>Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-info"></i></span>
+                                <input type="text" class="form-control" name="nombrem" id="nombrem" placeholder="Nombre servicio">
+                            </div>
+                            <label>Medida</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-text-height"></i></span>
+                                <input type="text" class="form-control" name="medidam" id="medidam" placeholder="Medida">
+                            </div>
+                            <label>Descripci&oacute;n</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-info"></i></span>
+                                <textarea class="form-control" name="descripcionm" id="descripcionm" placeholder="Descripci&oacute;n"></textarea>
+                            </div>
+                            <label>Precio</label>
+                            <div class="input-group">
+                                <span class="input-group-text"> <i class="fas fa-dollar-sign"></i></span>
+                                <input type="text" class="form-control" name="preciom" id="preciom" placeholder="Precio">
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="srcimagen">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="card border-primary mb-3 " style="width: 18rem;">
+                                        <div class="card-header bg-success mb-3">
+                                            <h3>Cargar Imagen</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="error"></div>
+                                            <img src="/images/jardin.jpg" id="imagenArticulo" class="card-img-top" alt="..." style="max-width:100%;width:auto;height:auto;">
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" multiple="true" id="customFileLang" lang="es">
+                                                    {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                                    <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Imagen</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="button"><i class="fa fa-camera-retro"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{!-- finaliza modal modifica --}}

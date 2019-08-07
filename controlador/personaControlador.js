@@ -4,29 +4,34 @@ var Persona = require('../modelo/persona');
 var Cuenta = require('../modelo/cuenta');
 class personaControlador {
 
+    /**
+     * Presentacion de usuario en la tabla
+     */
     visualizarCliente(req, res) {
         Persona.then(function(lista) {
             Rol.then(function(resultR) {
-                res.render('index', {
-                    title: 'Administra Persona',
-                    fragmento: "cliente/cliente",
+                res.render('index1', {
+                    layout: 'layout1',
+                    title: 'Administra Cliente',
+                    fragmento: "vistaAdministrador/Persona/cliente",
                     sesion: true,
                     listado: lista,
                     listaR: resultR,
-                    'msg1': false,
+                    active: { cliente: true, menu: true },
                     msg: {
                         error: req.flash('error'),
-                        info: req.flash('info')
+                        info: req.flash('info'),
+                        success: req.flash('success')
                     }
                 });
             }).error(function(error) {
                 req.flash('error', 'Hubo un error!');
-                res.redirect('/');
+                res.redirect('/Admin');
             });
 
         }).error(function(error) {
             req.flash('error', 'Hubo un error!');
-            res.redirect('/');
+            res.redirect('/Admin');
         });
     }
 
@@ -126,7 +131,6 @@ class personaControlador {
          */
     modificar(req, res) {
         Persona.filter({ external_id: req.body.external }).getJoin({ cuenta: true }).then(function(resultPer) {
-
             if (resultPer.length > 0) {
                 var person = resultPer[0];
                 Rol.filter({ external_id: req.body.txtrolM }).then(function(resultRol) {
@@ -144,15 +148,15 @@ class personaControlador {
                         req.flash('success', 'Persona modificado correctamente');
                         res.redirect('/Administra/clientes');
                     }).error(function(error) {
-                        res.flash('error', 'Se produjo un error al modificar persona');
+                        req.flash('error', 'Se produjo un error al modificar persona');
                         res.redirect('/Administra/clientes');
                     });
                 }).error(function(error) {
-                    res.flash('error', 'Se produjo un error en Rol');
+                    req.flash('error', 'Se produjo un error en Rol');
                     res.redirect('/Administra/clientes');
                 });
             } else {
-                res.flash('error', 'Se produjo un error en Persona');
+                req.flash('error', 'Se produjo un error en Persona');
                 res.redirect('/Administra/clientes');
             }
         }).error(function(error) {

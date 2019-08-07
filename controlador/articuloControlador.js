@@ -34,13 +34,14 @@ class articuloControlador {
     visualizarLista(req, res) {
         articulo.getJoin({ categoria: true }).then(function(listaA) {
             categoria.filter({ estado: true }).then(function(listaC) {
-                res.render('index', {
+                res.render('index1', {
+                    layout: 'layout1',
                     title: 'Administra Articulos',
-                    fragmento: "articulo/listaArticulo",
+                    fragmento: "vistaAdministrador/Articulo/articulo",
                     sesion: true,
                     listaA: listaA,
                     lista: listaC,
-                    msg1: true,
+                    active: { articulo: true },
                     msg: {
                         error: req.flash('error'),
                         info: req.flash('info'),

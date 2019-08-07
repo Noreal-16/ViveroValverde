@@ -1,0 +1,123 @@
+<!--modificar persona--->
+<div class="modal fade" id="modificarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content" style="background: #EFF7F1">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">Modificar de Cliente <i class="fas fa-user-edit"></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="idformularioM" name="idformularioM" method="POST" action="/Administra/cliente/modificar">
+
+                    <div id="error"></div>
+                    <div class="info"></div>
+                    <input type="hidden" class="form-control" value="0" id="external" name="external" />
+                    <div>
+                        <label class="badge badge-danger">Datos generales</label>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="cedula">Cedula</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                                <input type="text" class="form-control" placeholder="Cedula..." name="txtCedulaM" id="txtcedulaM" readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nombres">Nombres</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-info"></i></span>
+                                <input type="text" class="form-control" placeholder="Nombre..." name="txtnombreM" id="txtnombreM">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="Apellidos">Apellidos</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-info"></i></span>
+                                <input type="text" class="form-control" placeholder="Apellido..." name="txtapellidoM" id="txtapellidoM">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="telefono">Telefono</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                <input type="text" class="form-control" placeholder="Telefono..." name="txttelefonoM" id="txttelefonoM">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="direccion">Direccion</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                <input type="text" class="form-control" placeholder="Direccion..." name="txtdireccionM" id="txtdireccionM">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Celular">Celular</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                <input type="text" class="form-control" placeholder="Celular..." name="txtcelularM" id="txtcelularM">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="rol">Rol</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                <select class="form-control" name="txtrolM" id="txtrolM">
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge badge-danger">Datos cuenta</span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="correo">Correo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-at"></i></span>
+                                <input type="email" class="form-control" placeholder="Email..." name="txtcorreoM" id="txtcorreoM">
+                            </div><br>
+                            <label for="usuario">Nombre usuario</label>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" placeholder="Usuario..." name="userM" id="userM">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="contrasenia">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                <input type="password" class="form-control" placeholder="Contraseña..." name="claveM" id="claveM">
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Ver contraseña" id="verContrasenia1" type="button"><i class=""></i></button>
+                                </div>
+                            </div><br>
+                            <label for="repetircontrasenia"> Verificar Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                <input type="password" class="form-control" placeholder="Contraseña..." name="clave1M" id="clave1M">
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Ver contraseña" id="verContrasenia2" type="button"><i class=""></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/Administra/clientes" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-success" id="btnActualizar">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finaliza agregar persona--->

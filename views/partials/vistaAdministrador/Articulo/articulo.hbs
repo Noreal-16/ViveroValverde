@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                     <a class="btn btn-primary" data-toggle="collapse" href="#Categoria" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Categoria <i class="fas fa-angle-down"></i>
+                </a>
+            </div>
+        </div>
+        <!-- /.card -->
+        <div class="container">
+            <div class="col-md-6">
+                <div class="collapse" id="Categoria">
+                    <div class="card card-body">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white">
+                                Listado de Categoria
+                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarCategoria">NUEVO <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                     <table id="listaCategoria" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nro</th>
+                                                <th>Nombre</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each lista as |listado i|}}
+                                                <tr>
+                                                    <th scope="row">
+                                                        {{i}}
+                                                    </th>
+                                                    <td>
+                                                        {{listado.nombre}}
+                                                    </td>
+                                                    <td>
+                                                        {{#if listado.estado}}
+                                                            <span class="badge badge-success">Activo</span>
+                                                        {{else}}
+                                                            <span class="badge badge-danger">Inactivo</span>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a href="#" data-toggle="modal" data-target="#actualizarCategoria" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargardatosCategoria('{{listado.external_id}}')"><i class="far fa-edit"></i></a>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            {{#if listado.estado}}
+                                                                <a href="#" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listado.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
+                                                            {{else}}
+                                                                <a href="#" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listado.external_id}}')"><i class="fas fa-lock"></i></a>
+                                                            {{/if}}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{> 'vistaAdministrador/Categoria/agregarCategoria'}}
+                {{> 'vistaAdministrador/Categoria/modificarCategoria'}}
+            </div>
+        </div>
+        <!-------Card servicios------->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Articulo
+                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarArticulo">Registrar Articulo <i class="fas fa-plus-circle"></i></a>
+            </div>
+        </div>
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title">Lista Servicio</h3>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                 <table id="listaArticulo" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>Nombre</th>
+                            <th>Categoria</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articulos">
+                        {{#each listaA as |listadoAr i|}}
+                            <tr>
+                                <th scope="row">
+                                    {{i}}
+                                </th>
+                                <td>
+                                    {{listadoAr.nonbre}}
+                                </td>
+                                <td>
+                                    {{listadoAr.categoria.nombre}}
+                                </td>
+                                <td>
+                                    {{listadoAr.stok}}
+                                </td>
+                                <td>
+                                    {{listadoAr.precio}}
+                                </td>
+                                <td>
+                                    {{#if listadoAr.estado}}
+                                        <span class="badge badge-success">Activo</span>
+                                    {{else}}
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" data-toggle="modal" data-target="#modificarArticulo" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargardatosArticulo('{{listadoAr.external_id}}')"><i class="far fa-edit"></i></a>
+                                    </div>
+                                    <div class="btn-group">
+                                        {{#if listadoAr.estado}}
+                                            <a href="#" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarArticulo('{{listadoAr.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
+                                        {{else}}
+                                            <a href="#" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarArticulo('{{listadoAr.external_id}}')"><i class="fas fa-lock"></i></a>
+                                        {{/if}}
+                                    </div>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        {{> 'vistaAdministrador/Articulo/agregarArticulo'}}
+    </div>
+        {{> 'vistaAdministrador/Articulo/modificarArticulo'}}
+    <!-- /.col -->
+</div>

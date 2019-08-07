@@ -28,9 +28,21 @@ router.get('/', function(req, res, next) {
     rol.crear_roles();
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
+
+/**
+ * Vista administrador
+ */
 router.get('/Admin', function(req, res, next) {
-    res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal' });
+    res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal', active: { inicio: true }, });
 });
+/**
+ * factura
+ */
+router.get('/Factura', function(req, res, next) {
+    res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'vistaAdministrador/Factura/factura', active: { factura: true } });
+});
+
+
 router.get('/contacto', function(req, res, next) {
     res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });

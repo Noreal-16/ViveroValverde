@@ -9,16 +9,22 @@ class servicioControlador {
      */
     visualizarLista(req, res) {
         Servicio.then(function(resultS) {
-            res.render('index', {
+            res.render('index1', {
+                layout: 'layout1',
                 title: 'Administra Servicio',
-                fragmento: "servicio/listaServicio",
+                fragmento: "vistaAdministrador/Servicio/servicio",
                 listado: resultS,
-                msg1: true,
-                msg: { error: req.flash('error'), info: req.flash('info') }
+                active: { servicio: true },
+                msg: {
+                    error: req.flash('error'),
+                    info: req.flash('info'),
+                    success: req.flash('success')
+                }
+
             });
         }).error(function(error) {
             req.flash('error', 'Hubo un error!');
-            res.redirect('/');
+            res.redirect('/Admin');
         });
     }
 
@@ -60,7 +66,7 @@ class servicioControlador {
                 res.redirect("/Administra/Servicios");
             }).catch(function(error) {
                 req.flash('error', 'No se pudo registrar!');
-                res.redirect("/");
+                res.redirect("/Administra/Servicios");
             });
 
         }
@@ -84,7 +90,7 @@ class servicioControlador {
             res.json(data);
         }).error(function(error) {
             req.flash('error', 'No se pudo encontrar el registro!');
-            res.redirect("/Administra/Servicio");
+            res.redirect('/Admin');
         });
     }
 
@@ -94,7 +100,7 @@ class servicioControlador {
      * @param {*} res 
      */
     modificar(req, res) {
-        Servicio.filter({ id: req.body.external }).then(function(data) {
+        Servicio.filter({ external_id: req.body.external }).then(function(data) {
             if (data.length > 0) {
                 var arreglo = data[0];
                 arreglo.nombre = req.body.nombrem;

@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Servicios
+                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarServicio">Registrar Servicio <i class="fas fa-plus-circle"></i></a>
+            </div>
+        </div>
+        <!-- /.card -->
+
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title">Lista Servicio</h3>
+               
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>Nombre</th>
+                            <th>Medida</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {{#each listado as |listad i|}}
+                            <tr>
+                                <th scope="row">
+                                    {{i}}
+                                </th>
+                                <td>{{listad.nombre}}</td>
+                                <td>{{listad.medida}}</td>
+                                <td>{{listad.precio}}</td>
+                                <td>
+                                    {{#if listad.estado}}
+                                        <span class="badge badge-success">Activo</span>
+                                    {{else}}
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" data-toggle="modal" data-target="#modificarServicio" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargardatosServicio('{{listad.external_id}}')"><i class="far fa-edit"></i></a>
+                                    </div>
+                                    <div class="btn-group">
+                                        {{#if listad.estado}}
+                                            <a href="#" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarServicio('{{listad.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
+                                        {{else}}
+                                            <a href="#" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarServicio('{{listad.external_id}}')"><i class="fas fa-lock"></i></a>
+                                        {{/if}}
+                                    </div>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+{{> 'vistaAdministrador/Servicio/agregarServicio'}}
+{{> 'vistaAdministrador/Servicio/modificarServicio' }}
