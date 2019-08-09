@@ -1,3 +1,55 @@
+/*Para validar solo numeros*/
+function validaNumero(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla == 8) {
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta numeros
+    patron = /[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+/*Para validar solo numeros reales*/
+function validaNumeroReales(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla == 8) {
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta numeros
+    patron = /^\d{0,2}(\.\d{0,2}){0,1}$/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+/*Para validar Letras*/
+function validaletra(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla == 8) {
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta letras y espacio
+    patron = /[A-Z a-z]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+/*Para validar Solo Mayusculas*/
+
+function validaMayuscula(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla == 8) {
+        return true;
+    }
+    // Patron de entrada, en este caso solo acepta letras mayusculas
+    patron = /[A-Z]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+
 function calcularEdad(fecha) {
     // var fecha = document.getElementById("txtfechaNac");
     var hoy = new Date();
@@ -10,103 +62,6 @@ function calcularEdad(fecha) {
     }
     console.log("TIENES: " + edad + " ANIOS");
     return edad;
-}
-
-// validacion de datos
-function validar() {
-    $.validator.addMethod(
-        "soloLetras",
-        function(value, element) {
-            return this.optional(element) || /^[a-z\s]+$/i.test(value);
-        },
-        "Solo letras"
-    );
-    $.validator.addMethod(
-        "registro",
-        function(value, element) {
-            return (
-                this.optional(element) || /^[N]-[0-9]{4}-[R]-[0-9]{3}$/.test(value)
-            );
-        },
-        "Ingrese un registro valido ejemplo N-0000-R-000"
-    );
-    $.validator.addMethod(
-        "validaCedula",
-        function(value, element) {
-            return this.optional(element) || validarCedula(value);
-        },
-        "Cedula no valida"
-    );
-    $.validator.methods.email = function(value, element) {
-        return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
-    };
-    $("#idformulario").validate({
-        rules: {
-            txtcedula: {
-                required: true,
-                minlength: 10,
-                maxlength: 13,
-                number: true,
-                validaCedula: true
-            },
-            txtnombre: {
-                required: true,
-                soloLetras: true,
-                minlength: 4,
-                maxlength: 25
-            },
-            txtapellido: {
-                required: true,
-                minlength: 4,
-                maxlength: 25
-            },
-            txtregistro: {
-                required: true,
-                registro: true
-            },
-            txtcorreo: {
-                required: true,
-                email: true,
-                minlength: 4,
-                maxlength: 50
-            },
-            txtclave: {
-                required: true,
-                minlength: 4,
-                maxlength: 25
-            }
-        },
-        messages: {
-            txtcedula: {
-                required: "Ingresar un numero de cedula valido",
-                minlength: $.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: $.format("{0} caracteres son demasiados!")
-            },
-            txtnombre: {
-                required: "Ingrese un nombre para el registro",
-                minlength: $.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: $.format("{0} caracteres son demasiados!")
-            },
-            txtapellido: {
-                required: "Ingrese un apellido",
-                minlength: $.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: $.format("{0} caracteres son demasiados!")
-            },
-            txtregistro: {
-                required: "Ingrese un registro valido"
-            },
-            txtcorreo: {
-                required: "Ingresar un correo valido",
-                minlength: $.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: $.format("{0} caracteres son demasiados!")
-            },
-            txtclave: {
-                required: "Ingrese una clave",
-                minlength: $.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: $.format("{0} caracteres son demasiados!")
-            }
-        }
-    });
 }
 
 // validacion de cedula
@@ -136,52 +91,422 @@ function validarCedula(cedula) {
         }
     }
 }
+/**
+ * Validacion de campos registrar y modificar persona
+ */
+function validarRegistroPersona() {
+    $.validator.addMethod(
+        "validaCedula",
+        function (value, element) {
+            return this.optional(element) || validarCedula(value);
+        },
+        "Cedula no valida"
+    );
+    $.validator.methods.email = function (value, element) {
+        return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
+    };
+    $("#idformulario").validate({
+        rules: {
+            txtcedula: {
+                required: true,
+                minlength: 10,
+                maxlength: 13,
+                validaCedula: true
+            },
+            txtnombre: "required",
+            txtapellido: "required",
+            txtdireccion: "required",
+            txtcelular: {
+                required: true,
+                minlength: 10
+            },
+            txtcorreo: {
+                required: true,
+                email: true,
+            },
+            clave: {
+                required: true,
+                minlength: 5,
+            },
+            clave1: {
+                required: true,
+                minlength: 5,
+                equalTo: "#clave"
+            }
+        },
+        messages: {
+            txtcedula: {
+                required: "Ingresar un numero de cedula valido",
+                minlength: $.validator.format("Necesitamos por lo menos {0} caracteres"),
+                maxlength: "{0} caracteres son demasiados!"
+            },
+            txtnombre: "Ingrese un nombre para el registro",
+            txtapellido: "Ingrese un apellido para el registro",
+            txtdireccion: "Ingrese una direccion para el registro",
+            txtcelular: {
+                required: "Ingresar un numero de celular",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            txtcorreo: "Ingresar un correo valido",
+            clave: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            clave1: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+                equalTo: "La contraseña no coincide"
+            }
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
 
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $("#idformularioM").validate({
+        rules: {
+            txtCedulaM: {
+                required: true,
+                minlength: 10,
+                maxlength: 13,
+                validaCedula: true
+            },
+            txtnombreM: "required",
+            txtapellidoM: "required",
+            txtdireccionM: "required",
+            txtcelularM: {
+                required: true,
+                minlength: 10
+            },
+            txtcorreoM: {
+                required: true,
+                email: true,
+            },
+            claveM: {
+                required: true,
+                minlength: 5,
+            },
+            clave1M: {
+                required: true,
+                minlength: 5,
+                equalTo: "#claveM"
+            }
+        },
+        messages: {
+            txtCedulaM: {
+                required: "Ingresar un numero de cedula valido",
+                minlength: $.validator.format("Necesitamos por lo menos {0} caracteres"),
+                maxlength: "{0} caracteres son demasiados!"
+            },
+            txtnombreM: "Ingrese un nombre para el registro",
+            txtapellidoM: "Ingrese un apellido para el registro",
+            txtdireccionM: "Ingrese una direccion para el registro",
+            txtcelularM: {
+                required: "Ingresar un numero de celular",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            txtcorreoM: "Ingresar un correo valido",
+            claveM: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            clave1M: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+                equalTo: "La contraseña no coincide"
+            }
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+/***
+ * Validacion servicio de jardineria
+ */
+function validarServicio() {
+    $("#formulario").validate({
+        rules: {
+            nombre: "required",
+            medida: "required",
+            descripcion: "required",
+            precio: "required"
+        },
+        messages: {
+            nombre: "Ingrese un nombre para el registro",
+            medida: "Ingrese la medida ",
+            descripcion: "Ingrese una descripcion del servicio",
+            precio: "Debe ingresar un precio del producto",
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $("#formularioM").validate({
+        rules: {
+            nombrem: "required",
+            medidam: "required",
+            descripcionm: "required",
+            preciom: "required"
+        },
+        messages: {
+            nombrem: "Ingrese un nombre para el registro",
+            medidam: "Ingrese la medida ",
+            descripcionm: "Ingrese una descripcion del servicio",
+            preciom: "Debe ingresar un precio del producto",
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+/**
+ * Validacion de categorias
+ */
+function validarCategoria() {
+    //validar registro
+    $("#formulario").validate({
+        rules: {
+            nombre: "required",
+            descripcion: "required"
+        },
+        messages: {
+            nombre: "Ingrese un nombre para el registro",
+            descripcion: "Ingrese una descripcion del servicio"
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    //validar modificacion
+    $("#formularioM").validate({
+        rules: {
+            nombre1: "required",
+            descripcion1: "required"
+        },
+        messages: {
+            nombre1: "Ingrese un nombre para el registro",
+            descripcion1: "Ingrese una descripcion del servicio"
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
+/**
+ * Validacion de categorias
+ */
+function validarArticulo() {
+    //validar registro
+    $("#formArticulo").validate({
+        rules: {
+            nombre: "required",
+            descripcion: "required",
+            tamanio: "required",
+            precio: "required"
+        },
+        messages: {
+            nombre: "Ingrese un nombre para el registro",
+            descripcion: "Ingrese una descripcion del servicio",
+            tamanio: "Ingrese un tamaño para el registro",
+            precio: "Ingrese un precio para el registro"
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    //validar modificacion
+    $("#formArticuloM").validate({
+        rules: {
+            nombreA: "required",
+            descripcionA: "required",
+            tamanioA: "required",
+            precioA: "required"
+        },
+        messages: {
+            nombreA: "Ingrese un nombre para el registro",
+            descripcionA: "Ingrese una descripcion del servicio",
+            tamanioA: "Ingrese un tamaño para el registro",
+            precioA: "Ingrese un precio para el registro"
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
 
 //metodo para visualizar contraseña
-$(function() {
-    $('#verContrasenia1').addClass('fas fa-eye-slash')
-    $("#verContrasenia1").click(function() {
+$(function () {
+    $("#verContrasenia1").addClass("fas fa-eye-slash");
+    $("#verContrasenia1").click(function () {
         var cambio = document.getElementById("claveM");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $('#verContrasenia1').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+            $("#verContrasenia1").removeClass("fas fa-eye-slash").addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $('#verContrasenia1').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+            $("#verContrasenia1").removeClass("fas fa-eye").addClass("fas fa-eye-slash");
         }
     });
-    $('#verContrasenia2').addClass('fas fa-eye-slash')
-    $("#verContrasenia2").click(function() {
+    $("#verContrasenia2").addClass("fas fa-eye-slash");
+    $("#verContrasenia2").click(function () {
         var cambio = document.getElementById("clave1M");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $('#verContrasenia2').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+            $("#verContrasenia2")
+                .removeClass("fas fa-eye-slash")
+                .addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $('#verContrasenia2').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+            $("#verContrasenia2")
+                .removeClass("fas fa-eye")
+                .addClass("fas fa-eye-slash");
         }
     });
-    $('#verContrasenia').addClass('fas fa-eye-slash')
-    $("#verContrasenia").click(function() {
+    $("#verContrasenia").addClass("fas fa-eye-slash");
+    $("#verContrasenia").click(function () {
         var cambio = document.getElementById("clave");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $('#verContrasenia').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+            $("#verContrasenia")
+                .removeClass("fas fa-eye-slash")
+                .addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $('#verContrasenia').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+            $("#verContrasenia")
+                .removeClass("fas fa-eye")
+                .addClass("fas fa-eye-slash");
         }
     });
-    $('#verContraseniag').addClass('fas fa-eye-slash')
-    $("#verContraseniag").click(function() {
+    $("#verContraseniag").addClass("fas fa-eye-slash");
+    $("#verContraseniag").click(function () {
         var cambio = document.getElementById("clave1");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $('#verContraseniag').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+            $("#verContraseniag")
+                .removeClass("fas fa-eye-slash")
+                .addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $('#verContraseniag').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+            $("#verContraseniag")
+                .removeClass("fas fa-eye")
+                .addClass("fas fa-eye-slash");
         }
     });
-})
+});

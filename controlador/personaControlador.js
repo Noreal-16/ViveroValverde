@@ -43,7 +43,7 @@ class personaControlador {
                     if (exite.length <= 0) {
                         var role = rolesResul[0];
                         var datosP = {
-                            cedula: req.body.txtCedula,
+                            cedula: req.body.txtcedula,
                             apellidos: req.body.txtnombre,
                             nombres: req.body.txtapellido,
                             direccion: req.body.txtdireccion,

@@ -63,14 +63,14 @@ class categoriaControlador {
                 categoria.nombre = req.body.nombre1;
                 categoria.descripcion = req.body.descripcion1;
                 categoria.save().then(function(modificaLista) {
-                    req.flash('info', 'Se guardo la categoria correctamente');
+                    req.flash('success', 'Categoria actualizada correctamente');
                     res.redirect('/Administra/Articulo');
                 }).error(function(error) {
-                    res.flash('error', 'Se produjo un error en categorias');
+                    res.flash('error', 'Se produjo un error al actualizar categorias');
                     res.redirect('/Administra/Articulo');
                 });
             } else {
-                res.flash('error', 'Se produjo un error en categorias');
+                res.flash('error', 'Se produjo un error al actualizar categorias');
                 res.redirect('Administra/Articulo');
             }
         }).error(function(error) {
