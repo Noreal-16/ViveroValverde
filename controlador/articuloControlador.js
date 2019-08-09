@@ -102,7 +102,7 @@ class articuloControlador {
      * @param {*} res 
      */
     cargarArticulo(req, res) {
-        var external = req.param.external;
+        var external = req.query.external;
         var data;
         articulo.getJoin({ categoria: true }).filter({ external_id: external }).then(function(resultAr) {
             var artc = resultAr[0];

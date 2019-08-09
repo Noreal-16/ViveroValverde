@@ -16,7 +16,7 @@ function cargardatosCategoria(external) {
         url: url,
         dataType: "json",
         data: "external=" + external,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             console.log("Aqui recibe => external_Id == " + data.external_id);
             $("#external").val(data.external_id);
@@ -40,7 +40,7 @@ function cargardatosArticulo(external) {
         url: url,
         dataType: "json",
         data: "external=" + external,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             $("#externalA").val(data.external_id);
             $("#nombreA").val(data.nombre);
@@ -49,7 +49,7 @@ function cargardatosArticulo(external) {
             $("#stockA").val(data.stok);
             $("#precioA").val(data.precio);
             var html = '';
-            $.each(data.lista, function(index, item) {
+            $.each(data.lista, function (index, item) {
                 if (item.external_id == data.external_idC) {
                     html += '<option value="' + item.external_id + '" selected> ' + item.nombre + '</option>';
                 } else {
@@ -73,7 +73,7 @@ function desactivarArticulo(external) {
         url: url,
         dataType: "json",
         data: "external=" + external,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             if (data == 'ok') {
                 var mensaje = '<div class="alert alert-succes" style="font-size: 10px">';
                 mensaje += "Articulo desactivado";
@@ -112,7 +112,7 @@ function cargardatosServicio(external) {
         url: url,
         dataType: "json",
         data: "external=" + external,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             $("#external").val(data.external_id);
             $("#nombrem").val(data.nombre);
@@ -138,7 +138,7 @@ function cargardatosPersona(external) {
         url: url,
         dataType: "json",
         data: "external=" + external,
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             $("#external").val(data.external_id);
             $("#txtnombreM").val(data.nombre);
@@ -153,7 +153,7 @@ function cargardatosPersona(external) {
             $("#userM").val(data.usuario);
 
             var html = '';
-            $.each(data.lista, function(index, item) {
+            $.each(data.lista, function (index, item) {
                 if (data.external_idR == item.external_id) {
                     html += '<option value="' + item.external_id + '" selected> ' + item.nombre + '</option>';
                 } else {
@@ -162,6 +162,45 @@ function cargardatosPersona(external) {
                 console.log("External rol: " + data.external_idR + "," + "External lista rol: " + item.external_id);
             });
             $("#txtrolM").html(html);
+        }
+    });
+}
+
+
+var filas = 0;
+var articulo = new Array();
+/**@function external permite la carga de datos deacuerdo al extenal id del articulo */
+function AgregarArticulo(external) {
+    var url = base_url + "cargarArticulo";
+    var external = external;
+    console.log(external);
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "external=" + external,
+        success: function (data, textStatus, jqXHR) {
+            if (articulo.includes(data.external_id)) {
+                var mensaje = '<div class="alert alert-danger" style="font-size: 10px">';
+                mensaje += "Articulo ya agregado";
+                mensaje += "</div>";
+                $("#error").show();
+                $("#error").html(mensaje);
+                $("#error").hide(4000);
+            } else {
+                //var path = $('img[alt="imagenArticulo"]').attr('src');
+                articulo[filas] = data.external_id;
+                console.log(data);
+                filas++;
+                var html = '<tr class="selected" id="fila' + filas + '">';
+                html += '<td>' + filas + '</td>';
+                html += '<td>' + data.nombre + '</td>';
+                html += '<td>12</td>';
+                html += '<td>' + data.precio + '</td>';
+                html += '<td>$10.70</td>';
+                html += '<td><a href="#" title="Eliminar" class="btn btn-primary-sm" onclick="eliminarArticulo(' + " '" + data.external_id + "'" + ')"  ><i class="fas fa-trash-alt"></i></a></td>';
+                html += '</tr>'
+                $("#tbodyFac").append(html);
+            }
         }
     });
 }
