@@ -134,11 +134,11 @@
                     <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                     <!-- <li class="nav-item has-treeview menu-open">-->
-                    <li class="nav-item"  >
-                        <a href="/Admin"  class="nav-link {{#if active.inicio }}active {{/if}}" >
-                           <i class="fas fa-home"></i>
+                    <li class="nav-item">
+                        <a href="/Admin" class="nav-link {{#if active.inicio }}active {{/if}}">
+                            <i class="fas fa-home"></i>
                             <p>
-                               Inicio
+                                Inicio
                             </p>
                         </a>
                     </li>
@@ -167,8 +167,8 @@
                         </ul>
                         <!-----------------Finaliza Menu de administracion Persona----------------->
                     </li>
-                    <li class="nav-item"  >
-                        <a href="/Administra/Servicios"  class="nav-link {{#if active.servicio }} active {{/if}}" >
+                    <li class="nav-item">
+                        <a href="/Administra/Servicios" class="nav-link {{#if active.servicio }} active {{/if}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Administra Servicio
@@ -183,7 +183,7 @@
                             </p>
                         </a>
                     </li>
-                     <li class="nav-item has-treeview">
+                    <li class="nav-item has-treeview">
                         <a href="/Factura" class="nav-link {{#if active.factura }} active {{/if}}">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
@@ -192,7 +192,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="/Pedido" class="nav-link {{#if active.pedido }} active {{/if}}">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 Pedidos
@@ -228,14 +228,13 @@
                             </li>
                         </ul>
                     </li>
-                   
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
     </aside>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -243,7 +242,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">{{title}}</h1>
+                        <h1 class="m-0 text-info font-weight-bold">{{title}}</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -315,8 +314,29 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/assets/dist/js/demo.js"></script>
 
-
+<!--Cdn Validate-->
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+
+<!--Data TAbles-->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+{{!-- cdn para la precentacion de botones en la parte inferior --}}
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+<script type="text/javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+
+<!-----Metodo creados en public/javascripts---->
 <script type="text/javascript" src="/javascripts/utilidades.js"></script>
 <script type="text/javascript" src="/javascripts/administrador.js"></script>
+<script>
+    $(document).ready(function () {
+        dataTable();
+    });
+
+</script>

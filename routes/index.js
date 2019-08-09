@@ -19,6 +19,13 @@ var servicio = new Servicio();
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
+/**
+ * importando controlador factura
+ */
+var Factura = require('../controlador/facturaControlador');
+var factura = new Factura;
+
+
 var rol = require('../controlador/rolControlador');
 
 
@@ -35,11 +42,19 @@ router.get('/', function(req, res, next) {
 router.get('/Admin', function(req, res, next) {
     res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal', active: { inicio: true }, });
 });
+
+
 /**
- * factura
+ * Administracion de factura
  */
-router.get('/Factura', function(req, res, next) {
-    res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'vistaAdministrador/Factura/factura', active: { factura: true } });
+router.get('/Factura',factura.visualizaFactura);
+
+
+/**
+ * Administracion de pedidos
+ */
+router.get('/Pedido', function(req, res, next) {
+    res.render('index1', { layout: 'layout1', title: 'Pedidos', fragmento: 'vistaAdministrador/Pedidos/pedidos', active: { pedido: true } });
 });
 
 

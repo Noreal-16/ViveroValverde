@@ -510,3 +510,167 @@ $(function () {
         }
     });
 });
+
+/**
+ * Configuracion de busqueda en tabla
+ * 
+ */
+function dataTable() {
+    //tabla pedidos data tables para realizar busquedas
+     $('#tablapedido').DataTable({
+        "dom":"Blfrtip",
+        "buttons": [ 'excel', 'pdf', 'copy'],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+
+    });
+    //configuracion para busqueda de persona
+    $('#listaCliente').DataTable({
+        "dom":"Blfrtip",
+        "buttons": [ 'excel', 'pdf', 'copy'],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+
+    });
+
+    $('#listaServicio').DataTable({
+        "dom":"Blfrtip",
+        "buttons": [ 'excel', 'pdf', 'copy'],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "oAria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+    });
+    $('#listaArticulo').DataTable({
+        "dom":"Blfrtip",
+        "buttons": [ 'excel', 'pdf', 'copy'],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "oAria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+    });
+    $('#listaCategoria').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "oAria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+    });
+    /**
+     * Agrega datatable a a tabla de agregar articulos
+     */
+    $('#agregarArticulo').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Registros de _START_ al _END_  total:  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "oAria": {
+                "sortAscending": ": ordenar de manera Ascendente",
+                "sortDescending": ": ordenar de manera Descendente "
+            }
+        }
+    });
+}
+/**
+ * Cargar fecha actual en la factura
+ * 
+ */
+function fechaActual(){
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth()+1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if(dia<10)
+      dia='0'+dia; //agrega cero si el menor de 10
+    if(mes<10)
+      mes='0'+mes //agrega cero si el menor de 10
+   $('#fechaActual').val(ano+"/"+mes+"/"+dia);
+  }

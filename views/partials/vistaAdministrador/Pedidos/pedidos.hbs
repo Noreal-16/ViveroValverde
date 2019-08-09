@@ -1,0 +1,82 @@
+<!-- Row -->
+<div class="row">
+    <!-- total de reservas -->
+    <div class="col-sm-2">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Numero Pedidos</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-right">
+                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-success"></i></h2>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="text-muted">Pedido</span>
+            </div>
+        </div>
+    </div>
+    <!-- fin de total de reservas -->
+    <!--  calcular el total de imgresos -->
+    <div class="col-sm-2">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Total de Ingresos</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-right">
+                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-info"></i>
+                        {{!-- <script>
+                            var total = 0;
+                            { { #each reserva } }
+                            total += {{ this.valorTotal }};
+                            {
+                                {
+                                    /each}}
+                                    document.write('$ ' + total);
+                        </script> --}}
+                    </h2>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="text-muted">Ingresos</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin de calcular el total de imgresos -->
+</div>
+<!-- Row -->
+<!-- RESERVAS-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Pedidos
+            </div>
+        </div>
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title">Lista de Pedido</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped order-column" id="tablapedido">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Numero pedido</th>
+                            <th>Nombres</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

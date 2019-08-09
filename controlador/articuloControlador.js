@@ -50,11 +50,11 @@ class articuloControlador {
                 });
             }).error(function(error) {
                 req.flash('error', 'Hubo un error!');
-                res.redirect('/');
+                res.redirect('/Admin');
             });
         }).error(function(error) {
             req.flash('error', 'Hubo un error!');
-            res.redirect('/');
+            res.redirect('/Admin');
         });
     }
 
@@ -120,11 +120,11 @@ class articuloControlador {
                 res.json(data);
             }).error(function(error) {
                 req.flash('error', 'error al encontran la categoria');
-                res.redirect('/');
+                res.redirect('/Admin');
             });
         }).error(function(error) {
             req.flash('error', 'Ocurrio un error comunicarse con el desarrollador');
-            res.redirect('/');
+            res.redirect('/Admin');
         });
     }
 
