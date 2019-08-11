@@ -9,17 +9,25 @@ class articuloControlador {
      * @param {*} res 
      */
     visualizarRegistro(req, res) {
-        categoria.filter({ estado: true }).then(function(lista) {
-            res.render('index', {
-                title: 'Plantas y Flores',
-                fragmento: "articulo/articulo",
-                sesion: true,
-                lista: lista,
-                msg: {
-                    error: req.flash('error'),
-                    info: req.flash('info')
-                }
+        articulo.getJoin({ categoria: true }).filter({ estado: true }).then(function(listaArt) {
+            categoria.filter({ estado: true }).then(function(lista) {
+
+                res.render('index', {
+                    title: 'Plantas y Flores',
+                    fragmento: "articulo/articulo",
+                    sesion: true,
+                    listaA: listaArt,
+                    lista: lista,
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info')
+                    }
+                });
+            }).error(function(error) {
+                req.flash('error', 'Hubo un error!');
+                res.redirect('/');
             });
+
         }).error(function(error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/');
@@ -188,6 +196,18 @@ class articuloControlador {
             // res.json(data);
         }).error(function(error) {
             res.send(error);
+        });
+    }
+
+    buscador(req, res) {
+        var texto = req.query.texto;
+        articulo.getJoin({ categoria: true }).filter(function(data) {
+            return data('nonbre').match(texto);
+        }).then(function(busca) {
+            res.json(busca);
+        }).error(function(error) {
+            req.flash('error', 'se produjo un error al busca');
+            res.redirect('/sitios')
         });
     }
 

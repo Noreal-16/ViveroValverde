@@ -47,7 +47,7 @@ router.get('/Admin', function(req, res, next) {
 /**
  * Administracion de factura
  */
-router.get('/Factura',factura.visualizaFactura);
+router.get('/Factura', factura.visualizaFactura);
 
 
 /**
@@ -95,6 +95,7 @@ router.get('/cargarArticulo', articuloC.cargarArticulo);
 router.get('/desactivarArticulo', articuloC.descativar);
 router.post('/Administra/Articulo/guardar', articuloC.guardar);
 router.post('/Administra/Articulo/modificar', articuloC.modificar);
+router.get('/articulo/buscar', articuloC.buscador);
 
 /**
  * Administra clientes

@@ -1,110 +1,89 @@
-<section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
-  <!-- gallery -->
+<script>
+    $(document).ready(function() {
+        $("#buscar").click(function() {
+            var texto = $("#texto").val();
+            console.log(texto);
+            $.ajax({
+               url: "http://localhost:8001/articulo/buscar",
+                data: 'texto=' + texto,
+                success: function(data, textStatus, jqXHR) {
+                  console.log(data)
+                    var html = '';
+                    if(data.length != 0){
+                    $.each(data, function(index, item) {
+                        html += '<div class="row form-group  ">';
+                        html += '<div class="col-md-6 col-lg-4">';
+                        html += '<div class="card text-center card-product">';
+                        html += '<div class="card-product__img">';
+                        html += '<img class="card-img" src="/images/g1.jpg" alt="">';
+                        html += '<ul class="card-product__imgOverlay">';
+                        html += '<li><button><i class="ti-search"></i></button></li>';
+                        html += '<li><button><i class="ti-shopping-cart"></i></button></li>';
+                        html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
+                        html += '<div class="card-body">';
+                        html += '<p>'+ item.categoria.nombre+ '</>';
+                        html += '<h4 class="card-product__title"><a href="#">'+ item.nonbre +'</a></h4>';
+                        html += '<p class="card-product__price">'+'$'+item.precio+'</p>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        
+                         });
+                    $("#datos").html(html);
+                    }else{
+                      alert("El producto ingresado No existe");
+                    }
 
+                    }
+            });
+        });
+    });
+</script>
+<section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
   <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
     <h3 class="title text-center mb-2">{{title}} </h3>
     <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
 
     </div>
+    
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Search">
+      <input type="text" name="texto" id="texto" class="form-control" placeholder="Search">
       <div class="input-group-append">
-        <button class="btn btn-success" type="submit">Go</button>
+        <button class="submit btn-success" id="buscar" >Go</button>
+        
       </div>
     </div>
-    <div class="row gallery-info">
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal1">
-            <img src="/images/g1.jpg" alt="news image" class="img-fluid">
-          </a>
+    
+     <section class="lattest-product-area pb-40 category-list" id="datos">
+            {{#each listaA as |listadoAr i|}}
+            <div class="row form-group  ">
+              <div class="col-md-6 col-lg-4">
+                <div class="card text-center card-product">
+                  <div class="card-product__img">
+                    <img class="card-img" src="/images/g1.jpg" alt="">
+                    <ul class="card-product__imgOverlay">
+                      <li><button><i class="ti-search"></i></button></li>
+                      <li><button><i class="ti-shopping-cart"></i></button></li>
+                      <li><button><i class="ti-heart"></i></button></li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                      <p>{{listadoAr.categoria.nombre}}</p>
+                    <h4 class="card-product__title"><a href="#"> {{listadoAr.nonbre}}</a></h4>
+                    <p class="card-product__price">${{listadoAr.precio}}</p>
+                    
+              </div>
+                </div>
+              </div>
+              </div>
+
+              {{/each}}
+               </section>
+
         </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal2">
-            <img src="/images/bb2.jpg" alt="news image" class="img-fluid">
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal3">
-            <img src="/images/bb3.jpg" alt="news image" class="img-fluid">
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal4">
-            <img src="/images/g2.jpg" alt="news image" class="img-fluid">
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal5">
-            <img src="/images/g3.jpg" alt="news image" class="img-fluid">
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-6 gallery-img-grid my-3">
-        <div class="gallery-grids">
-          <a href="#gal6">
-            <img src="/images/g4.jpg" alt="news image" class="img-fluid">
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- popup-->
-    <div id="gal1" class="popup-effect">
-      <div class="popup">
-        <img src="/images/g1.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
-    <!-- popup-->
-    <div id="gal2" class="popup-effect">
-      <div class="popup">
-        <img src="/images/bb2.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
-    <!-- popup-->
-    <div id="gal3" class="popup-effect">
-      <div class="popup">
-        <img src="/images/bb3.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
-    <!-- popup-->
-    <div id="gal4" class="popup-effect">
-      <div class="popup">
-        <img src="/images/g2.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
-    <!-- popup-->
-    <div id="gal5" class="popup-effect">
-      <div class="popup">
-        <img src="/images/g3.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
-    <!-- popup-->
-    <div id="gal6" class="popup-effect">
-      <div class="popup">
-        <img src="/images/g4.jpg" alt="Popup Image" class="img-fluid">
-        <a class="close" href="#gallery">×</a>
-      </div>
-    </div>
-    <!-- //popup -->
   </div>
+
 </section>
 <!--//gallery -->
 
