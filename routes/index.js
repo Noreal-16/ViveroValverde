@@ -24,10 +24,19 @@ var servicio = new Servicio();
  */
 var Factura = require('../controlador/facturaControlador');
 var factura = new Factura;
-
+/**
+ * Inicio se sesion Uusuario
+ */
+var login = require('../controlador/inisioSesionControl');
+var loginC = new login();
 
 var rol = require('../controlador/rolControlador');
 
+/**
+ * Inicio de sesion Usuario
+ */
+router.get('/Inicio/Sesion', loginC.visualizarLogin);
+router.get('/Regitro', loginC.visualizarRegistro);
 
 
 /* visualizar la pantalla principal. */
