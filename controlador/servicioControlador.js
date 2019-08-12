@@ -34,7 +34,7 @@ class servicioControlador {
      * @param {*} res 
      */
     visualizarServicio(req, res) {
-        Servicio.then(function(resultS) {
+        Servicio.filter({estado:true}).then(function(resultS) {
             res.render('index', {
                 title: 'Servicio Jardineria',
                 fragmento: "servicio/servicio",

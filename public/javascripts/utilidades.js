@@ -674,3 +674,24 @@ function fechaActual(){
       mes='0'+mes //agrega cero si el menor de 10
    $('#fechaActual').val(ano+"/"+mes+"/"+dia);
   }
+  /**
+ * Cargar Detalle y galeria de servicio
+ * 
+ */
+var base_url = "http://localhost:8001/";
+///////////Micro servicio para detalle///////////////
+function cargardetalleServicio(external) {
+    var url = base_url + "Detalle";
+    var external = external;
+    console.log(external);
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "external=" + external,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            $("#nombre").val(data.precio);
+            
+        }
+    });
+}

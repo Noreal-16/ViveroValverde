@@ -3,7 +3,7 @@
     <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
         <h3 class="title text-center mb-2">{{title}} </h3>
         <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-          
+
         </div>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Buscar">
@@ -12,78 +12,40 @@
             </div>
         </div>
         <div class="row">
-<!--Inicio foreach-->
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab1.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Vegatables
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-                    </div>
-                     <button type="button" class="btn btn-outline-primary">Guardar</button>
-                </div>
-               
-            </div>
-            <!--Finaliza foreach-->
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab2.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Fresh Fruits
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab3.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Garden Tillage
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
+            {{#each listado as |listad i|}}
+
+
+            <div class="owl-item cloned active" style="width: 343.333px; margin-right: 30px;"><div class="course-1-item">
+                    <figure class="thumnail">
+                        <a href="course-single.html"><img src="/images/g1.jpg" alt="Image" class="img-fluid"></a>
+                        <div class="price">{{listad.precio}}</div>
+                        <div class="category"><h3>{{listad.nombre}}</h3></div>  
+                    </figure>
+                    <div class="course-1-content pb-4">
+                        <h2>{{listad.medida}}</h2>
+                        <div class="rating text-center mb-3">
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                        </div>
+                        <p class="desc mb-4">{{listad.descripcion}}</p>
+                        <p><a href="#" class="btn btn-primary rounded-0 px-4" data-toggle="modal"data-target="#detalle"
+                         data-toggle="modal"  onclick= "cargardetalleServicio('{{listad.external_id}}')"     
+                              
+                              >Detalles</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab4.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Awesome Wheats
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab1.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Garden Tillage
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 ser-icon text-center my-3">
-                <div class="grid-wthree-service">
-                    <img src="/images/ab2.jpg" alt="news image" class="img-fluid">
-                    <div class="ser-text-wthree mt-3">
-                        <h4>
-                            Agro Machinery
-                        </h4>
-                        <p class="mt-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
+
         </div>
     </div>
+
 </section>
+
+{{> 'servicio/detalle'}}
+
 <!--//service -->
 

@@ -73,7 +73,7 @@ router.get('/contacto', function(req, res, next) {
 
 
 /**
- * Adminitracion de servicio de jardineria
+ * Administracion de servicio de jardineria
  */
 router.get('/Servicios', servicio.visualizarServicio);
 router.get('/cargarServicio', servicio.cargarServicio);
@@ -83,7 +83,7 @@ router.post('/Administra/Servicios/Modificar', servicio.modificar);
 
 
 /***
- * Adminitracion de categotias de plantas 
+ * Administracion de categotias de plantas 
  * visualizar
  * guardar
  * modificar
@@ -96,7 +96,7 @@ router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
 
 
 /**
- * Adminitracion de articulo plantas
+ * Administracion de articulo plantas
  */
 router.get('/Articulo', articuloC.visualizarRegistro);
 router.get('/Administra/Articulo', articuloC.visualizarLista);
