@@ -91,6 +91,45 @@ function validarCedula(cedula) {
         }
     }
 }
+// validacion de cedula
+function validarCedulaRepetida(cedula) {
+    var cedula = cedula.trim();
+    var url = "http://localhost:8001/cedulaRepetida";
+    console.log(cedula);
+    var flag;
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "cedula=" + cedula,
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            flag = data;
+        }
+    });
+    console.log(flag);
+    return flag;
+}
+/**
+ * Verifica si el correo esta repetido
+ */
+function validarCorreoRepetida(correo) {
+    var correo = correo.trim();
+    var url = "http://localhost:8001/correoRepetida";
+    console.log(correo);
+    var flag;
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "correo=" + correo,
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            flag = data;
+        }
+    });
+    console.log(flag);
+    return flag;
+}
+
 /**
  * Validacion de campos registrar y modificar persona
  */
@@ -102,16 +141,38 @@ function validarRegistroPersona() {
         },
         "Cedula no valida"
     );
-    $.validator.methods.email = function (value, element) {
-        return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
-    };
+    $.validator.addMethod(
+        "cedulaRepetida",
+        function (value, element) {
+            return this.optional(element) || validarCedulaRepetida(value);
+        },
+        "Cedula ya registrada"
+    );
+    $.validator.addMethod(
+        "correoRepetida",
+        function (value, element) {
+            return this.optional(element) || validarCorreoRepetida(value);
+        },
+        "Correo ya registrado"
+    );
+    $.validator.addMethod( //override email with django email validator regex - fringe cases: "user@admin.state.in..us" or "name@website.a"
+        'email',
+        function (value, element) {
+            return this.optional(element) || /(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*")@((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)$)|\[(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}\]$/i.test(value);
+        },
+        'Verifica que tienes una dirección de correo electrónico válida.'
+    );
+    // $.validator.methods.email = function (value, element) {
+    //     return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
+    // };
     $("#idformulario").validate({
         rules: {
             txtcedula: {
                 required: true,
                 minlength: 10,
                 maxlength: 13,
-                validaCedula: true
+                validaCedula: true,
+                cedulaRepetida: true
             },
             txtnombre: "required",
             txtapellido: "required",
@@ -123,6 +184,7 @@ function validarRegistroPersona() {
             txtcorreo: {
                 required: true,
                 email: true,
+                correoRepetida: true
             },
             clave: {
                 required: true,
@@ -147,7 +209,9 @@ function validarRegistroPersona() {
                 required: "Ingresar un numero de celular",
                 minlength: "Necesitamos por lo menos {0} caracteres",
             },
-            txtcorreo: "Ingresar un correo valido",
+            txtcorreo: {
+                required: "Ingresar un correo valido"
+            },
             clave: {
                 required: "Ingrese una clave",
                 minlength: "Necesitamos por lo menos {0} caracteres",
@@ -517,9 +581,9 @@ $(function () {
  */
 function dataTable() {
     //tabla pedidos data tables para realizar busquedas
-     $('#tablapedido').DataTable({
-        "dom":"Blfrtip",
-        "buttons": [ 'excel', 'pdf', 'copy'],
+    $('#tablapedido').DataTable({
+        "dom": "Blfrtip",
+        "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -543,8 +607,8 @@ function dataTable() {
     });
     //configuracion para busqueda de persona
     $('#listaCliente').DataTable({
-        "dom":"Blfrtip",
-        "buttons": [ 'excel', 'pdf', 'copy'],
+        "dom": "Blfrtip",
+        "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -568,8 +632,8 @@ function dataTable() {
     });
 
     $('#listaServicio').DataTable({
-        "dom":"Blfrtip",
-        "buttons": [ 'excel', 'pdf', 'copy'],
+        "dom": "Blfrtip",
+        "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -591,8 +655,8 @@ function dataTable() {
         }
     });
     $('#listaArticulo').DataTable({
-        "dom":"Blfrtip",
-        "buttons": [ 'excel', 'pdf', 'copy'],
+        "dom": "Blfrtip",
+        "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -663,21 +727,21 @@ function dataTable() {
  * Cargar fecha actual en la factura
  * 
  */
-function fechaActual(){
+function fechaActual() {
     var fecha = new Date(); //Fecha actual
-    var mes = fecha.getMonth()+1; //obteniendo mes
+    var mes = fecha.getMonth() + 1; //obteniendo mes
     var dia = fecha.getDate(); //obteniendo dia
     var ano = fecha.getFullYear(); //obteniendo año
-    if(dia<10)
-      dia='0'+dia; //agrega cero si el menor de 10
-    if(mes<10)
-      mes='0'+mes //agrega cero si el menor de 10
-   $('#fechaActual').val(ano+"/"+mes+"/"+dia);
-  }
-  /**
- * Cargar Detalle y galeria de servicio
- * 
- */
+    if (dia < 10)
+        dia = '0' + dia; //agrega cero si el menor de 10
+    if (mes < 10)
+        mes = '0' + mes //agrega cero si el menor de 10
+    $('#fechaActual').val(ano + "/" + mes + "/" + dia);
+}
+/**
+* Cargar Detalle y galeria de servicio
+* 
+*/
 var base_url = "http://localhost:8001/";
 ///////////Micro servicio para detalle///////////////
 function cargardetalleServicio(external) {
@@ -691,7 +755,7 @@ function cargardetalleServicio(external) {
         success: function (data, textStatus, jqXHR) {
             console.log(data);
             $("#nombre").val(data.precio);
-            
+
         }
     });
 }

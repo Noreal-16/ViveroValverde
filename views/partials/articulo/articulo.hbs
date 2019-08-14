@@ -1,90 +1,85 @@
 <script>
-    $(document).ready(function() {
-        $("#buscar").click(function() {
-            var texto = $("#texto").val();
-            console.log(texto);
-            $.ajax({
-               url: "http://localhost:8001/articulo/buscar",
-                data: 'texto=' + texto,
-                success: function(data, textStatus, jqXHR) {
-                  console.log(data)
-                    var html = '';
-                    if(data.length != 0){
-                    $.each(data, function(index, item) {
-                        html += '<div class="row form-group  ">';
-                        html += '<div class="col-md-6 col-lg-4">';
-                        html += '<div class="card text-center card-product">';
-                        html += '<div class="card-product__img">';
-                        html += '<img class="card-img" src="/images/g1.jpg" alt="">';
-                        html += '<ul class="card-product__imgOverlay">';
-                        html += '<li><button><i class="ti-search"></i></button></li>';
-                        html += '<li><button><i class="ti-shopping-cart"></i></button></li>';
-                        html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
-                        html += '<div class="card-body">';
-                        html += '<p>'+ item.categoria.nombre+ '</>';
-                        html += '<h4 class="card-product__title"><a href="#">'+ item.nonbre +'</a></h4>';
-                        html += '<p class="card-product__price">'+'$'+item.precio+'</p>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '</div>';
-                        
-                         });
-                    $("#datos").html(html);
-                    }else{
-                      alert("El producto ingresado No existe");
-                    }
+  $(document).ready(function () {
+    $("#buscar").click(function () {
+      var texto = $("#texto").val();
+      console.log(texto);
+      $.ajax({
+        url: "http://localhost:8001/articulo/buscar",
+        data: 'texto=' + texto,
+        success: function (data, textStatus, jqXHR) {
+          console.log(data)
+          var html = '';
+          if (data.length != 0) {
+            $.each(data, function (index, item) {
+              html += '<div class="row form-group  ">';
+              html += '<div class="col-md-6 col-lg-4">';
+              html += '<div class="card text-center card-product">';
+              html += '<div class="card-product__img">';
+              html += '<img class="card-img" src="/images/g1.jpg" alt="">';
+              html += '<ul class="card-product__imgOverlay">';
+              html += '<li><button><i class="ti-search"></i></button></li>';
+              html += '<li><button><i class="ti-shopping-cart"></i></button></li>';
+              html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
+              html += '<div class="card-body">';
+              html += '<p>' + item.categoria.nombre + '</>';
+              html += '<h4 class="card-product__title"><a href="#">' + item.nonbre + '</a></h4>';
+              html += '<p class="card-product__price">' + '$' + item.precio + '</p>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
 
-                    }
             });
-        });
+            $("#datos").html(html);
+          } else {
+            alert("El producto ingresado No existe");
+          }
+        }
+      });
     });
+  });
 </script>
-<section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
+<section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
   <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-    <h3 class="title text-center mb-2">{{title}} </h3>
     <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
 
     </div>
-    
+    <h3 class="title text-center mb-2">{{title}} </h3>
     <div class="input-group mb-3">
-      <input type="text" name="texto" id="texto" class="form-control" placeholder="Search">
+      <input type="text" name="texto" id="texto" class="form-control" placeholder="Buscar">
       <div class="input-group-append">
-        <button class="submit btn-success" id="buscar" >Go</button>
-        
+        <button class="submit btn-success" id="buscar">Buscar</button>
       </div>
     </div>
-    
-     <section class="lattest-product-area pb-40 category-list" id="datos">
-            {{#each listaA as |listadoAr i|}}
-            <div class="row form-group  ">
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="/images/g1.jpg" alt="">
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                      <p>{{listadoAr.categoria.nombre}}</p>
-                    <h4 class="card-product__title"><a href="#"> {{listadoAr.nonbre}}</a></h4>
-                    <p class="card-product__price">${{listadoAr.precio}}</p>
-                    
-              </div>
-                </div>
-              </div>
-              </div>
+    {{!-- <section class="lattest-product-area pb-40 category-list" id="datos"> --}}
+    <div class="row">
 
-              {{/each}}
-               </section>
+      {{#each listaA as |listadoAr i|}}
+      <div class="owl-item cloned active" style="width: 343.333px; margin-right: 30px;">
+        <div class="gallery-grids">
+          <div class="form-group">
+            <div class="card text-center card-product">
+              <div class="card-product__img">
+                <img class="card-img" src="/images/g1.jpg" alt="">
+                <ul class="card-product__imgOverlay">
+                  <li><button><i class="ti-search"></i></button></li>
+                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button><i class="ti-heart"></i></button></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <p>{{listadoAr.categoria.nombre}}</p>
+                <h4 class="card-product__title"><a href="#"> {{listadoAr.nonbre}}</a></h4>
+                <p class="card-product__price">${{listadoAr.precio}}</p>
+              </div>
+            </div>
 
+          </div>
         </div>
+      </div>
+      {{/each}}
+    </div>
+    {{!-- </section> --}}
   </div>
-
 </section>
 <!--//gallery -->
-
-

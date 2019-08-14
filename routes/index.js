@@ -111,6 +111,8 @@ router.get('/articulo/buscar', articuloC.buscador);
  */
 router.get('/Administra/clientes', persona.visualizarCliente);
 router.post('/Administra/clientes/guardar', persona.guardar);
+router.get('/cedulaRepetida', persona.cedulaRepetida);
+router.get('/correoRepetida', persona.correoRepetida);
 router.get('/cargarPersona', persona.cargarPersona);
 router.post('/Administra/cliente/modificar', persona.modificar);
 
