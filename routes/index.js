@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+//para paspot 
+var passport = require('passport');
 //importar los modelos
 
 var categoria = require('../controlador/categoriaControlador');
@@ -38,9 +40,26 @@ var rol = require('../controlador/rolControlador');
 router.get('/Inicio/Sesion', loginC.visualizarLogin);
 router.get('/Regitro', loginC.visualizarRegistro);
 
+//para verificar inicio seccion
+var auth = function(req, res, next) {
+    if (req.isAuthentificate()) {
+        next();
+    } else {
+        req.flash('error', 'Debes de iniciar sesion primero');
+        res.redirect("/");
+    }
+}
+//para inicio de seccion
+router.post('/inicio_sesion',
+    passport.authenticate('local-signin', {
+        successRedirect: '/',
+        failureRedirect: '/Inicio/Sesion',
+        failureFlash: true
+    }));
+
 
 /* visualizar la pantalla principal. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     rol.crear_roles();
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
@@ -48,7 +67,7 @@ router.get('/', function(req, res, next) {
 /**
  * Vista administrador
  */
-router.get('/Admin', function(req, res, next) {
+router.get('/Admin', function (req, res, next) {
     res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal', active: { inicio: true }, });
 });
 
@@ -62,12 +81,12 @@ router.get('/Factura', factura.visualizaFactura);
 /**
  * Administracion de pedidos
  */
-router.get('/Pedido', function(req, res, next) {
+router.get('/Pedido', function (req, res, next) {
     res.render('index1', { layout: 'layout1', title: 'Pedidos', fragmento: 'vistaAdministrador/Pedidos/pedidos', active: { pedido: true } });
 });
 
 
-router.get('/contacto', function(req, res, next) {
+router.get('/contacto', function (req, res, next) {
     res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });
 

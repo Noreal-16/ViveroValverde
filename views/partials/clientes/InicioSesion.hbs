@@ -14,9 +14,10 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
+					{{> msg}}
 					<div class="login_form_inner">
 						<h3>INICIA SESIÓN PARA INGRESAR</h3>
-						<form class="row login_form" action="#/" id="contactForm" >
+						<form class="row login_form"  method="POST" action="/inicio_sesion" id="contactForm" >
 							<div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 							</div>

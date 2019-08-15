@@ -168,6 +168,10 @@ function cargardatosPersona(external) {
 
 
 var filas = 0;
+var subtotal = 0;
+var descuento = 0;
+var iva = 0;
+var total = 0;
 var articulo = new Array();
 /**@function external permite la carga de datos deacuerdo al extenal id del articulo */
 function AgregarArticulo(external) {
@@ -190,17 +194,41 @@ function AgregarArticulo(external) {
                 //var path = $('img[alt="imagenArticulo"]').attr('src');
                 articulo[filas] = data.external_id;
                 console.log(data);
-                filas++;
+
                 var html = '<tr class="selected" id="fila' + filas + '">';
                 html += '<td>' + filas + '</td>';
                 html += '<td>' + data.nombre + '</td>';
-                html += '<td>12</td>';
-                html += '<td>' + data.precio + '</td>';
-                html += '<td>$10.70</td>';
+                html += '<td><div><input type="number" class="form-control col-sm-4" value="1" min="1" max="' + data.stok + '" step="1" onkeypress="return validaNumero(event)" onchange="calcular(' + filas + ',' + data.precio + ')" maxlength="3" id="num' + filas + '" /></td></div>';
+                html += '<td >' + data.precio + '</td>';
+                html += '<td id="t' + filas + '">' + data.precio + '</td>';
                 html += '<td><a href="#" title="Eliminar" class="btn btn-primary-sm" onclick="eliminarArticulo(' + " '" + data.external_id + "'" + ')"  ><i class="fas fa-trash-alt"></i></a></td>';
                 html += '</tr>'
                 $("#tbodyFac").append(html);
+                filas++;
+                subtotal+=data.precio;
+                iva=subtotal*0.12;
+                total=subtotal+iva;
+                $("#subtotal").text(subtotal);
+                $("#iva").text(iva);
+                $("#total").text(total);
+                $("#descuento").text("0.00");
             }
         }
     });
+}
+function calcular(fila, prec) {
+   
+    console.log("llega");
+    var valor = $("#num" + fila).val();
+    $("#t" + fila).text(valor * prec);
+
+    // subtotal+=data.precio;
+    // iva=subtotal*0.12;
+    // total=subtotal+iva;
+    // $("#subtotal").text(subtotal);
+    // $("#iva").text(iva);
+    // $("#total").text(total);
+    // $("#descuento").text("0.00");
+
+
 }

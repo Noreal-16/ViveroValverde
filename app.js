@@ -9,7 +9,9 @@ var logger = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
 //////////////////
-
+//configuracion de pasport
+var passport = require('passport');
+//////////////////
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -39,6 +41,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //agregando libreria de connect-flash despues del cookieParse y del session
 app.use(flash());
+
+//pasport mildware
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+require('./config/passport')(passport);
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
