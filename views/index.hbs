@@ -1,60 +1,109 @@
-  <!-- //banner -->
-  <div class="banner-left-side" id="home">
-    <!-- header -->
-    <div class="headder-top">
-      <!-- nav -->
-      <nav>
-        <div id="logo">
-          <h1>
-            <a href="/">VV</a>
-          </h1>
-        </div>
-        <div class="sub-headder position-relative">
-          <h6>
-            <a href="/">Viveros
-              <br>Valverde</a>
-          </h6>
-        </div>
-        <label for="drop" class="toggle">Menu</label>
-        <input type="checkbox" id="drop">
-        <ul class="menu mt-2">
-          <li class="active">
-            <a href="/">Inicio</a>
-          </li>
-        <!--  <li class="nav-item active" >
-            <a class="nav-link" href="/Administra/clientes">Administrar Persona</a>
-          </li>
-          <li  >
-            <a class="nav-link" href="/Administra/Servicios">Administrar Servicios</a>
-          </li>
-          <li >
-            <a class="nav-link" href="/Administra/Articulo">Administrar Articulo</a>
-          </li>-->
-          <li>
-            <a href="/Servicios">Servicio Jardineria</a>
-          </li>
-            <li>
-              <a href="/Articulo">Flores y Plantas</a>
-            </li>
-            <li>
-              <a href="/Inicio/Sesion">Inicio Sesion</a>
-            </li>
-            {{!-- <li>
-              <a href="#blog">Blog</a>
-            </li>
-            <li>
-              <a href="/contacto">Contacto</a>
-            </li> --}}
-        </ul>
-      </nav>
-      <!-- //nav -->
-    </div>
-    <!-- //header -->
-      {{!-- <div class="jumbotron"> --}}
-        <div class="container">
-           {{> (lookup . 'fragmento') }}
-        </div>
-     {{!-- </div> --}}
+ <script>
+  /** function mostrarDatos(data) {
+            var cantidad = 0;
+            $.each(data, function (i, item) {
+                cantidad += item.cantidad;
+            });
+            $('#cant').html(cantidad);
+        }*/
+  function mostrarDatos(data) {
+    console.log(data);
+            var cantidad = 0;
+           $.each(data, function (i, item) {
+
+                cantidad += item.cantidad;
+                console.log(cantidad);
+            });
+            $('#cant').html(data.length);
+        }
+        function refrescar() {
+            var url = 'http://localhost:8001/listarcarrito';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    mostrarDatos(data);
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            refrescar();
+        }); 
+</script>
+
+<!-- //banner -->
+<div class="banner-left-side" id="home">
+  <!-- header -->
+  <div class="headder-top">
+
+    <!-- nav -->
+    <nav>
+      <div id="logo">
+        <h1>
+          <a href="/">VV</a>
+        </h1>
+      </div>
+      <div class="sub-headder position-relative">
+        <h6>
+          <a href="/">Viveros
+            <br>Valverde</a>
+        </h6>
+      </div>
+      <label for="drop" class="toggle">Menu</label>
+      <input type="checkbox" id="drop">
+
+      <ul class="menu mt-2">
+        <li class="active">
+          <a href="/">Inicio</a>
+        </li>
+
+        <li>
+          <a href="/Servicios">Servicio Jardineria</a>
+        </li>
+        <li>
+          <a href="/Articulo">Flores y Plantas</a>
+        </li>
+        <li>
+          <div class="noti-wrap">
+            <div class="noti__item js-item-menu">
+            <a href="/carrito"> <i class="zmdi zmdi-shopping-cart"></i></a>
+            <span  class="quantity" id="cant"> </span>
+              
+              <div class="notifi-dropdown js-dropdown">
+                <div class="notifi__footer">
+                  <a href="/carrito">Ir al carrito</a>
+                </div>
+              </div>
+                
+            </div>
+            
+          </div>
+        </li>
+
+        <li>
+          <a href="/Inicio/Sesion">Inicio Sesion</a>
+        </li>
+        <li>
+          <a href="/usuario">carro dce</a>
+        </li>
+        
+      </ul>
+
+    </nav>
+    <!-- //nav -->
+
+  </div>
+  <!-- //header -->
+  {{!-- <div class="jumbotron">
+        <div class="container"> --}}
+  {{> (lookup . 'fragmento') }}
+  {{!-- </div>
+     </div> --}}
+     
   <!--footer-copy-right -->
   <footer class="bottem-wthree-footer text-center py-md-4 py-3">
     <p>
@@ -63,3 +112,4 @@
     </p>
   </footer>
   <!--//footer-copy-right -->
+  <div class="header-button">
