@@ -206,7 +206,7 @@ class articuloControlador {
             res.json(busca);
         }).error(function(error) {
             req.flash('error', 'se produjo un error al busca');
-            res.redirect('/sitios')
+            res.redirect('/Articulo')
         });
     }
 

@@ -28,7 +28,11 @@ var factura = new Factura;
  */
 var login = require('../controlador/inisioSesionControl');
 var loginC = new login();
-
+/**
+ * Controlador para agregar productos al carrito de compras
+ */
+var carrito = require('../controlador/CarritoController');
+var carritoC = new carrito();
 var rol = require('../controlador/rolControlador');
 
 /**
@@ -39,14 +43,14 @@ router.get('/Regitro', loginC.visualizarRegistro);
 
 //para verificar inicio seccion
 var auth = function(req, res, next) {
-    if (req.isAuthentificate()) {
-        next();
-    } else {
-        req.flash('error', 'Debes de iniciar sesion primero');
-        res.redirect("/");
+        if (req.isAuthentificate()) {
+            next();
+        } else {
+            req.flash('error', 'Debes de iniciar sesion primero');
+            res.redirect("/");
+        }
     }
-}
-//para inicio de seccion
+    //para inicio de seccion
 router.post('/inicio_sesion',
     passport.authenticate('local-signin', {
         successRedirect: '/',
@@ -56,15 +60,19 @@ router.post('/inicio_sesion',
 
 
 /* visualizar la pantalla principal. */
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
+
     rol.crear_roles();
+    if (req.session.carrito == undefined) {
+        req.session.carrito = [];
+    }
     res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
 });
 
 /**
  * Vista administrador
  */
-router.get('/Admin', function (req, res, next) {
+router.get('/Admin', function(req, res, next) {
     res.render('index1', { layout: 'layout1', title: 'Vivero Valverde', fragmento: 'principal/principal', active: { inicio: true }, });
 });
 
@@ -78,12 +86,12 @@ router.get('/Factura', factura.visualizaFactura);
 /**
  * Administracion de pedidos
  */
-router.get('/Pedido', function (req, res, next) {
+router.get('/Pedido', function(req, res, next) {
     res.render('index1', { layout: 'layout1', title: 'Pedidos', fragmento: 'vistaAdministrador/Pedidos/pedidos', active: { pedido: true } });
 });
 
 
-router.get('/contacto', function (req, res, next) {
+router.get('/contacto', function(req, res, next) {
     res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });
 
@@ -93,6 +101,7 @@ router.get('/contacto', function (req, res, next) {
  */
 router.get('/Servicios', servicio.visualizarServicio);
 router.get('/cargarServicio', servicio.cargarServicio);
+router.get('/servicio/buscar', servicio.buscador);
 router.get('/Administra/Servicios', servicio.visualizarLista);
 router.post('/Administra/Servicios/Guardar', servicio.guardar);
 router.post('/Administra/Servicios/Modificar', servicio.modificar);
@@ -138,5 +147,15 @@ router.post('/Administra/cliente/modificar', persona.modificar);
 router.get('/agregarArt', factura.agregarItem);
 router.get('/quitarArt', factura.quitarItem);
 router.get('/listafacturaArt', factura.mostrarCarrito);
+
+/**
+ * carrito control
+ */
+router.get('/carrito', carritoC.carrito);
+router.get('/agregar:external', carritoC.agregarItem);
+router.get('/servicio:external', carritoC.agregarServicio);
+router.get('/quitar:external', carritoC.quitarItem);
+router.get('/listarcarrito', carritoC.mostrarCarrito);
+
 
 module.exports = router;
