@@ -23,15 +23,19 @@ class CarritoController {
                             cantidad: 1,
                             precio: artic.precio,
                             precio_total: artic.precio,
-                            categoria: artic.categoria.nombre
+                            categoria: artic.categoria.nombre,
+                            stock: artic.stok
                         };
                         console.log(datos);
                         carrito.push(datos);
                     } else {
                         var dato = carrito[pos];
-                        dato.cantidad = dato.cantidad + 1;
+                        if (dato.cantidad < dato.stock) {
+                            dato.cantidad = dato.cantidad + 1;
+                        }
                         dato.precio_total = dato.cantidad * dato.precio;
                         carrito[pos] = dato;
+
                     }
                     req.session.carrito = carrito;
                     console.log(req.session.carrito);
@@ -63,6 +67,7 @@ class CarritoController {
                             precio: itemServ.precio,
                             precio_total: itemServ.precio,
                             categoria: itemServ.descripcion
+
                         };
                         console.log(datos);
                         carrito.push(datos);

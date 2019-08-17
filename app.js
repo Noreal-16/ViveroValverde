@@ -44,7 +44,7 @@ app.use(flash());
 
 //pasport mildware
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session()); //persistent login sessions
 require('./config/passport')(passport);
 
 
