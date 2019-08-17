@@ -336,6 +336,12 @@
 <script type="text/javascript" src="/javascripts/administrador.js"></script>
 <script>
     $(document).ready(function () {
+        $('[data-toggle="modal"][title]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<script>
+    $(document).ready(function () {
         dataTable();
     });
 

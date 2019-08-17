@@ -17,9 +17,6 @@ var articuloC = new articulo();
 var Servicio = require('../controlador/servicioControlador');
 var servicio = new Servicio();
 
-//controlador servicio
-var Servicio = require('../controlador/servicioControlador');
-var servicio = new Servicio();
 
 /**
  * importando controlador factura
@@ -135,6 +132,11 @@ router.get('/correoRepetida', persona.correoRepetida);
 router.get('/cargarPersona', persona.cargarPersona);
 router.post('/Administra/cliente/modificar', persona.modificar);
 
-
+/**
+ * factura
+ */
+router.get('/agregarArt', factura.agregarItem);
+router.get('/quitarArt', factura.quitarItem);
+router.get('/listafacturaArt', factura.mostrarCarrito);
 
 module.exports = router;

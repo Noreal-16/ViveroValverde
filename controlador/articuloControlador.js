@@ -11,7 +11,6 @@ class articuloControlador {
     visualizarRegistro(req, res) {
         articulo.getJoin({ categoria: true }).filter({ estado: true }).then(function(listaArt) {
             categoria.filter({ estado: true }).then(function(lista) {
-
                 res.render('index', {
                     title: 'Plantas y Flores',
                     fragmento: "articulo/articulo",

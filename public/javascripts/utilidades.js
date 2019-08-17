@@ -12,16 +12,18 @@ function validaNumero(e) {
 }
 /*Para validar solo numeros reales*/
 function validaNumeroReales(e) {
-    tecla = (document.all) ? e.keyCode : e.which;
+    var tecla = (document.all) ? e.keyCode : e.which;
     //Tecla de retroceso para borrar, siempre la permite
     if (tecla == 8) {
         return true;
     }
     // Patron de entrada, en este caso solo acepta numeros
-    patron = /^\d{0,2}(\.\d{0,2}){0,1}$/;
-    tecla_final = String.fromCharCode(tecla);
+   var patron = /^\d*(\.\d{1})?\d{0,1}$/;
+    var tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
+
+
 /*Para validar Letras*/
 function validaletra(e) {
     tecla = (document.all) ? e.keyCode : e.which;
@@ -258,7 +260,7 @@ function validarRegistroPersona() {
             },
             txtcorreoM: {
                 required: true,
-                email: true,
+                email: true
             },
             claveM: {
                 required: true,
@@ -283,7 +285,9 @@ function validarRegistroPersona() {
                 required: "Ingresar un numero de celular",
                 minlength: "Necesitamos por lo menos {0} caracteres",
             },
-            txtcorreoM: "Ingresar un correo valido",
+            txtcorreoM: {
+                required: "Ingresar un correo valido"
+            },
             claveM: {
                 required: "Ingrese una clave",
                 minlength: "Necesitamos por lo menos {0} caracteres",

@@ -198,7 +198,7 @@ function AgregarArticulo(external) {
                 var html = '<tr class="selected" id="fila' + filas + '">';
                 html += '<td>' + filas + '</td>';
                 html += '<td>' + data.nombre + '</td>';
-                html += '<td><div><input type="number" class="form-control col-sm-4" value="1" min="1" max="' + data.stok + '" step="1" onkeypress="return validaNumero(event)" onchange="calcular(' + filas + ',' + data.precio + ')" maxlength="3" id="num' + filas + '" /></td></div>';
+                html += '<td><div><input type="number" class="form-control col-sm-6" value="1" min="1" max="' + data.stok + '" step="1" onkeypress="return validaNumero(event)" onchange="calcular(' + filas + ',' + data.precio + ')" maxlength="3" id="num' + filas + '" /></td></div>';
                 html += '<td >' + data.precio + '</td>';
                 html += '<td id="t' + filas + '">' + data.precio + '</td>';
                 html += '<td><a href="#" title="Eliminar" class="btn btn-primary-sm" onclick="eliminarArticulo(' + " '" + data.external_id + "'" + ')"  ><i class="fas fa-trash-alt"></i></a></td>';
