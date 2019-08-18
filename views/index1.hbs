@@ -12,9 +12,42 @@
             </li>
         </ul>
 
-        <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="/images/user.png" class="user-image" alt="User Image">
+                    <span class="hidden-xs">{{usuario}}</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header" style="background-color: rgb(55, 96, 158)">
+                        <img src="/images/user.png" class="img-circle" alt="User Image">
+                        <p>
+                            <small></small>
+                        </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <li class="user-body">
+                        <div class="row">
+
+                        </div>
+                        <!-- /.row -->
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="/cerrar_sesion" class="btn btn-danger btn-flat">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        <!-- Control Sidebar Toggle Button -->
+        <!-- Right navbar links -->
+          <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
@@ -48,7 +81,7 @@
                 </h3>
                 <p class="text-sm">I got your message bro</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>-->
+              </div>
                         </div>
                         <!-- Message End -->
                     </a>
@@ -228,7 +261,6 @@
                             </li>
                         </ul>
                     </li>
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

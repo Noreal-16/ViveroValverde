@@ -24,5 +24,12 @@ class inisioSesionControl {
 
         });
     }
+   /**
+    * Metodo para destruir todas las sesiones
+    */
+    cerrar(req, res) {
+        req.session.destroy();
+        res.redirect("/");
+    }
 }
 module.exports = inisioSesionControl;

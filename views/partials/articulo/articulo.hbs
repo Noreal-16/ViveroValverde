@@ -39,21 +39,21 @@
     });
   });
 
-     function agregarItem(external) {
-        var url = 'http://localhost:8001/agregar' + external;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                 console.log(data);
-                refrescar();
-            }, error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-            }
-        });
-        return false;
-    }
+  function agregarItem(external) {
+    var url = 'http://localhost:8001/agregar' + external;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data, textStatus, jqXHR) {
+        console.log(data);
+        refrescar();
+      }, error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+      }
+    });
+    return false;
+  }
 
 </script>
 <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
@@ -62,38 +62,34 @@
 
     </div>
     <h3 class="title text-center mb-2">{{title}} </h3>
-     <div class="input-group mb-3">
+    <div class="input-group mb-3">
       <input type="text" name="texto" id="texto" class="form-control" placeholder="Search">
       <div class="input-group-append">
-        <button class="submit btn-success" id="buscar" ><i class="fa fa-search" aria-hidden="true">Buscar</i></button>
-        
+        <button class="submit btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true">Buscar</i></button>
+
       </div>
     </div>
     {{!-- <section class="lattest-product-area pb-40 category-list" id="datos"> --}}
-    <div class="row" id="datos">
-
+    <div class="row form-group" id="datos">
       {{#each listaA as |listadoAr i|}}
-            <div class="row form-group  ">
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="/images/g1.jpg" alt="">
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button name="external" onclick="return agregarItem('{{listadoAr.external_id}}')"><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                      <p>{{listadoAr.categoria.nombre}}</p>
-                    <h4 class="card-product__title"><a href="#"> {{listadoAr.nonbre}}</a></h4>
-                    <p class="card-product__price"><b>Precio: </b>${{listadoAr.precio}}<br><b>Quedan: </b>{{listadoAr.stok}} unidades</p>
-                    
-              </div>
-                </div>
-              </div>
-              </div>
-               {{/each}}
+        <div class="col-md-4 col-lg-3">
+          <div class="card text-center card-product">
+            <div class="card-product__img">
+              <img class="card-img" src="/images/g1.jpg" alt="">
+              <ul class="card-product__imgOverlay">
+                <li><button><i class="ti-search"></i></button></li>
+                <li><button name="external" onclick="return agregarItem('{{listadoAr.external_id}}')"><i class="ti-shopping-cart"></i></button></li>
+                <li><button><i class="ti-heart"></i></button></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <p>{{listadoAr.categoria.nombre}}</p>
+              <h4 class="card-product__title"><a href="#"> {{listadoAr.nonbre}}</a></h4>
+              <p class="card-product__price"><b>Precio: </b>${{listadoAr.precio}}<br><b>Quedan: </b>{{listadoAr.stok}} unidades</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
     </div>
     {{!-- </section> --}}
   </div>

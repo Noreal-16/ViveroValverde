@@ -21,4 +21,4 @@ Persona.hasOne(Cuenta, "cuenta", "id", "id_persona");
 var Factura = require('./factura');
 Persona.hasMany(Factura, "factura", "id", "id_persona");
 var Rol = require('./rol');
-Persona.belongsTo(Rol, "rol", "id", "id_Rol");
+Persona.belongsTo(Rol, "rol", "id_Rol", "id");

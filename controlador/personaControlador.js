@@ -34,7 +34,64 @@ class personaControlador {
             res.redirect('/Admin');
         });
     }
+    /**
+     * Metodo para registrar cliente desde la vista Cliente
+     * @param {rol,correo} req 
+     * @param {*result} res 
+     */
+    guardarCliente(req, res) {
+        console.log(req.body.txtrol);
+        Rol.filter({ nombre: "Usuario" }).run().then(function (rolesResul) {
+            if (rolesResul.length > 0) {
+                Cuenta.filter({ correo: req.body.txtcorreo }).run().then(function (exite) {
+                    if (exite.length <= 0) {
+                        var rol = rolesResul[0];
+                        var datosP = {
+                            cedula: req.body.txtcedula,
+                            apellidos: req.body.txtnombre,
+                            nombres: req.body.txtapellido,
+                            direccion: req.body.txtdireccion,
+                            telefono: req.body.txttelefono,
+                            celular: req.body.txtcelular,
+                            estado: true,
+                            id_Rol: rol.id
+                        };
+                        var datosC = {
+                            correo: req.body.txtcorreo,
+                            clave: req.body.clave,
+                            estado: true,
+                            nombreUsuario: req.body.usser
+                        }
+                        var persona = new Persona(datosP);
+                        var cuenta = new Cuenta(datosC);
+                        persona.cuenta = cuenta;
+                        persona.saveAll({ cuenta: true }).then(function (result) {
+                            req.flash('info', 'Cliente  registrado!');
+                            res.redirect("/Inicio/Sesion");
+                            // res.render('principal', { title: 'Sistema Medico', session: false });
+                        }).catch(function (error) {
+                            req.flash('error', 'No se pudo registrar!');
+                            res.redirect("/Inicio/Sesion");
+                        });
+                    } else {
+                        req.flash('error', 'Correo ya registrado!');
+                        res.redirect('/Inicio/Sesion');
+                    }
+                }).error(function (error) {
+                    res.send(error);
+                });
+            } else {
+                res.send("No exiten roles");
+            }
+        }).error(function (error) {
 
+        });
+    }
+    /**
+     * Metodo para registrar cliente desde la vista Administrador
+     * @param {rol,correo} req 
+     * @param {*result} res 
+     */
     guardar(req, res) {
         console.log(req.body.txtrol);
         Rol.filter({ external_id: req.body.txtrol }).run().then(function (rolesResul) {

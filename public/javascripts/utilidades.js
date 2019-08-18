@@ -537,14 +537,10 @@ $(function () {
         var cambio = document.getElementById("clave1M");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $("#verContrasenia2")
-                .removeClass("fas fa-eye-slash")
-                .addClass("fas fa-eye");
+            $("#verContrasenia2").removeClass("fas fa-eye-slash").addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $("#verContrasenia2")
-                .removeClass("fas fa-eye")
-                .addClass("fas fa-eye-slash");
+            $("#verContrasenia2").removeClass("fas fa-eye").addClass("fas fa-eye-slash");
         }
     });
     $("#verContrasenia").addClass("fas fa-eye-slash");
@@ -552,14 +548,10 @@ $(function () {
         var cambio = document.getElementById("clave");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $("#verContrasenia")
-                .removeClass("fas fa-eye-slash")
-                .addClass("fas fa-eye");
+            $("#verContrasenia").removeClass("fas fa-eye-slash").addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $("#verContrasenia")
-                .removeClass("fas fa-eye")
-                .addClass("fas fa-eye-slash");
+            $("#verContrasenia").removeClass("fas fa-eye").addClass("fas fa-eye-slash");
         }
     });
     $("#verContraseniag").addClass("fas fa-eye-slash");
@@ -567,14 +559,10 @@ $(function () {
         var cambio = document.getElementById("clave1");
         if (cambio.type == "password") {
             cambio.type = "text";
-            $("#verContraseniag")
-                .removeClass("fas fa-eye-slash")
-                .addClass("fas fa-eye");
+            $("#verContraseniag").removeClass("fas fa-eye-slash").addClass("fas fa-eye");
         } else {
             cambio.type = "password";
-            $("#verContraseniag")
-                .removeClass("fas fa-eye")
-                .addClass("fas fa-eye-slash");
+            $("#verContraseniag").removeClass("fas fa-eye").addClass("fas fa-eye-slash");
         }
     });
 });

@@ -1,5 +1,4 @@
 //var bCrypt = require('bcrypt-nodejs'); //modulo para encriptar claves
-// var models = require('./../models');
 var cuenta = require('../modelo/cuenta');
 var persona = require('../modelo/persona');
 var rol = require('../modelo/rol');
@@ -11,13 +10,15 @@ module.exports = function (passport) {
     });
     // Permite deserialize la cuenta de usuario
     passport.deserializeUser(function (id, done) {
-        cuenta.getJoin({ persona: true }).filter({ id: id }).then(function (cuenta) {
-            // var cuenta = cuenta[0];
-            console.log("llega a validar"+ cuenta);
+        cuenta.get(id).getJoin({ persona: { rol: true } }).then(function (cuenta) {
+            console.log(Object.values(cuenta));
+            console.log("llega nombre:  " + cuenta.persona.nombres);
+            console.log("llega rol:  " + cuenta.persona.rol.nombre);
             if (cuenta) {
                 var userinfo = {
                     id: cuenta.persona.external_id,
-                    nombre: cuenta.persona.apellidos + " " + cuenta.persona.nombres
+                    nombre: cuenta.persona.apellidos + " " + cuenta.persona.nombres,
+                    rol:cuenta.persona.rol.nombre
                 };
                 console.log("Informacion Usuario: " + userinfo);
                 done(null, userinfo);
@@ -28,8 +29,8 @@ module.exports = function (passport) {
     });
     //inicio de sesion
     passport.use('local-signin', new LocalStrategy({
-        usernameField: 'correo',
-        passwordField: 'clave',
+        usernameField: 'correoInicio',
+        passwordField: 'claveInicio',
         passReqToCallback: true // allows us to pass back the entire request to the callback
     },
         function (req, email, password, done) {
@@ -43,9 +44,9 @@ module.exports = function (passport) {
                 if (cuenta.clave !== password) {
                     return done(null, false, { message: req.flash('error', 'Clave incorrecta') });
                 }
-               
-                var userinfo = cuentaP.get();
-
+                // var user = {id: profile.id, first_name: profile.name[1],
+                // var userinfo = cuenta.get();
+                var userinfo = cuenta;
                 return done(null, userinfo);
 
             }).catch(function (err) {

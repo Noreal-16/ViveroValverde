@@ -1,4 +1,12 @@
 <br><br><br><br>
+<script type="text/javascript">
+    $().ready(function () {
+        /***
+        Permite validar datos de los form
+        */
+        validarRegistroPersona();
+    });
+</script>
 <section class="login_box_area ">
     <div class="container">
         <div class="row">
@@ -14,54 +22,42 @@
             <div class="col-lg-6">
                 <div class="login_form_inner register_form_inner">
                     <h3>CREA UNA CUENTA</h3>
-                    <form class="row login_form" action="#" id="register_form">
-                    <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Ingrese su cedula"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'cedula'">
+                    <form class="row login_form" id="register_form" method="POST" action="/cliente/guardar">
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="txtcedula" name="txtcedula" placeholder="Ingrese su cedula" onfocus="this.placeholder = ''" onblur="this.placeholder = 'cedula'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese sus apellidos"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'apellidos'">
+                            <input type="text" class="form-control" id="txtapellido" name="txtapellido" placeholder="Ingrese sus apellidos" onfocus="this.placeholder = ''" onblur="this.placeholder = 'apellidos'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese sus Nombres"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'nombres'">
+                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Ingrese sus Nombres" onfocus="this.placeholder = ''" onblur="this.placeholder = 'nombres'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="direccion" name="direccion"
-                                placeholder="Ingrese su direccion" onfocus="this.placeholder = ''"
-                                onblur="this.placeholder = 'direccion'">
+                            <input type="text" class="form-control" id="txtdireccion" name="txtdireccion" placeholder="Ingrese su direccion" onfocus="this.placeholder = ''" onblur="this.placeholder = 'direccion'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'">
+                            <input type="text" class="form-control" id="txttelefono" name="txttelefono" placeholder="Ingrese su numero de telefono" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="celular" name="celular" placeholder="Ingrese su numero de celular"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'">
+                            <input type="text" class="form-control" id="txtcelular" name="txtcelular" placeholder="Ingrese su numero de celular" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo Electronico"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'correo'">
+                            <input type="email" class="form-control" id="txtcorreo" name="txtcorreo" placeholder="Correo Electronico" onfocus="this.placeholder = ''" onblur="this.placeholder = 'correo'">
                         </div>
                         <div class="row">
-                        <div class="col-md-6 form-group ">
-                            <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña"
-                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <div class="col-md-6 form-group ">
+                                <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="password" class="form-control" id="clave1" name="clave1" placeholder="Confirmar su contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmar su contraseña'">
+                            </div>
                         </div>
-                        
-                        <div class="col-md-6 form-group">
-                            <input type="password" class="form-control" id="confiClave" name="confiClave"
-                                placeholder="Confirmar su contraseña" onfocus="this.placeholder = ''"
-                                onblur="this.placeholder = 'Confirmar su contraseña'" >
-                        </div>
-                        </div>
-                        <div class="col-md-12 form-group">
+                        {{!-- <div class="col-md-12 form-group">
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option2" name="selector">
                                 <label for="f-option2">Keep me logged in</label>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="button button-register w-100">Register</button>
                         </div>

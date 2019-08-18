@@ -23,7 +23,9 @@ function AgregarArticulo1(external) {
     return false;
 }
 
-
+/**
+ * Permite refrscar la pagina agregando mas datos o eliminadolos
+ */
 
 function refrescar() {
     var url = base_url + 'listafacturaArt';
@@ -39,6 +41,9 @@ function refrescar() {
     });
 }
 
+/**
+ * Permite mostrar los datos en
+ */
 function mostrar() {
     var url = base_url + 'listafacturaArt';
     $.ajax({
@@ -68,6 +73,10 @@ function mostrarDatos(data) {
     // $('#cant').html(cantidad);
 }
 
+/**
+ * Permite llenar la tabla conlos datos de articulo
+ * @param {data} data 
+ */
 function cargarTabla(data) {
     console.log(data);
     var html = '';
