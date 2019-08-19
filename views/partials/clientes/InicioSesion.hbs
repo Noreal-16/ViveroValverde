@@ -1,4 +1,12 @@
 <br><br><br><br>
+<script type="text/javascript">
+    $().ready(function () {
+        /***
+        Permite validar datos de los form
+        */
+        validarRegistroPersona();
+    });
+</script>
 <section class="login_box_area ">
 		<div class="container">
 			<div class="row">
@@ -17,22 +25,22 @@
 					{{> msg}}
 					<div class="login_form_inner">
 						<h3>INICIA SESIÓN PARA INGRESAR</h3>
-						<form class="row login_form"  method="POST" action="/inicio_sesion" id="contactForm" >
+						<form class="row login_form" id="formInicio"  method="POST" action="/inicio_sesion" id="contactForm" >
 							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="correoInicio" name="correoInicio" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="email" class="form-control" id="correoInicio" name="correoInicio" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo electronico'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="claveInicio" name="claveInicio" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="password" class="form-control" id="claveInicio" name="claveInicio" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Clave'">
 							</div>
-							<div class="col-md-12 form-group">
+							{{!-- <div class="col-md-12 form-group">
 								<div class="creat_account">
 									<input type="checkbox" id="f-option2" name="selector">
 									<label for="f-option2">Mantenme conectado</label>
 								</div>
-							</div>
+							</div> --}}
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login  w-100">Ingresar</button>
-								<a href="#" >¿Se te olvido tu contraseña?</a>
+								{{!-- <a href="#" >¿Se te olvido tu contraseña?</a> --}}
 							</div>
 						</form>
 					</div>

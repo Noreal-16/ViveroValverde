@@ -12,7 +12,7 @@
           if (data.length != 0) {
             $.each(data, function (index, item) {
               html += '<div class="row form-group  ">';
-              html += '<div class="col-md-6 col-lg-4">';
+              html += '<div class="col-md-8 col-lg-6 col-sm-4">';
               html += '<div class="card text-center card-product">';
               html += '<div class="card-product__img">';
               html += '<img class="card-img" src="/images/g2.jpg" alt="">';
@@ -55,20 +55,20 @@
     return false;
   }
 </script>
-<section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
-  <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-    <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-    </div>
-    <h3 class="title text-center mb-2">{{title}} </h3>
-
-    <div class="input-group mb-3">
-      <input type="text" name="texto" id="texto" class="form-control" placeholder="Search">
-      <div class="input-group-append">
-        <button class="submit btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true">Buscar</i></button>
+<div class="container">
+  <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">
+    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+      <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
       </div>
-    </div>
-    <div class="row form-group " id="datos">
-      {{#each listado as |listad i|}}
+      <h3 class="title text-center mb-2">{{title}} </h3>
+      <div class="input-group col-md-8">
+        <input type="text" name="texto" id="texto" class="form-control" placeholder="Buscar">
+        <div class="input-group-append">
+          <button class="btn btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
+        </div>
+      </div><br>
+      <div class="row form-group " id="datos">
+        {{#each listado as |listad i|}}
         <div class="col-md-4 col-lg-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
@@ -86,9 +86,10 @@
             </div>
           </div>
         </div>
-      {{/each}}
+        {{/each}}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 {{> 'servicio/detalle'}}
 <!--//service -->

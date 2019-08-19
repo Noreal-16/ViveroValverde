@@ -1,4 +1,4 @@
- <script>
+<script>
   /** function mostrarDatos(data) {
             var cantidad = 0;
             $.each(data, function (i, item) {
@@ -8,31 +8,31 @@
         }*/
   function mostrarDatos(data) {
     console.log(data);
-            var cantidad = 0;
-           $.each(data, function (i, item) {
+    var cantidad = 0;
+    $.each(data, function (i, item) {
 
-                cantidad += item.cantidad;
-                console.log(cantidad);
-            });
-            $('#cant').html(data.length);
-        }
-        function refrescar() {
-            var url = 'http://localhost:8001/listarcarrito';
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data, textStatus, jqXHR) {
-                    mostrarDatos(data);
-                }, error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                }
-            });
-        }
+      cantidad += item.cantidad;
+      console.log(cantidad);
+    });
+    $('#cant').html(data.length);
+  }
+  function refrescar() {
+    var url = 'http://localhost:8001/listarcarrito';
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data, textStatus, jqXHR) {
+        mostrarDatos(data);
+      }, error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+      }
+    });
+  }
 
-        $(document).ready(function () {
-            refrescar();
-        }); 
+  $(document).ready(function () {
+    refrescar();
+  }); 
 </script>
 
 <!-- //banner -->
@@ -68,27 +68,50 @@
           <a href="/Articulo">Flores y Plantas</a>
         </li>
         <li>
-          <div class="noti-wrap">
-            <div class="noti__item js-item-menu">
-            <a href="/carrito"> <i class="zmdi zmdi-shopping-cart"></i></a>
-            <span  class="quantity" id="cant"> </span>
-              
-              <div class="notifi-dropdown js-dropdown">
-                <div class="notifi__footer">
-                  <a href="/carrito">Ir al carrito</a>
-                </div>
-              </div>
-                
-            </div>
-            
-          </div>
-        </li>
 
+          <div class="noti__item js-item-menu">
+            <a href="/carrito"><i class="fas fa-cart-plus" style="color:rgb(158, 168, 12)"></i></a>
+            <span class="quantity" id="cant"> </span>
+
+            <div class="notifi-dropdown js-dropdown">
+              <div class="notifi__footer">
+                <a href="/carrito">Ir al carrito</a>
+              </div>
+            </div>
+
+          </div>
+
+
+        </li>
+        {{#if usuario.persona}}
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="/images/user.png" style="max-width:6%;width:auto;height:auto;" class="user-image" alt="User Image">
+            <span class="hidden-xs">
+              {{usuario.persona}}
+            </span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header" style="background-color: rgb(55, 96, 158)">
+              <img src="/images/user.png" class="img-circle" alt="User Image">
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="float-lg">
+                <a href="/cerrar_sesion" class="btn btn-danger btn-flat">Salir</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+        {{else}}
         <li>
           <a href="/Inicio/Sesion">Inicio Sesion</a>
         </li>
-        
-        
+        {{/if}}
+
       </ul>
 
     </nav>
@@ -101,13 +124,13 @@
   {{> (lookup . 'fragmento') }}
   {{!-- </div>
      </div> --}}
-     
-  <!--footer-copy-right -->
-  <footer class="bottem-wthree-footer text-center py-md-4 py-3">
-    <p>
-      © 2019 Viveros Valverde. | Todo para su jardin
-      <a href="#" target="_blank">Viveros</a>
-    </p>
-  </footer>
-  <!--//footer-copy-right -->
-  <div class="header-button">
+</div>
+<!--footer-copy-right -->
+<footer class="bottem-wthree-footer text-center py-md-4 py-3">
+  <p>
+    © 2019 Viveros Valverde. | Todo para su jardin
+    <a href="#" target="_blank">Viveros</a>
+  </p>
+</footer>
+<!--//footer-copy-right -->
+<div class="header-button">

@@ -8,12 +8,13 @@ class servicioControlador {
      * @param {*} res 
      */
     visualizarLista(req, res) {
-        Servicio.then(function(resultS) {
+        Servicio.then(function (resultS) {
             res.render('index1', {
                 layout: 'layout1',
                 title: 'Administra Servicio',
                 fragmento: "vistaAdministrador/Servicio/servicio",
                 listado: resultS,
+                usuario: { persona: req.user.nombre },
                 active: { servicio: true },
                 msg: {
                     error: req.flash('error'),
@@ -22,7 +23,7 @@ class servicioControlador {
                 }
 
             });
-        }).error(function(error) {
+        }).error(function (error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/Admin');
         });
@@ -34,14 +35,26 @@ class servicioControlador {
      * @param {*} res 
      */
     visualizarServicio(req, res) {
-        Servicio.filter({ estado: true }).then(function(resultS) {
-            res.render('index', {
-                title: 'Servicio Jardineria',
-                fragmento: "servicio/servicio",
-                listado: resultS,
-                msg: { error: req.flash('error'), info: req.flash('info') }
-            });
-        }).error(function(error) {
+        Servicio.filter({ estado: true }).then(function (resultS) {
+            if (req.user != undefined && req.user.nombre != undefined) {
+                res.render('index', {
+                    title: 'Servicio Jardineria',
+                    fragmento: "servicio/servicio",
+                    listado: resultS,
+                    sesion:true,
+                    usuario: { persona: req.user.nombre },
+                    msg: { error: req.flash('error'), info: req.flash('info') }
+                });
+            } else {
+                res.render('index', {
+                    title: 'Servicio Jardineria',
+                    fragmento: "servicio/servicio",
+                    listado: resultS,
+                    msg: { error: req.flash('error'), info: req.flash('info') }
+                });
+            }
+
+        }).error(function (error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/');
         });
@@ -53,32 +66,32 @@ class servicioControlador {
      * @param {*} res 
      */
     guardar(req, res) {
-            var datos = {
-                nombre: req.body.nombre,
-                medida: req.body.medida,
-                descripcion: req.body.descripcion,
-                precio: req.body.precio,
-                estado: true
-            };
-            var servicio = new Servicio(datos);
-            servicio.save().then(function(result) {
-                req.flash('success', 'Servicio registrado!');
-                res.redirect("/Administra/Servicios");
-            }).catch(function(error) {
-                req.flash('error', 'No se pudo registrar!');
-                res.redirect("/Administra/Servicios");
-            });
+        var datos = {
+            nombre: req.body.nombre,
+            medida: req.body.medida,
+            descripcion: req.body.descripcion,
+            precio: req.body.precio,
+            estado: true
+        };
+        var servicio = new Servicio(datos);
+        servicio.save().then(function (result) {
+            req.flash('success', 'Servicio registrado!');
+            res.redirect("/Administra/Servicios");
+        }).catch(function (error) {
+            req.flash('error', 'No se pudo registrar!');
+            res.redirect("/Administra/Servicios");
+        });
 
-        }
-        /**
-         * Permite cargar datos en el modal de modificar servicio
-         * @param {*} req 
-         * @param {*} res 
-         */
+    }
+    /**
+     * Permite cargar datos en el modal de modificar servicio
+     * @param {*} req 
+     * @param {*} res 
+     */
     cargarServicio(req, res) {
         var external = req.query.external;
         var data = {};
-        Servicio.filter({ external_id: external }).then(function(result) {
+        Servicio.filter({ external_id: external }).then(function (result) {
             var item = result[0];
             data = {
                 external_id: item.external_id,
@@ -88,7 +101,7 @@ class servicioControlador {
                 precio: item.precio
             };
             res.json(data);
-        }).error(function(error) {
+        }).error(function (error) {
             req.flash('error', 'No se pudo encontrar el registro!');
             res.redirect('/Admin');
         });
@@ -100,42 +113,42 @@ class servicioControlador {
      * @param {*} res 
      */
     modificar(req, res) {
-            Servicio.filter({ external_id: req.body.external }).then(function(data) {
-                if (data.length > 0) {
-                    var arreglo = data[0];
-                    arreglo.nombre = req.body.nombrem;
-                    arreglo.medida = req.body.medidam;
-                    arreglo.precio = req.body.preciom;
-                    arreglo.descripcion = req.body.descripcionm;
-                    arreglo.saveAll().then(function(result) {
-                        req.flash('success', 'Se ha modificado correctamente');
-                        res.redirect('/Administra/Servicios');
-                    }).error(function(error) {
-                        console.log(error);
-                        req.flash('error', 'No se pudo modificar');
-                        res.redirect('/Administra/Servicios');
-                    });
-                } else {
-                    req.flash('error', 'No existe el dato a buscar');
+        Servicio.filter({ external_id: req.body.external }).then(function (data) {
+            if (data.length > 0) {
+                var arreglo = data[0];
+                arreglo.nombre = req.body.nombrem;
+                arreglo.medida = req.body.medidam;
+                arreglo.precio = req.body.preciom;
+                arreglo.descripcion = req.body.descripcionm;
+                arreglo.saveAll().then(function (result) {
+                    req.flash('success', 'Se ha modificado correctamente');
                     res.redirect('/Administra/Servicios');
-                }
-            }).error(function(error) {
-                req.flash('error', 'se produjo un error');
+                }).error(function (error) {
+                    console.log(error);
+                    req.flash('error', 'No se pudo modificar');
+                    res.redirect('/Administra/Servicios');
+                });
+            } else {
+                req.flash('error', 'No existe el dato a buscar');
                 res.redirect('/Administra/Servicios');
-            });
-        }
-        /**
-         * permite buscar los servicios que se encuentran activos
-         * @param {*} req 
-         * @param {*} res 
-         */
+            }
+        }).error(function (error) {
+            req.flash('error', 'se produjo un error');
+            res.redirect('/Administra/Servicios');
+        });
+    }
+    /**
+     * permite buscar los servicios que se encuentran activos
+     * @param {*} req 
+     * @param {*} res 
+     */
     buscador(req, res) {
         var texto = req.query.texto;
-        Servicio.filter(function(data) {
+        Servicio.filter(function (data) {
             return data('nombre').match(texto);
-        }).then(function(busca) {
+        }).then(function (busca) {
             res.json(busca);
-        }).error(function(error) {
+        }).error(function (error) {
             req.flash('error', 'se produjo un error al busca');
             res.redirect('/Servicios')
         });

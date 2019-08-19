@@ -23,6 +23,7 @@ class facturaControlador {
                     active: { factura: true },
                     sesion: true,
                     listaA: listaA,
+                    usuario: { persona: req.user.nombre },
                     nro: nro,
                     msg: {
                         error: req.flash('error'),

@@ -11,17 +11,35 @@ class articuloControlador {
     visualizarRegistro(req, res) {
         articulo.getJoin({ categoria: true }).filter({ estado: true }).then(function(listaArt) {
             categoria.filter({ estado: true }).then(function(lista) {
-                res.render('index', {
-                    title: 'Plantas y Flores',
-                    fragmento: "articulo/articulo",
-                    sesion: true,
-                    listaA: listaArt,
-                    lista: lista,
-                    msg: {
-                        error: req.flash('error'),
-                        info: req.flash('info')
-                    }
-                });
+                if (req.user != undefined && req.user.nombre != undefined) {
+                    res.render('index', {
+                        title: 'Plantas y Flores',
+                        fragmento: "articulo/articulo",
+                        sesion: true,
+                        listaA: listaArt,
+                        lista: lista,
+                        usuario: { persona: req.user.nombre },
+                        msg: {
+                            error: req.flash('error'),
+                            info: req.flash('info')
+                        }
+                    });
+
+
+                }else{
+                    res.render('index', {
+                        title: 'Plantas y Flores',
+                        fragmento: "articulo/articulo",
+                        sesion: false,
+                        listaA: listaArt,
+                        lista: lista,
+                        msg: {
+                            error: req.flash('error'),
+                            info: req.flash('info')
+                        }
+                    });
+                }
+               
             }).error(function(error) {
                 req.flash('error', 'Hubo un error!');
                 res.redirect('/');
@@ -48,6 +66,7 @@ class articuloControlador {
                     sesion: true,
                     listaA: listaA,
                     lista: listaC,
+                    usuario: { persona: req.user.nombre },
                     active: { articulo: true },
                     msg: {
                         error: req.flash('error'),

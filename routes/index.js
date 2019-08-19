@@ -66,13 +66,36 @@ var rol = require('../controlador/rolControlador');
  * @param {pasa} next 
  */
 var auth = function (req, res, next) {
-    if (req.isAuthentificate()) {
+    if (req.isAuthenticated()) {
         next();
     } else {
-        req.flash('error', 'Debes de iniciar sesion primero');
+        req.flash('error', "Debes iniciar sesion !");
         res.redirect("/");
     }
 }
+
+/**
+ * Metodo para dar permiso a 
+ * @param {rol} req 
+ * @param {permiso} res 
+ * @param {vista administrador} next 
+ */
+var admin = function middleWare(req, res, next) {
+    if (req.user.rol === 'Administrador') {
+        next();
+    } else {
+        req.flash('error', 'Sin Accesso!');
+        res.redirect('/');
+    }
+};
+var usua = function middleWare(req, res, next) {
+    if (req.user.rol === 'Usuario') {
+        next();
+    } else {
+        req.flash('error', 'Sin Accesso!');
+        res.redirect('/Admin');
+    }
+};
 
 /**
  * ///////////////////////////////////////////////////////////////////////////////
@@ -95,7 +118,7 @@ router.get('/redirecciona', function (req, res) {
 /**
  * Metodo para cerrar session
  */
-router.get('/cerrar_sesion', loginC.cerrar);
+router.get('/cerrar_sesion', auth, loginC.cerrar);
 /**
  * ////////////////////////////////////////////////////////////////////////////////
  * Presentacion vista cliente
@@ -105,7 +128,34 @@ router.get('/', function (req, res, next) {
     if (req.session.carrito == undefined) {
         req.session.carrito = [];
     }
-    res.render('index', { title: 'Vivero Valverde', fragmento: 'principal/banner' });
+
+    if (req.isAuthenticated()) {
+        console.log(req.session.user);
+        res.render('index',
+            {
+                title: 'Vivero Valverde',
+                fragmento: 'principal/banner',
+                usuario: { persona: req.user.nombre },
+                active: { inicio: true },
+                session: true,
+                msg: {
+                    error: req.flash('error'),
+                    success: req.flash('success')
+                }
+            });
+    } else {
+        res.render('index',
+            {
+                title: 'Vivero Valverde',
+                fragmento: 'principal/banner',
+                active: { inicio: true },
+                session: false,
+                msg: {
+                    error: req.flash('error'),
+                    success: req.flash('success')
+                }
+            });
+    }
 });
 
 /**
@@ -136,14 +186,14 @@ router.get('/Regitro', loginC.visualizarRegistro);
  * //////////////////////////////////////////////////////////////////////////////
  * Presentacion de vista administrador
  */
-router.get('/Admin', function (req, res, next) {
+router.get('/Admin', auth, admin, function (req, res, next) {
     res.render(
         'index1',
         {
             layout: 'layout1',
             title: 'Vivero Valverde',
             fragmento: 'principal/principal',
-            usuario: req.user.nombre,
+            usuario: { persona: req.user.nombre },
             active: { inicio: true }
         });
 });
@@ -152,7 +202,7 @@ router.get('/Admin', function (req, res, next) {
 /**
  * Administracion de pedidos vista administrador
  */
-router.get('/Pedido', function (req, res, next) {
+router.get('/Pedido', auth, function (req, res, next) {
     res.render(
         'index1',
         {
@@ -164,7 +214,7 @@ router.get('/Pedido', function (req, res, next) {
 });
 
 
-router.get('/contacto', function (req, res, next) {
+router.get('/contacto', auth, function (req, res, next) {
     res.render('index', { title: 'Vivero Valverde', fragmento: 'contactos/contactos' });
 });
 
@@ -172,11 +222,11 @@ router.get('/contacto', function (req, res, next) {
 /**
  * Administracion de servicio de jardineria vista administrador
  */
-router.get('/cargarServicio', servicio.cargarServicio);
-router.get('/servicio/buscar', servicio.buscador);
-router.get('/Administra/Servicios', servicio.visualizarLista);
-router.post('/Administra/Servicios/Guardar', servicio.guardar);
-router.post('/Administra/Servicios/Modificar', servicio.modificar);
+router.get('/cargarServicio', auth, admin, servicio.cargarServicio);
+router.get('/servicio/buscar', auth, admin, servicio.buscador);
+router.get('/Administra/Servicios', auth, admin, servicio.visualizarLista);
+router.post('/Administra/Servicios/Guardar', auth, admin, servicio.guardar);
+router.post('/Administra/Servicios/Modificar', auth, admin, servicio.modificar);
 
 
 /***
@@ -187,43 +237,43 @@ router.post('/Administra/Servicios/Modificar', servicio.modificar);
  */
 
 // router.get('/Administra/categorias', categoriaC.visualizar);
-router.post('/Administrador/categorias/guardar', categoriaC.guardar);
-router.get('/cargarCategoria', categoriaC.cargarCategorias);
-router.post('/Administrador/Modificar', categoriaC.modificarCategoris);
+router.post('/Administrador/categorias/guardar', auth, admin, categoriaC.guardar);
+router.get('/cargarCategoria', auth, admin, categoriaC.cargarCategorias);
+router.post('/Administrador/Modificar', auth, admin, categoriaC.modificarCategoris);
 
 
 /**
  * Administracion de articulo plantas vista administrador
  */
-router.get('/Administra/Articulo', articuloC.visualizarLista);
-router.get('/cargarArticulo', articuloC.cargarArticulo);
-router.get('/desactivarArticulo', articuloC.descativar);
-router.post('/Administra/Articulo/guardar', articuloC.guardar);
-router.post('/Administra/Articulo/modificar', articuloC.modificar);
-router.get('/articulo/buscar', articuloC.buscador);
+router.get('/Administra/Articulo', auth, admin, articuloC.visualizarLista);
+router.get('/cargarArticulo', auth, admin, articuloC.cargarArticulo);
+router.get('/desactivarArticulo', auth, admin, articuloC.descativar);
+router.post('/Administra/Articulo/guardar', auth, admin, articuloC.guardar);
+router.post('/Administra/Articulo/modificar', auth, admin, articuloC.modificar);
+router.get('/articulo/buscar', auth, admin, articuloC.buscador);
 
 /**
  * Administra clientes vista administrador
  */
-router.get('/Administra/clientes', persona.visualizarCliente);
-router.post('/Administra/clientes/guardar', persona.guardar);
-router.get('/cedulaRepetida', persona.cedulaRepetida);
-router.get('/correoRepetida', persona.correoRepetida);
-router.get('/cargarPersona', persona.cargarPersona);
-router.post('/Administra/cliente/modificar', persona.modificar);
+router.get('/Administra/clientes', auth, persona.visualizarCliente);
+router.post('/Administra/clientes/guardar', auth, admin, persona.guardar);
+router.get('/cedulaRepetida',  persona.cedulaRepetida);
+router.get('/correoRepetida',  persona.correoRepetida);
+router.get('/cargarPersona', auth, admin, persona.cargarPersona);
+router.post('/Administra/cliente/modificar', auth, admin, persona.modificar);
 
 
 /**
  * Administracion de factura vista administrador
  */
-router.get('/Factura', factura.visualizaFactura);
+router.get('/Factura', auth, admin, factura.visualizaFactura);
 
 /**
  * administra factura vista administrador
  */
-router.get('/agregarArt', factura.agregarItem);
-router.get('/quitarArt', factura.quitarItem);
-router.get('/listafacturaArt', factura.mostrarCarrito);
+router.get('/agregarArt', auth, admin, factura.agregarItem);
+router.get('/quitarArt', auth, admin, factura.quitarItem);
+router.get('/listafacturaArt', auth, admin, factura.mostrarCarrito);
 
 /**
  *administra carrito de compra vista cliente
@@ -232,7 +282,7 @@ router.get('/carrito', carritoC.carrito);
 router.get('/agregar:external', carritoC.agregarItem);
 router.get('/servicio:external', carritoC.agregarServicio);
 router.get('/quitar:external', carritoC.quitarItem);
-router.get('/listarcarrito', carritoC.mostrarCarrito);
+router.get('/listarcarrito',carritoC.mostrarCarrito);
 
 
 module.exports = router;

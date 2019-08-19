@@ -169,6 +169,43 @@ function validarRegistroPersona() {
     // $.validator.methods.email = function (value, element) {
     //     return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
     // };
+    $("#formInicio").validate({
+        rules: {
+            correoInicio: {
+                required: true,
+                email: true,
+            },
+            claveInicio: {
+                required: true
+            }
+        },
+        messages: {
+            txtcorreo: {
+                required: "Ingresar un correo valido"
+            },
+            clave: {
+                required: "Ingrese una clave",
+            }
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
     $("#register_form").validate({
         rules: {
             txtcedula: {

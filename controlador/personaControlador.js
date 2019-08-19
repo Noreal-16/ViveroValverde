@@ -17,6 +17,7 @@ class personaControlador {
                     sesion: true,
                     listado: lista,
                     listaR: resultR,
+                    usuario: { persona: req.user.nombre },
                     active: { cliente: true, menu: true },
                     msg: {
                         error: req.flash('error'),
