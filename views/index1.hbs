@@ -13,42 +13,6 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/images/user.png" class="user-image" alt="User Image">
-                    <span class="hidden-xs">Bienvenido</span>
-                </a>
-                <ul class="dropdown-menu ">
-                    <!-- User image -->
-                    <li class="user-header" style="background-color: rgb(55, 96, 158)">
-                        <img src="/images/user.png" class="img-circle" alt="User Image">
-                        <p>
-                            <small>
-                                {{#if usuario.persona}}
-                                {{usuario.persona}}
-                                {{/if}}
-                            </small>
-                        </p>
-                    </li>
-                    <!-- Menu Body -->
-                    <li class="user-body">
-                        <div class="row">
-                            {{#if usuario.persona}}
-                            {{usuario.persona}}
-                            {{/if}}
-                        </div>
-                        <!-- /.row -->
-                    </li>
-                    <!-- Menu Footer-->
-                    <li class="user-footer">
-                        <div class="pull-right">
-                            <a href="/cerrar_sesion" class="btn btn-danger btn-flat">Salir</a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <!-- Control Sidebar Toggle Button -->
             <!-- Right navbar links -->
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
@@ -134,6 +98,50 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
+            </li>
+            <li class="nav-item dropdown user-menu">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <img src="/images/user.png" class="user-image img-circle elevation-2" alt="User Image">
+                    <span class="d-none d-md-inline">
+                        {{#if usuario.persona}}
+                        {{usuario.persona}}
+                        {{/if}}
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <!-- User image -->
+                    <li class="user-header bg-primary">
+                        <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
+                        <p>
+                            {{#if usuario.persona}}
+                            {{usuario.persona}}
+                            {{/if}}
+                            <small id="fech">
+                               Administrador del sistema de vivero
+                            </small>
+                        </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <li class="user-body">
+                        <div class="row">
+                            {{!-- <div class="col-4 text-center">
+                                <a href="#">Followers</a>
+                            </div>
+                            <div class="col-4 text-center">
+                                <a href="#">Sales</a>
+                            </div>
+                            <div class="col-4 text-center">
+                                <a href="#">Friends</a>
+                            </div> --}}
+                        </div>
+                        <!-- /.row -->
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <a href="#" class="btn btn-primary btn-flat">Perfil</a>
+                        <a href="/cerrar_sesion" class="btn btn-danger btn-flat float-right">Cerrar sesión</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">

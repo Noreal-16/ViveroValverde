@@ -273,7 +273,7 @@ router.get('/Factura', auth, admin, factura.visualizaFactura);
  */
 router.get('/agregarArt', auth, admin, factura.agregarItem);
 router.get('/quitarArt', auth, admin, factura.quitarItem);
-router.get('/listafacturaArt', auth, admin, factura.mostrarCarrito);
+router.get('/listafacturaArt', auth, admin, factura.mostrarCarrito1);
 
 /**
  *administra carrito de compra vista cliente

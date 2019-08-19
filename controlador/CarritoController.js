@@ -144,11 +144,24 @@ class CarritoController {
          * @param {*} res 
          */
     carrito(req, res) {
-        res.render('index', {
-            titulo: 'Panel de Usuario',
-            fragmento: 'carrito/carritoPr',
-            sesion: true
-        });
+        if (req.user != undefined && req.user.nombre != undefined) {
+            
+            res.render('index', {
+                titulo: 'Panel de Usuario',
+                fragmento: 'carrito/carritoPr',
+                sesion: true,
+                usuario: { persona: req.user.nombre },
+                msg: { error: req.flash('error'), info: req.flash('info') }
+            });
+        } else {
+            
+            res.render('index', {
+                titulo: 'Panel de Usuario',
+                fragmento: 'carrito/carritoPr',
+                sesion: false,
+                msg: { error: req.flash('error'), info: req.flash('info') }
+            });
+        }
     }
 }
 

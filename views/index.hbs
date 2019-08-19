@@ -55,7 +55,6 @@
       </div>
       <label for="drop" class="toggle">Menu</label>
       <input type="checkbox" id="drop">
-
       <ul class="menu mt-2">
         <li class="active">
           <a href="/">Inicio</a>
@@ -68,40 +67,42 @@
           <a href="/Articulo">Flores y Plantas</a>
         </li>
         <li>
-
           <div class="noti__item js-item-menu">
-            <a href="/carrito"><i class="fas fa-cart-plus" style="color:rgb(158, 168, 12)"></i></a>
-            <span class="quantity" id="cant"> </span>
-
-            <div class="notifi-dropdown js-dropdown">
-              <div class="notifi__footer">
-                <a href="/carrito">Ir al carrito</a>
-              </div>
-            </div>
-
+            <a href="/carrito"><i class="fas fa-cart-plus" style="color:rgb(179, 30, 25)"></i><span class="quantity" id="cant"> </span></a>
           </div>
-
-
         </li>
         {{#if usuario.persona}}
         <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="/images/user.png" style="max-width:6%;width:auto;height:auto;" class="user-image" alt="User Image">
-            <span class="hidden-xs">
+        <li class="nav-item dropdown user-menu">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <img src="/images/user.png" style="max-width: 30px; max-height: 30px" class="user-image img-circle elevation-2" alt="User Image">
+            <span class="d-none d-md-inline">
+              {{#if usuario.persona}}
               {{usuario.persona}}
+              {{/if}}
             </span>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
-            <li class="user-header" style="background-color: rgb(55, 96, 158)">
-              <img src="/images/user.png" class="img-circle" alt="User Image">
+            <li class="user-header bg-primary">
+              <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
+              <h3 class="text-center text-white">
+                  <small>
+                     <strong>
+                    Bienvenido
+                     </strong>
+                  </small>
+              </h3>
             </li>
+            <li class="user-body">
+              <div class="row">
+
+              </div>
+            </li><br>
             <!-- Menu Footer-->
             <li class="user-footer">
-              <div class="float-lg">
-                <a href="/cerrar_sesion" class="btn btn-danger btn-flat">Salir</a>
-              </div>
+              <a href="#" class="btn btn-success btn-flat">Perfil</a>
+              <a href="/cerrar_sesion" class="btn btn-danger btn-flat float-right">Salir</a>
             </li>
           </ul>
         </li>

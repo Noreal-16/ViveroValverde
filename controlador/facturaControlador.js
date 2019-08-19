@@ -118,7 +118,7 @@ class facturaControlador {
     /**
      * Metodo que permite la visualizacion de datos en la factura
      */
-    mostrarCarrito(req, res) {
+    mostrarCarrito1(req, res) {
         res.status(200).json(req.session.factura);
     }
 
