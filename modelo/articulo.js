@@ -21,3 +21,8 @@ var Detalle_Factura = require('./detalle_factura');
 Articulo.hasMany(Detalle_Factura, "detalle_factura", "id", "id_articulo");
 var Categoria = require('./categoria');
 Articulo.belongsTo(Categoria, "categoria", "id_categoria", "id");
+/**
+ * Realacion con la tabla galeria art 
+ */
+var Galeria = require('./galeriaArticulo');
+Articulo.hasMany(Galeria, "galeria", "id", "id_articulo");

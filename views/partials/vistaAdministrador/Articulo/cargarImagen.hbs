@@ -1,0 +1,104 @@
+<script>
+    $(function () {
+        $(".custom-file-input").on("change", function (e) {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            addImage(e);
+        });
+        function addImage(e) {
+            var file = e.target.files[0], imageType = /image.*/;
+            if (!file.type.match(imageType))
+                return;
+            var reader = new FileReader();
+            reader.onload = fileOnload;
+            reader.readAsDataURL(file);
+        }
+        function fileOnload(e) {
+            var result = e.target.result;
+            $('#galeriaImagen').attr("src", result);
+            console.log("llega");
+        }
+        $("#btnagregar11").click(function () {
+            console.log("llega: " + $("#customFileLang1").val());
+            if (($("#customFileLang1").val()) != "") {
+                cargarImagenes();
+
+            } else {
+                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+                mensaje += "Seleccione una imagen";
+                mensaje += "</div>";
+                $("#errorIma").show();
+                $("#errorIma").html(mensaje);
+                $("#errorIma").hide(4000);
+            }
+        })
+    });
+    function cargarExternal(externalArticulo) {
+        $("#externalArticulo").val(externalArticulo);
+    }
+</script>
+<!-- Modal  agregar articulo-->
+<div class="modal fade" id="agregarImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="background: #EFF7F1">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Agregar Imagenes <i class="far fa-images"></i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6 col-sm-4 col-xs-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="far fa-images"></i>
+                                        <span>Imagenes</span>
+                                        {{!-- <input type="file" name="files[]" multiple /> --}}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <!-- The table listing the files available for upload/download -->
+                                    <table role="presentation" class="table table-striped">
+                                        <tbody class="files"></tbody>
+                                    </table>
+                                    {{!-- <h3 class="card-title">Title</h3>
+                                    <p class="card-text">Text</p> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div id="errorIma"></div>
+                            <div class="card border-primary mb-3 " style="width: 15rem;">
+                                <div class="card-header bg-dark text-white">
+                                    <h5>Cargar Imagen</h5>
+                                </div>
+                                <div class="card-body">
+                                    <img src="/images/fondoPlanta.png" id="galeriaImagen" class="card-img-top" alt="..."></div>
+                                <div class="card-footer">
+                                    <form enctype="multipart/form-data">
+                                        <input type="hidden" name="externalArticulo" id="externalArticulo" value="1">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" multiple="true" id="customFileLang1" lang="es">
+                                                {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                                <label class="custom-file-label" for="customFileLang1" data-browse="Elegir">Imagen</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-info" id="btnagregar11" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="button"><i class="fa fa-camera-retro"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

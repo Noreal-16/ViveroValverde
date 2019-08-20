@@ -232,3 +232,24 @@ function calcular(fila, prec) {
 
 
 }
+function cargarImagenes() {
+    var url = base_url + "cargarImagenArt";
+    var external = $("#externalArticulo").val();
+    var texto = $("#customFileLang1").val();
+    // var external = external;
+    // data: 'criterio=' + criterio + '&texto=' + texto,
+    console.log(external);
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "external=" + external,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            $("#external").val(data.external_id);
+            $("#nombrem").val(data.nombre);
+            $("#medidam").val(data.medida);
+            $("#descripcionm").val(data.descripcion);
+            $("#preciom").val(data.precio);
+        }
+    });
+}
