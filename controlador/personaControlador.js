@@ -35,6 +35,74 @@ class personaControlador {
             res.redirect('/Admin');
         });
     }
+    /*
+     * Metodo para vicualizar el perfil del cliente desde la vista cliente
+     * @param {type} req
+     * @param {type} res
+     * @returns {undefined}
+     */
+    visualizarPerfil(req, res) {
+                res.render('index', {
+                    layout: 'layout',
+                    title: 'Perfil Cliente',
+                    fragmento: "clientes/Perfil",
+                     sesion:true,
+                    usuario: { 
+                               correo: req.user.correo,
+                               telefono: req.user.telefono,
+                               nombres: req.user.nombres,
+                               apellidos: req.user.apellidos,
+                               celular: req.user.celular,
+                               direccion: req.user.direccion,
+                               cedula: req.user.cedula,
+                               exter: req.user.exter,
+                               external_rol : req.user.external_rol
+                           }
+                       });
+}
+    /*
+     * Metodo para modificar el perfil del cliente
+     * @param {type} req
+     * @param {type} res
+     * @returns {undefined}
+     */
+    modificarvistacliente(req,res){
+        Persona.filter({ external_id: req.body.external }).getJoin({ cuenta: true }).then(function (resultPer) {
+            if (resultPer.length > 0) {
+                var person = resultPer[0];
+                Rol.filter({ external_id: req.body.txtrolM }).then(function (resultRol) {
+                    person.cedula = req.body.txtCedulaM;
+                    person.nombres = req.body.txtnombreM;
+                    person.apellidos = req.body.txtapellidoM;
+                    person.direccion = req.body.txtdireccionM;
+                    person.telefono = req.body.txttelefonoM;
+                    person.celular = req.body.txtcelularM;
+                    person.cuenta.correo = req.body.txtcorreoM;
+                    person.cuenta.clave = req.body.claveM;
+                    person.cuenta.nombreUsuario = req.body.userM;
+                    person.id_Rol = resultRol[0].id;
+                    person.saveAll({ cuenta: true }).then(function (resultPersona) {
+                        req.flash('success', 'Su Cuenta Ha sido Modificada');
+                        res.redirect('/');
+                    }).error(function (error) {
+                        console("PROBLEMA EN MODIFICAR PERSONAAAA");
+                        req.flash('error', 'Se produjo un error al modificar persona');
+                        res.redirect('/Perfil');
+                    });
+                }).error(function (error) {
+                    req.flash('error', 'Se produjo un error en Rol');
+                    console("PROBLEMA EN rolllllllllllllllllllllllllll");
+                    res.redirect('/Perfil');
+                });
+            } else {
+                req.flash('error', 'Se produjo un error en Persona');
+                console("PROBLEMA EN perrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                res.redirect('/Perfil');
+            }
+        }).error(function (error) {
+            res.send(error);
+        });
+    }
     /**
      * Metodo para registrar cliente desde la vista Cliente
      * @param {rol,correo} req 
@@ -143,7 +211,7 @@ class personaControlador {
     }
 
     /**
-     * Permite obtener datos del cleinte y cargarlos en la vista
+     * Permite obtener datos del cliente y cargarlos en la vista
      * @param {*} req 
      * @param {*} res 
      */
@@ -240,18 +308,21 @@ class personaControlador {
                     person.id_Rol = resultRol[0].id;
                     person.saveAll({ cuenta: true }).then(function (resultPersona) {
                         req.flash('success', 'Persona modificado correctamente');
-                        res.redirect('/Administra/clientes');
+                        res.redirect('/');
                     }).error(function (error) {
+                        console("PROBLEMA EN MODIFICAR PERSONAAAA");
                         req.flash('error', 'Se produjo un error al modificar persona');
-                        res.redirect('/Administra/clientes');
+                        res.redirect('/Perfil');
                     });
                 }).error(function (error) {
                     req.flash('error', 'Se produjo un error en Rol');
-                    res.redirect('/Administra/clientes');
+                    console("PROBLEMA EN rolllllllllllllllllllllllllll");
+                    res.redirect('/Perfil');
                 });
             } else {
                 req.flash('error', 'Se produjo un error en Persona');
-                res.redirect('/Administra/clientes');
+                console("PROBLEMA EN perrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                res.redirect('/Perfil');
             }
         }).error(function (error) {
             res.send(error);

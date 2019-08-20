@@ -134,6 +134,17 @@ function validarCorreoRepetida(correo) {
     return flag;
 }
 
+function CedulaDiferente(cedula_nueva){
+    var cedula_ant = $("#edit_form #cedula").val();
+    
+    return (cedula_nueva !== cedula_ant);
+}
+function CorreoDiferente(correo_nueva){
+    var correo_ant = $("#edit_form #correo").val();
+    
+    return (correo_nueva !== correo_ant);
+}
+
 /**
  * Validacion de campos registrar y modificar persona
  */
@@ -185,6 +196,83 @@ function validarRegistroPersona() {
             },
             clave: {
                 required: "Ingrese una clave",
+            }
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    
+    $("#edit_form").validate({
+        rules: {
+            txtcedula: {
+                required: true,
+                minlength: 10,
+                maxlength: 13,
+                validaCedula: true,
+                cedulaRepetida: CedulaDiferente($("#edit_form input#txtcedula").val())
+            },
+            txtnombre: "required",
+            txtapellido: "required",
+            txtdireccion: "required",
+            txtcelular: {
+                required: true,
+                minlength: 10
+            },
+            txtcorreo: {
+                required: true,
+                email: true,
+                correoRepetida: CorreoDiferente($("#edit_form input#txtcorreo").val())
+            },
+            clave: {
+                required: true,
+                minlength: 5,
+            },
+            clave1: {
+                required: true,
+                minlength: 5,
+                equalTo: "#clave"
+            }
+        },
+        messages: {
+            txtcedula: {
+                required: "Ingresar un numero de cedula valido",
+                minlength: $.validator.format("Necesitamos por lo menos {0} caracteres"),
+                maxlength: "{0} caracteres son demasiados!"
+            },
+            txtnombre: "Ingrese un nombre para el registro",
+            txtapellido: "Ingrese un apellido para el registro",
+            txtdireccion: "Ingrese una direccion para el registro",
+            txtcelular: {
+                required: "Ingresar un numero de celular",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            txtcorreo: {
+                required: "Ingresar un correo valido"
+            },
+            clave: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+            },
+            clave1: {
+                required: "Ingrese una clave",
+                minlength: "Necesitamos por lo menos {0} caracteres",
+                equalTo: "La contraseña no coincide"
             }
         },
         //permite presentar la validacion de los campos de texto
@@ -356,6 +444,84 @@ function validarRegistroPersona() {
             }
         }
     });
+}
+
+/**
+ * Botones para control de edicion del cliente
+ */
+function styleEditar(form) {
+    form.find("input[name=txtCedulaM]").prop("readonly", false);
+    form.find("input[name=txtCedulaM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtCedulaM]").addClass("form-control");
+    form.find("input[name=txtnombreM]").prop("readonly", false);
+    form.find("input[name=txtnombreM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtnombreM]").addClass("form-control");
+    form.find("input[name=txtcorreoM]").prop("readonly", false);
+    form.find("input[name=txtcorreoM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtcorreoM]").addClass("form-control");
+    form.find("input[name=txtdireccionM]").prop("readonly", false);
+    form.find("input[name=txtdireccionM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtdireccionM]").addClass("form-control");
+    form.find("input[name=txtcelularM]").prop("readonly", false);
+    form.find("input[name=txtcelularM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtcelularM]").addClass("form-control");
+    form.find("input[name=txtapellidoM]").prop("readonly", false);
+    form.find("input[name=txtapellidoM]").removeClass("form-control-plaintext");
+    form.find("input[name=txtapellidoM]").addClass("form-control");
+    form.find("input[name=txttelefonoM]").prop("readonly", false);
+    form.find("input[name=txttelefonoM]").removeClass("form-control-plaintext");
+    form.find("input[name=txttelefonoM]").addClass("form-control");
+    
+}
+
+function changeStatusBtn(button) {
+    if(button.hasClass("editar")) {
+        button.removeClass("editar");
+        button.addClass("cancelar");
+        button.text("Cancelar");
+    }
+    else if (button.hasClass("cancelar")) {
+        button.removeClass("cancelar");
+        button.addClass("editar");
+        button.text("Editar");
+    }
+}
+
+function styleCancelar(form) {
+    form.find("input[name=txtCedulaM]").prop("readonly", true);
+    form.find("input[name=txtCedulaM]").addClass("form-control-plaintext");
+    form.find("input[name=txtCedulaM]").removeClass("form-control");
+    form.find("input[name=txtnombreM]").prop("readonly", true);
+    form.find("input[name=txtnombreM]").addClass("form-control-plaintext");
+    form.find("input[name=txtnombreM]").removeClass("form-control");
+    form.find("input[name=txtapellidoM]").prop("readonly", true);
+    form.find("input[name=txtapellidoM]").addClass("form-control-plaintext");
+    form.find("input[name=txtapellidoM]").removeClass("form-control");
+    form.find("input[name=txtdireccionM]").prop("readonly", true);
+    form.find("input[name=txtdireccionM]").addClass("form-control-plaintext");
+    form.find("input[name=txtdireccionM]").removeClass("form-control");
+    form.find("input[name=txtcorreoM]").prop("readonly", true);
+    form.find("input[name=txtcorreoM]").addClass("form-control-plaintext");
+    form.find("input[name=txtcorreoM]").removeClass("form-control");
+    form.find("input[name=txtcelularM]").prop("readonly", true);
+    form.find("input[name=txtcelularM]").addClass("form-control-plaintext");
+    form.find("input[name=txtcelularM]").removeClass("form-control");
+    form.find("input[name=txttelefonoM]").prop("readonly", true);
+    form.find("input[name=txttelefonoM]").addClass("form-control-plaintext");
+    form.find("input[name=txttelefonoM]").removeClass("form-control");
+    
+    
+}
+
+function btnEditarCss(button) {
+    if(button.hasClass("editar")) {
+        styleEditar(button.parents("form"));
+    }
+    else if (button.hasClass("cancelar")) {
+        styleCancelar(button.parents("form"));
+    }
+    
+    changeStatusBtn(button);
 }
 
 

@@ -130,7 +130,7 @@ router.get('/', function (req, res, next) {
     }
 
     if (req.isAuthenticated()) {
-        console.log(req.session.user);
+        console.log(req.session.user+"///////////////////");
         res.render('index',
             {
                 title: 'Vivero Valverde',
@@ -159,8 +159,16 @@ router.get('/', function (req, res, next) {
 });
 
 /**
- * Administracion vista clinete--------------------------------------->
+ * Administracion vista cliente--------------------------------------->
  */
+/*
+ * Visualizacion y modificacion de perfil cliente
+ */
+router.get('/Perfil', persona.visualizarPerfil);
+router.post('/Perfil/Modificar', persona.modificarvistacliente);
+//
+//router.post('/Perfil/Editar', persona.visualizarPerfil);
+
 /**
  * Visualizacion de vista servicio cliente
  */
