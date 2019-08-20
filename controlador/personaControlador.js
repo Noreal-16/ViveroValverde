@@ -42,31 +42,32 @@ class personaControlador {
      * @returns {undefined}
      */
     visualizarPerfil(req, res) {
-                res.render('index', {
-                    layout: 'layout',
-                    title: 'Perfil Cliente',
-                    fragmento: "clientes/Perfil",
-                     sesion:true,
-                    usuario: { 
-                               correo: req.user.correo,
-                               telefono: req.user.telefono,
-                               nombres: req.user.nombres,
-                               apellidos: req.user.apellidos,
-                               celular: req.user.celular,
-                               direccion: req.user.direccion,
-                               cedula: req.user.cedula,
-                               exter: req.user.exter,
-                               external_rol : req.user.external_rol
-                           }
-                       });
-}
+        res.render('index', {
+            layout: 'layout',
+            title: 'Perfil Cliente',
+            fragmento: "clientes/Perfil",
+            sesion: true,
+            usuario: {
+                persona: req.user.nombre,
+                correo: req.user.correo,
+                telefono: req.user.telefono,
+                nombres: req.user.nombres,
+                apellidos: req.user.apellidos,
+                celular: req.user.celular,
+                direccion: req.user.direccion,
+                cedula: req.user.cedula,
+                exter: req.user.exter,
+                external_rol: req.user.external_rol
+            }
+        });
+    }
     /*
      * Metodo para modificar el perfil del cliente
      * @param {type} req
      * @param {type} res
      * @returns {undefined}
      */
-    modificarvistacliente(req,res){
+    modificarvistacliente(req, res) {
         Persona.filter({ external_id: req.body.external }).getJoin({ cuenta: true }).then(function (resultPer) {
             if (resultPer.length > 0) {
                 var person = resultPer[0];

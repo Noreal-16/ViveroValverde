@@ -4,8 +4,8 @@
         Permite validar datos de los form
         */
         validarRegistroPersona();
-        
-        $("#edit_form button.btn-edcss").click(function(e){
+
+        $("#edit_form button.btn-edcss").click(function (e) {
             btnEditarCss($(this));
         });
     });
@@ -15,59 +15,57 @@
 <br>
 
 <section>
-  
-<div class="modal-content" style="margin-top: 10px">
-              <div class="modal-header bg-dark text-white">
-                  <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">Editar Perfir</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-6 mb-4">
-                          <p>
-                              <img src="/images/g1.jpg" alt="Image" class="img-fluid">
-                          </p>
-                      </div>
-                      <div class="col-lg-5  align-self-center">
-                          <h2 class="section-title-underline mb-5">
-                              <span id="nombre"></span>
-                          </h2>
-                          <p class="mb-5"><strong class="text-black d-block">Datos Principales</strong></p>
-                          
-                              <form class="card" id="edit_form" method="POST" action="/Perfil/Modificar">
+    <div class="modal-content" style="margin-top: 10px">
+        <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">Editar Perfir</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        <img src="/images/g1.jpg" alt="Image" class="img-fluid">
+                    </p>
+                </div>
+                <div class="col-lg-5  align-self-center">
+                    <h2 class="section-title-underline mb-5">
+                        <span id="nombre"></span>
+                    </h2>
+                    <p class="mb-5"><strong class="text-black d-block">Datos Principales</strong></p>
+
+                    <form class="card" id="edit_form" method="POST" action="/Perfil/Modificar">
                         <input type="hidden" id="cedula" name="cedula" value="{{usuario.cedula}}">
                         <input type="hidden" id="correo" name="correo" value="{{usuario.correo}}">
                         <input type="hidden" id="correo" name="external" value="{{usuario.exter}}">
                         <input type="hidden" id="txtrolM" name="txtrolM" value="{{usuario.external_rol}}">
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txtcedula" name="txtCedulaM" placeholder="Ingrese su cedula" onfocus="this.placeholder = ''" onblur="this.placeholder = 'cedula'" value="{{usuario.cedula}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txtcedula" name="txtCedulaM" placeholder="Ingrese su cedula" onfocus="this.placeholder = ''" onblur="this.placeholder = 'cedula'" value="{{usuario.cedula}}"  >
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txtapellido" name="txtapellidoM" placeholder="Ingrese sus apellidos" onfocus="this.placeholder = ''" onblur="this.placeholder = 'apellidos'"value="{{usuario.apellidos}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txtapellido" name="txtapellidoM" placeholder="Ingrese sus apellidos" onfocus="this.placeholder = ''" onblur="this.placeholder = 'apellidos'" value="{{usuario.apellidos}}" onkeypress="return validaletra(event)">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txtnombre" name="txtnombreM" placeholder="Ingrese sus Nombres" onfocus="this.placeholder = ''" onblur="this.placeholder = 'nombres'" value="{{usuario.nombres}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txtnombre" name="txtnombreM" placeholder="Ingrese sus Nombres" onfocus="this.placeholder = ''" onblur="this.placeholder = 'nombres'" value="{{usuario.nombres}}" onkeypress="return validaletra(event)">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txtdireccion" name="txtdireccionM" placeholder="Ingrese su direccion" onfocus="this.placeholder = ''" onblur="this.placeholder = 'direccion'"value="{{usuario.direccion}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txtdireccion" name="txtdireccionM" placeholder="Ingrese su direccion" onfocus="this.placeholder = ''" onblur="this.placeholder = 'direccion'" value="{{usuario.direccion}}" >
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txttelefono" name="txttelefonoM" placeholder="Ingrese su numero de telefono" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'"value="{{usuario.telefono}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txttelefono" name="txttelefonoM" placeholder="Ingrese su numero de telefono" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'" value="{{usuario.telefono}}" onkeypress="return validaNumero(event)" maxlength="10">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" readonly class="form-control-plaintext" id="txtcelular" name="txtcelularM" placeholder="Ingrese su numero de celular" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'"value="{{usuario.celular}}">
+                            <input type="text" readonly class="form-control-plaintext" id="txtcelular" name="txtcelularM" placeholder="Ingrese su numero de celular" onfocus="this.placeholder = ''" onblur="this.placeholder = 'telefono'" value="{{usuario.celular}}" onkeypress="return validaNumero(event)" maxlength="10">
                         </div>
                         <div class="col-md-12 form-group">
                             <input type="email" readonly class="form-control-plaintext" id="txtcorreo" name="txtcorreoM" placeholder="Correo Electronico" onfocus="this.placeholder = ''" onblur="this.placeholder = 'correo'" value="{{usuario.correo}}">
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group ">
-                                <input type="password" class="form-control" id="clave" name="claveM" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                                <input type="password" class="form-control" id="clave" name="claveM" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" maxlength="15">
                             </div>
-                            <div class="col-md-6 form-group">
-                                <input type="password" class="form-control" id="clave1" name="clave1M" placeholder="Confirmar su contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmar su contraseña'">
+                            <div class="col-md-6 form-group"> 
+                                <input type="password" class="form-control" id="clave1" name="clave1M" placeholder="Confirmar su contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmar su contraseña'" maxlength="15">
                             </div>
                         </div>
                         {{!-- <div class="col-md-12 form-group">
@@ -81,14 +79,14 @@
                             <button type="submit" value="submit" class="button button-register w-50">Modificar Datos</button>
                         </div>
                     </form>
-                             
-                         
-                      </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-  
-              </div>
-          </div>
-    
-    </section>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+    </div>
+
+</section>

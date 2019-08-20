@@ -164,8 +164,8 @@ router.get('/', function (req, res, next) {
 /*
  * Visualizacion y modificacion de perfil cliente
  */
-router.get('/Perfil', persona.visualizarPerfil);
-router.post('/Perfil/Modificar', persona.modificarvistacliente);
+router.get('/Perfil',auth, persona.visualizarPerfil);
+router.post('/Perfil/Modificar',auth, persona.modificarvistacliente);
 //
 //router.post('/Perfil/Editar', persona.visualizarPerfil);
 

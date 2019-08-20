@@ -220,56 +220,56 @@ function validarRegistroPersona() {
     
     $("#edit_form").validate({
         rules: {
-            txtcedula: {
+            txtCedulaM: {
                 required: true,
                 minlength: 10,
                 maxlength: 13,
                 validaCedula: true,
                 cedulaRepetida: CedulaDiferente($("#edit_form input#txtcedula").val())
             },
-            txtnombre: "required",
-            txtapellido: "required",
-            txtdireccion: "required",
-            txtcelular: {
+            txtnombreM: "required",
+            txtapellidoM: "required",
+            txtdireccionM: "required",
+            txtcelularM: {
                 required: true,
                 minlength: 10
             },
-            txtcorreo: {
+            txtcorreoM: {
                 required: true,
                 email: true,
                 correoRepetida: CorreoDiferente($("#edit_form input#txtcorreo").val())
             },
-            clave: {
+            claveM: {
                 required: true,
                 minlength: 5,
             },
-            clave1: {
+            clave1M: {
                 required: true,
                 minlength: 5,
-                equalTo: "#clave"
+                equalTo: "#clave1"
             }
         },
         messages: {
-            txtcedula: {
+            txtcedulaM: {
                 required: "Ingresar un numero de cedula valido",
                 minlength: $.validator.format("Necesitamos por lo menos {0} caracteres"),
                 maxlength: "{0} caracteres son demasiados!"
             },
-            txtnombre: "Ingrese un nombre para el registro",
-            txtapellido: "Ingrese un apellido para el registro",
-            txtdireccion: "Ingrese una direccion para el registro",
-            txtcelular: {
+            txtnombreM: "Ingrese un nombre para el registro",
+            txtapellidoM: "Ingrese un apellido para el registro",
+            txtdireccionM: "Ingrese una direccion para el registro",
+            txtcelularM: {
                 required: "Ingresar un numero de celular",
                 minlength: "Necesitamos por lo menos {0} caracteres",
             },
-            txtcorreo: {
+            txtcorreoM: {
                 required: "Ingresar un correo valido"
             },
-            clave: {
+            claveM: {
                 required: "Ingrese una clave",
                 minlength: "Necesitamos por lo menos {0} caracteres",
             },
-            clave1: {
+            clave1M: {
                 required: "Ingrese una clave",
                 minlength: "Necesitamos por lo menos {0} caracteres",
                 equalTo: "La contraseña no coincide"
@@ -370,89 +370,12 @@ function validarRegistroPersona() {
             }
         }
     });
-    $("#idformularioM").validate({
-        rules: {
-            txtCedulaM: {
-                required: true,
-                minlength: 10,
-                maxlength: 13,
-                validaCedula: true
-            },
-            txtnombreM: "required",
-            txtapellidoM: "required",
-            txtdireccionM: "required",
-            txtcelularM: {
-                required: true,
-                minlength: 10
-            },
-            txtcorreoM: {
-                required: true,
-                email: true
-            },
-            claveM: {
-                required: true,
-                minlength: 5,
-            },
-            clave1M: {
-                required: true,
-                minlength: 5,
-                equalTo: "#claveM"
-            }
-        },
-        messages: {
-            txtCedulaM: {
-                required: "Ingresar un numero de cedula valido",
-                minlength: $.validator.format("Necesitamos por lo menos {0} caracteres"),
-                maxlength: "{0} caracteres son demasiados!"
-            },
-            txtnombreM: "Ingrese un nombre para el registro",
-            txtapellidoM: "Ingrese un apellido para el registro",
-            txtdireccionM: "Ingrese una direccion para el registro",
-            txtcelularM: {
-                required: "Ingresar un numero de celular",
-                minlength: "Necesitamos por lo menos {0} caracteres",
-            },
-            txtcorreoM: {
-                required: "Ingresar un correo valido"
-            },
-            claveM: {
-                required: "Ingrese una clave",
-                minlength: "Necesitamos por lo menos {0} caracteres",
-            },
-            clave1M: {
-                required: "Ingrese una clave",
-                minlength: "Necesitamos por lo menos {0} caracteres",
-                equalTo: "La contraseña no coincide"
-            }
-        },
-        //permite presentar la validacion de los campos de texto
-        highlight: function (element) {
-            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
-        },
-        unhighlight: function (element) {
-            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
-            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
-
-        },
-        errorElement: 'span',
-        errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
-            if (element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
 }
 
 /**
  * Botones para control de edicion del cliente
  */
 function styleEditar(form) {
-    form.find("input[name=txtCedulaM]").prop("readonly", false);
-    form.find("input[name=txtCedulaM]").removeClass("form-control-plaintext");
-    form.find("input[name=txtCedulaM]").addClass("form-control");
     form.find("input[name=txtnombreM]").prop("readonly", false);
     form.find("input[name=txtnombreM]").removeClass("form-control-plaintext");
     form.find("input[name=txtnombreM]").addClass("form-control");
@@ -488,9 +411,6 @@ function changeStatusBtn(button) {
 }
 
 function styleCancelar(form) {
-    form.find("input[name=txtCedulaM]").prop("readonly", true);
-    form.find("input[name=txtCedulaM]").addClass("form-control-plaintext");
-    form.find("input[name=txtCedulaM]").removeClass("form-control");
     form.find("input[name=txtnombreM]").prop("readonly", true);
     form.find("input[name=txtnombreM]").addClass("form-control-plaintext");
     form.find("input[name=txtnombreM]").removeClass("form-control");
