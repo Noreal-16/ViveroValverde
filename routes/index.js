@@ -252,6 +252,10 @@ router.post('/Administra/Articulo/guardar', auth, admin, articuloC.guardar);
 router.post('/Administra/Articulo/modificar', auth, admin, articuloC.modificar);
 router.get('/articulo/buscar', auth, admin, articuloC.buscador);
 
+router.get('/cargarImagenes', articuloC.visualizarGaleria);
+router.post('/subirImagenes', articuloC.subirImagenes);
+
+
 /**
  * Administra clientes vista administrador
  */
