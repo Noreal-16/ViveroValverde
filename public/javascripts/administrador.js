@@ -205,9 +205,9 @@ function AgregarArticulo(external) {
                 html += '</tr>'
                 $("#tbodyFac").append(html);
                 filas++;
-                subtotal+=data.precio;
-                iva=subtotal*0.12;
-                total=subtotal+iva;
+                subtotal += data.precio;
+                iva = subtotal * 0.12;
+                total = subtotal + iva;
                 $("#subtotal").text(subtotal);
                 $("#iva").text(iva);
                 $("#total").text(total);
@@ -217,7 +217,7 @@ function AgregarArticulo(external) {
     });
 }
 function calcular(fila, prec) {
-   
+
     console.log("llega");
     var valor = $("#num" + fila).val();
     $("#t" + fila).text(valor * prec);
@@ -231,4 +231,63 @@ function calcular(fila, prec) {
     // $("#descuento").text("0.00");
 
 
+}
+function listarImagenes(external) {
+    var url = base_url + "cargarImagenes";
+    var external = external;
+    console.log(external);
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "external=" + external,
+        success: function (data, textStatus, jqXHR) {
+            $("#externalArticulo").val(data.external_idArt);
+            $("#nombreArt").text(data.nombre);
+            console.log(data);
+            var html = '';
+            html += '<div class="card-columns">';
+            if (data.lista.length > 0) {
+                $.each(data.lista, function (index, item) {
+                    html += '<div class="card" style="width:150px;height="100"">';
+                    html += '<img class="card-img-top" src="/images/uploads/' + item.nonbre + '" width="100" height="100" alt="Card image cap">';
+                    html += '<div class="card-img-overlay">';
+                    html += '<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>'
+                    html += '</div>';
+                    html += '</div>';
+                });
+            } else {
+                html += '<div class="card">';
+                html += '<img class="card-img-top" src="/images/fondo2listo.jpg" alt="Card image cap">';
+                html += '<div class="card-img-overlay">';
+                html += '<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>'
+                html += '</div>';
+                // html += '<div class="card-body">';
+                // html += '<a href="#" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>';
+                // html += '</div>';
+                html += '</div>';
+            }
+            html += '</div>'
+            $("#fileImagen").html(html);
+
+        }
+    });
+}
+function guardarImagenes() {
+    var url = base_url + "subirImagenes";
+    /**
+     * Declaro la formdata e instancio la formdata 
+     */
+    var formData = new FormData($("#formImagen"));
+
+    $.ajax({
+        url: url,
+        method: "post",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+
+        }
+    });
 }
