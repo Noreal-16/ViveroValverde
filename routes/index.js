@@ -230,13 +230,14 @@ router.get('/contacto', auth, function (req, res, next) {
 /**
  * Administracion de servicio de jardineria vista administrador
  */
-router.get('/cargarServicio', auth, admin, servicio.cargarServicio);
+router.get('/cargarServicio', auth, admin, servicio.cargarServicio);//carga datos de servico para modificar
 router.get('/servicio/buscar', auth, admin, servicio.buscador);
 router.get('/Administra/Servicios', auth, admin, servicio.visualizarLista);
 router.post('/Administra/Servicios/Guardar', auth, admin, servicio.guardar);
 router.post('/Administra/Servicios/Modificar', auth, admin, servicio.modificar);
 
-
+router.get('/cargarImagenesServicio',auth, admin, servicio.listarGaleria);
+router.post('/subirImagenesServicio',auth, admin, servicio.cargarImagenes);
 /***
  * Administracion de categotias de plantas vista administrador
  * visualizar
@@ -260,8 +261,8 @@ router.post('/Administra/Articulo/guardar', auth, admin, articuloC.guardar);
 router.post('/Administra/Articulo/modificar', auth, admin, articuloC.modificar);
 router.get('/articulo/buscar', auth, admin, articuloC.buscador);
 
-router.get('/cargarImagenes', articuloC.visualizarGaleria);
-router.post('/subirImagenes', articuloC.subirImagenes);
+router.get('/cargarImagenes',auth, admin, articuloC.visualizarGaleria);
+router.post('/subirImagenes',auth, admin, articuloC.subirImagenes);
 
 
 /**

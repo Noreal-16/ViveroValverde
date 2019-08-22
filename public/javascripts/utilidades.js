@@ -574,8 +574,8 @@ $(function () {
 function dataTable() {
     //tabla pedidos data tables para realizar busquedas
     $('#tablapedido').DataTable({
-        "dom": "Blfrtip",
-        "buttons": ['excel', 'pdf', 'copy'],
+        // "dom": "Blfrtip",
+        // "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -599,8 +599,8 @@ function dataTable() {
     });
     //configuracion para busqueda de persona
     $('#listaCliente').DataTable({
-        "dom": "Blfrtip",
-        "buttons": ['excel', 'pdf', 'copy'],
+        // "dom": "Blfrtip",
+        // "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -624,8 +624,8 @@ function dataTable() {
     });
 
     $('#listaServicio').DataTable({
-        "dom": "Blfrtip",
-        "buttons": ['excel', 'pdf', 'copy'],
+        // "dom": "Blfrtip",
+        // "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",
@@ -646,6 +646,7 @@ function dataTable() {
             }
         }
     });
+    
     $('#listaArticulo').DataTable({
         // "dom": "Blfrtip",
         // "buttons": ['excel', 'pdf', 'copy'],
@@ -669,27 +670,27 @@ function dataTable() {
             }
         }
     });
-    $('#listaCategoria').DataTable({
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por pagina",
-            "zeroRecords": "No se encontraron resultados en su busqueda",
-            "searchPlaceholder": "Buscar registros",
-            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
-            "infoEmpty": "No existen registros",
-            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            },
-            "oAria": {
-                "sortAscending": ": ordenar de manera Ascendente",
-                "sortDescending": ": ordenar de manera Descendente "
-            }
-        }
-    });
+    // $('#listaCategoria').DataTable({
+    //     "language": {
+    //         "lengthMenu": "Mostrar _MENU_ registros por pagina",
+    //         "zeroRecords": "No se encontraron resultados en su busqueda",
+    //         "searchPlaceholder": "Buscar registros",
+    //         "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+    //         "infoEmpty": "No existen registros",
+    //         "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+    //         "search": "Buscar:",
+    //         "paginate": {
+    //             "first": "Primero",
+    //             "last": "Último",
+    //             "next": "Siguiente",
+    //             "previous": "Anterior"
+    //         },
+    //         "oAria": {
+    //             "sortAscending": ": ordenar de manera Ascendente",
+    //             "sortDescending": ": ordenar de manera Descendente "
+    //         }
+    //     }
+    // });
     /**
      * Agrega datatable a a tabla de agregar articulos
      */

@@ -1,5 +1,14 @@
 'use strict';
 var Servicio = require('../modelo/servicio');
+var galeria = require('../modelo/galeriaServicio');
+
+/**
+ * Librerias para cargar imagenes 
+ */
+var formidable = require('formidable');
+var fs = require('fs');
+var extensiones = ["jpg", "png", "gif"];
+
 class servicioControlador {
 
     /**
@@ -41,7 +50,7 @@ class servicioControlador {
                     title: 'Servicio Jardineria',
                     fragmento: "servicio/servicio",
                     listado: resultS,
-                    sesion:true,
+                    sesion: true,
                     usuario: { persona: req.user.nombre },
                     msg: { error: req.flash('error'), info: req.flash('info') }
                 });
@@ -135,6 +144,90 @@ class servicioControlador {
         }).error(function (error) {
             req.flash('error', 'se produjo un error');
             res.redirect('/Administra/Servicios');
+        });
+    }
+
+    /**
+     * metodo para listar las imagenes del servicio
+     * @param {external de servicio} req 
+     * @param {data json} res 
+     */
+    listarGaleria(req, res) {
+        var external = req.query.external;
+        var data;
+        Servicio.filter({ external_id: external }).then(function (resulServicio) {
+            if (resulServicio.length > 0) {
+                var serv = resulServicio[0];
+                galeria.filter({ id_servicio: serv.id }).then(function (listgale) {
+                    data = {
+                        nombre: serv.nombre,
+                        external_idServ: serv.external_id,
+                        lista: listgale
+                    };
+                    res.json(data);
+                }).error(function () {
+
+                });
+            } else {
+
+            }
+        }).error(function (error) {
+            req.flash('error', "Se ha registrado correctamente");
+            res.redirect("/Admin");
+        })
+    }
+
+    /**
+         * Metodo para guradar imagen el base de datos
+         * @param {file} req 
+         * @param {*} res 
+         */
+    cargarImagenes(req, res) {
+
+        var form = new formidable.IncomingForm();
+        form.maxFileSize = 200 * 1024 * 1024;
+        form.parse(req, function (err, fiels, files) {
+            if (files.archivo.size <= form.maxFileSize) {
+                var extension = files.archivo.name.split(".").pop().toLowerCase();
+                if (extensiones.includes(extension)) {
+                    var external = fiels.externalServicio;
+                    var nombrefoto = new Date().toISOString() + "." + extension;
+                    fs.rename(files.archivo.path, "public/images/uploadsServicio/" + nombrefoto, function (err) {
+                        if (err) {
+                            req.flash('error', "El tipo de archvo tiene que ser de imagen: " + err);
+                            res.redirect("/Administra/Servicios");
+                        } else {
+                            Servicio.filter({ external_id: external }).then(function (resultServ) {
+                                if (resultServ.length > 0) {
+                                    var datosGa = {
+                                        nonbre: nombrefoto,
+                                        id_servicio: resultServ[0].id
+                                    };
+                                    var galeriaS = new galeria(datosGa);
+                                    galeriaS.save().then(function (galeriaSave) {
+                                        req.flash('success', 'La imagen se guardo correctamente');
+                                        res.redirect('/Administra/Servicios');
+                                    }).error(function (error) {
+                                        req.flash('error', 'Ocurrio un error al guardar Imagen');
+                                        res.redirect('/Administra/Servicios');
+                                    });
+                                } else {
+
+                                }
+                            }).error(function (error) {
+                                req.flash('error', "El tipo de archvo tiene que ser de imagen");
+                                res.redirect('/Administra/Servicios');
+                            });
+                        }
+                    });
+                } else {
+                    req.flash('error', "El tipo de archvo tiene que ser de imagen");
+                    res.redirect('/Administra/Servicios');
+                }
+            } else {
+                req.flash('error', "El tamaño no puede superar a 1MB");
+                res.redirect('/Administra/Servicios');
+            }
         });
     }
     /**

@@ -16,3 +16,9 @@ var Servicio = thinky.createModel("Servicio", {
 module.exports = Servicio;
 var Detalle_Servicio = require('./detalle_servicio');
 Servicio.hasMany(Detalle_Servicio, "detalle_servicio", "id", "id_servicio");
+
+/**
+ * Realacion con la tabla galeria servicio
+ */
+var Galeria = require('./galeriaServicio');
+Servicio.hasMany(Galeria, "galeria", "id", "id_servicio");

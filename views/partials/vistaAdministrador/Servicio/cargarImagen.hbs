@@ -40,7 +40,7 @@
         <div class="modal-content" style="background: #EFF7F1">
             <div class="modal-header bg-dark">
                 <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Agregar Imagenes <i class="far fa-images"></i>
-                    <p id="nombreArt"></p>
+                <strong><p id="nombreServicio"></p></strong>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -54,7 +54,7 @@
                                 <div class="card-header">
                                     <span class="btn btn-success fileinput-button">
                                         <i class="far fa-images"></i>
-                                        <span>Imagenes</span>
+                                        <span>Imagenes</span> 
                                         {{!-- <input type="file" name="files[]" multiple /> --}}
                                     </span>
                                 </div>
@@ -70,10 +70,10 @@
                                     <h5>Cargar Imagen</h5>
                                 </div>
                                 <div class="card-body">
-                                    <img src="/images/fondoPlanta.png" id="galeriaImagen" class="card-img-top" alt="..."></div>
+                                    <img src="/images/jardin.jpg" id="galeriaImagen" class="card-img-top" alt="..."></div>
                                 <div class="card-footer">
-                                    <form enctype="multipart/form-data" id="formImagen" action="/subirImagenes" method="POST">
-                                        <input type="hidden" name="externalArticulo" id="externalArticulo" value="1">
+                                    <form enctype="multipart/form-data" id="formImagen" action="/subirImagenesServicio" method="POST">
+                                        <input type="hidden" name="externalServicio" id="externalServicio" value="1">
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" name="archivo" multiple="true" id="customFileLang1" lang="es">

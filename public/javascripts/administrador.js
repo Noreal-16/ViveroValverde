@@ -232,6 +232,11 @@ function calcular(fila, prec) {
 
 
 }
+
+/**
+ * funcion para presentar galeria de articulo
+ * @param {external de articulo} external 
+ */
 function listarImagenes(external) {
     var url = base_url + "cargarImagenes";
     var external = external;
@@ -250,6 +255,51 @@ function listarImagenes(external) {
                 $.each(data.lista, function (index, item) {
                     html += '<div class="card" style="width:150px;height="100"">';
                     html += '<img class="card-img-top" src="/images/uploads/' + item.nonbre + '" width="100" height="100" alt="Card image cap">';
+                    html += '<div class="card-img-overlay">';
+                    html += '<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>'
+                    html += '</div>';
+                    html += '</div>';
+                });
+            } else {
+                html += '<div class="card">';
+                html += '<img class="card-img-top" src="/images/fondo2listo.jpg" alt="Card image cap">';
+                html += '<div class="card-img-overlay">';
+                html += '<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>'
+                html += '</div>';
+                // html += '<div class="card-body">';
+                // html += '<a href="#" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>';
+                // html += '</div>';
+                html += '</div>';
+            }
+            html += '</div>'
+            $("#fileImagen").html(html);
+
+        }
+    });
+}
+
+/**
+ * funcion para obtener la galeria de servicio
+ * @param {external de servicio} external 
+ */
+function listarImagenesServicio(external) {
+    var url = base_url + "cargarImagenesServicio";
+    var external = external;
+    console.log(external);
+    $.ajax({
+        url: url,
+        dataType: "json",
+        data: "external=" + external,
+        success: function (data, textStatus, jqXHR) {
+            $("#externalServicio").val(data.external_idServ);
+            $("#nombreServicio").text(data.nombre);
+            console.log(data);
+            var html = '';
+            html += '<div class="card-columns">';
+            if (data.lista.length > 0) {
+                $.each(data.lista, function (index, item) {
+                    html += '<div class="card" style="width:150px;height="100"">';
+                    html += '<img class="card-img-top" src="/images/uploadsServicio/' + item.nonbre + '" width="100" height="100" alt="Card image cap">';
                     html += '<div class="card-img-overlay">';
                     html += '<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>'
                     html += '</div>';

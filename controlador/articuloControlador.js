@@ -2,8 +2,7 @@
 var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
 var galeria = require('../modelo/galeriaArticulo');
-var thinky = require('../config/thinky_init');
-var r = thinky.r;
+
 /**
  * Librerias para cargar imagenes 
  */
@@ -265,7 +264,7 @@ class articuloControlador {
             }
         }).error(function (error) {
             req.flash('error', "Se ha registrado correctamente");
-            res.redirect("/");
+            res.redirect("/Admin");
         })
     }
 
