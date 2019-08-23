@@ -1,59 +1,8 @@
 <script>
   $(document).ready(function () {
-    $("#buscar").click(function () {
-      var texto = $("#texto").val();
-      console.log(texto);
-      $.ajax({
-        url: "http://localhost:8001/servicio/buscar",
-        data: 'texto=' + texto,
-        success: function (data, textStatus, jqXHR) {
-          console.log(data)
-          var html = '';
-          if (data.length != 0) {
-            $.each(data, function (index, item) {
-              html += '<div class="row form-group  ">';
-              html += '<div class="col-md-8 col-lg-6 col-sm-4">';
-              html += '<div class="card text-center card-product">';
-              html += '<div class="card-product__img">';
-              html += '<img class="card-img" src="/images/g2.jpg" alt="">';
-              html += '<ul class="card-product__imgOverlay">';
-              html += '<li><button data-target="#detalle" data-toggle="modal"  onclick="cargardetalleServicio(' + item.external_id + ')"><i class="ti-search"></i></button></li>';
-              html += '<li><button name="external" onclick="return agregarServicio(' + item.external_id + ')"><i class="ti-shopping-cart"></i></button></li>';
-              html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
-              html += '<div class="card-body">';
-              html += '<p>' + item.descripcion + '</>';
-              html += '<h4 class="card-product__title"><a href="#">' + item.nombre + '</a></h4>';
-              html += '<p class="card-product__price"><b>Precio: </b>$' + item.precio + '<br><b>Medida: </b>' + item.medida + ' metros</p>';
-              html += '</div>';
-              html += '</div>';
-              html += '</div>';
-              html += '</div>';
-
-            });
-            $("#datos").html(html);
-          } else {
-            alert("El producto ingresado No existe");
-          }
-
-        }
-      });
-    });
+   buscaServicio() 
   });
-  function agregarServicio(external) {
-    var url = 'http://localhost:8001/servicio' + external;
-    $.ajax({
-      url: url,
-      type: 'GET',
-      dataType: 'json',
-      success: function (data, textStatus, jqXHR) {
-        console.log(data);
-        refrescar();
-      }, error: function (jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
-      }
-    });
-    return false;
-  }
+
 </script>
 <div class="container">
   <section class="service py-lg-4 py-md-4 py-sm-3 py-3" id="service">

@@ -1,40 +1,8 @@
 <script>
-  /** function mostrarDatos(data) {
-            var cantidad = 0;
-            $.each(data, function (i, item) {
-                cantidad += item.cantidad;
-            });
-            $('#cant').html(cantidad);
-        }*/
-  function mostrarDatos(data) {
-    console.log(data);
-    var cantidad = 0;
-    $.each(data, function (i, item) {
-
-      cantidad += item.cantidad;
-      console.log(cantidad);
-    });
-    $('#cant').html(data.length);
-  }
-  function refrescar() {
-    var url = 'http://localhost:8001/listarcarrito';
-    $.ajax({
-      url: url,
-      type: 'GET',
-      dataType: 'json',
-      success: function (data, textStatus, jqXHR) {
-        mostrarDatos(data);
-      }, error: function (jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
-      }
-    });
-  }
-
-  $(document).ready(function () {
+$(document).ready(function () {
     refrescar();
   }); 
 </script>
-
 <!-- //banner -->
 <div class="banner-left-side" id="home">
   <!-- header -->

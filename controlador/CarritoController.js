@@ -62,7 +62,7 @@ class CarritoController {
                     if (pos == -1) {
                         var datos = {
                             external: external,
-                            nombre: itemServ.nombre,
+                            nombre: itemServ.nonbre,
                             cantidad: 1,
                             precio: itemServ.precio,
                             precio_total: itemServ.precio,
