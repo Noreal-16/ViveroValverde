@@ -10,11 +10,11 @@ var Dettalle_Factura = thinky.createModel("Dettalle_Factura", {
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
     id_articulo: type.string(),
-    id_detalleFactura: type.string()
+    id_factura: type.string()
 
 });
 module.exports = Dettalle_Factura;
 var Factura = require('./factura');
-Dettalle_Factura.belongsTo(Factura, "factura", "id_detalleFactura", "id");
+Dettalle_Factura.belongsTo(Factura, "factura", "id_factura", "id");
 var Articulo = require('./articulo');
 Dettalle_Factura.belongsTo(Articulo, "articulo", "id_articulo", "id");

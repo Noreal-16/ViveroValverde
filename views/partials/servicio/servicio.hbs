@@ -18,7 +18,7 @@
               html += '<img class="card-img" src="/images/g2.jpg" alt="">';
               html += '<ul class="card-product__imgOverlay">';
               html += ' <li><button data-toggle="modal"data-target="#detalle"data-toggle="modal"  onclick="cargardetalleServicio(' + item.external_id + ')"><i class="ti-search"></i></button></li>';
-              html += '<li><button name="external" onclick="return agregarServicio(' + item.external_id + ')"><i class="ti-shopping-cart"></i></button></li>';
+              html += '<li><button name="external" onclick="return agregarServicio("' + item.external_id + '")"><i class="ti-shopping-cart"></i></button></li>';
               html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
               html += '<div class="card-body">';
               html += '<p>' + item.descripcion + '</>';

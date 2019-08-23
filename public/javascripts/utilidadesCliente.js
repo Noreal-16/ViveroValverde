@@ -18,7 +18,7 @@ function validaNumeroReales(e) {
         return true;
     }
     // Patron de entrada, en este caso solo acepta numeros
-   var patron = /^\d*(\.\d{1})?\d{0,1}$/;
+    var patron = /^\d*(\.\d{1})?\d{0,1}$/;
     var tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
@@ -105,7 +105,7 @@ function validarCedulaRepetida(cedula) {
         dataType: "json",
         data: "cedula=" + cedula,
         async: false,
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             flag = data;
         }
     });
@@ -126,7 +126,7 @@ function validarCorreoRepetida(correo) {
         dataType: "json",
         data: "correo=" + correo,
         async: false,
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             flag = data;
         }
     });
@@ -134,14 +134,15 @@ function validarCorreoRepetida(correo) {
     return flag;
 }
 
-function CedulaDiferente(cedula_nueva){
+function CedulaDiferente(cedula_nueva) {
     var cedula_ant = $("#edit_form #cedula").val();
-    
+
     return (cedula_nueva !== cedula_ant);
 }
-function CorreoDiferente(correo_nueva){
+
+function CorreoDiferente(correo_nueva) {
     var correo_ant = $("#edit_form #correo").val();
-    
+
     return (correo_nueva !== correo_ant);
 }
 
@@ -151,28 +152,28 @@ function CorreoDiferente(correo_nueva){
 function validarRegistroPersona() {
     $.validator.addMethod(
         "validaCedula",
-        function (value, element) {
+        function(value, element) {
             return this.optional(element) || validarCedula(value);
         },
         "Cedula no valida"
     );
     $.validator.addMethod(
         "cedulaRepetida",
-        function (value, element) {
+        function(value, element) {
             return this.optional(element) || validarCedulaRepetida(value);
         },
         "Cedula ya registrada"
     );
     $.validator.addMethod(
         "correoRepetida",
-        function (value, element) {
+        function(value, element) {
             return this.optional(element) || validarCorreoRepetida(value);
         },
         "Correo ya registrado"
     );
     $.validator.addMethod( //override email with django email validator regex - fringe cases: "user@admin.state.in..us" or "name@website.a"
         'email',
-        function (value, element) {
+        function(value, element) {
             return this.optional(element) || /(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*")@((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)$)|\[(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}\]$/i.test(value);
         },
         'Verifica que tienes una dirección de correo electrónico válida.'
@@ -199,17 +200,17 @@ function validarRegistroPersona() {
             }
         },
         //permite presentar la validacion de los campos de texto
-        highlight: function (element) {
+        highlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
         },
-        unhighlight: function (element) {
+        unhighlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
             $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
 
         },
         errorElement: 'span',
         errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
             } else {
@@ -217,7 +218,7 @@ function validarRegistroPersona() {
             }
         }
     });
-    
+
     $("#edit_form").validate({
         rules: {
             txtCedulaM: {
@@ -276,17 +277,17 @@ function validarRegistroPersona() {
             }
         },
         //permite presentar la validacion de los campos de texto
-        highlight: function (element) {
+        highlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
         },
-        unhighlight: function (element) {
+        unhighlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
             $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
 
         },
         errorElement: 'span',
         errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
             } else {
@@ -352,17 +353,17 @@ function validarRegistroPersona() {
             }
         },
         //permite presentar la validacion de los campos de texto
-        highlight: function (element) {
+        highlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
         },
-        unhighlight: function (element) {
+        unhighlight: function(element) {
             $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
             $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
 
         },
         errorElement: 'span',
         errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
             } else {
@@ -394,16 +395,15 @@ function styleEditar(form) {
     form.find("input[name=txttelefonoM]").prop("readonly", false);
     form.find("input[name=txttelefonoM]").removeClass("form-control-plaintext");
     form.find("input[name=txttelefonoM]").addClass("form-control");
-    
+
 }
 
 function changeStatusBtn(button) {
-    if(button.hasClass("editar")) {
+    if (button.hasClass("editar")) {
         button.removeClass("editar");
         button.addClass("cancelar");
         button.text("Cancelar");
-    }
-    else if (button.hasClass("cancelar")) {
+    } else if (button.hasClass("cancelar")) {
         button.removeClass("cancelar");
         button.addClass("editar");
         button.text("Editar");
@@ -429,19 +429,16 @@ function styleCancelar(form) {
     form.find("input[name=txttelefonoM]").prop("readonly", true);
     form.find("input[name=txttelefonoM]").addClass("form-control-plaintext");
     form.find("input[name=txttelefonoM]").removeClass("form-control");
-    
-    
+
+
 }
 
 function btnEditarCss(button) {
-    if(button.hasClass("editar")) {
+    if (button.hasClass("editar")) {
         styleEditar(button.parents("form"));
-    }
-    else if (button.hasClass("cancelar")) {
+    } else if (button.hasClass("cancelar")) {
         styleCancelar(button.parents("form"));
     }
-    
+
     changeStatusBtn(button);
 }
-
-

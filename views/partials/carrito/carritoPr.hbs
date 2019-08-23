@@ -13,10 +13,13 @@
             html += '<td>$' + item.precio + '</td>';
             html += '<td>$' + item.precio_total + '</td></tr>';
             total += item.precio_total
+            
         });
-        html += '<td></td><td></td><td>Total</td><td>$' + total.toFixed(2) + '</td>';
+		$('#total').text(total);
+	    $('#carritoDatos').html(html);
+         //html += '<td></td><td></td><td>Total</td><td>$' + total.toFixed(2) + '</td>';
 
-        $('#carritoDatos').html(html);
+  
     }
     function item(external, tipo) {
         var url = 'http://localhost:8001/agregar' + external;
@@ -57,23 +60,27 @@
 
 
 </script>
-<div class="container">
-    <section class="gallery py-lg-4 py-md-3 py-sm-3 py-3" id="gallery">
-        <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
-            <h3 class="title text-center mb-2">{{title}} </h3>
-            <div class="title-w3ls-text text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-            </div>
-            <div class="section__content section__content--p30" id="">
-                <div class="container-fluid">
+<link rel="stylesheet" type="text/css" href="/assetsClie/styles/cart.css">
+<br><br><br><br>
+
+	
+<div  class="cart_info">
+			<div class="container">
+				
+				<div class="container-fluid">
                     <div class="row">
                         <div class="col-md-10">
                             <div class="card">
                                 <div class="card-header">
                                     <i class="mr-2 fa fa-align-justify"></i>
                                     <strong class="card-title" v-if="headerText">Carrito</strong>
+                                    
+                                    
                                 </div>
+                                
                                 <div class="card-body">
                                     <div class="table-responsive m-b-40">
+                                         
                                         <table class="table table-borderless table-data3" id="carrito">
                                             <thead>
                                                 <tr>
@@ -93,18 +100,45 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+				
+				<div class="row row_extra">
+					<div class="col-lg-4">
+						
+						
+
+						<!-- Coupon Code -->
+						<div class="coupon">
+							<div class="section_title">Codigo de descuento</div>
+							<div class="section_subtitle">Ingrese su código de cupón</div>
+							<div class="coupon_form_container">
+								<form action="#" id="coupon_form" class="coupon_form">
+									<input type="text" class="coupon_input" required="required">
+									<button class="button coupon_button"><span>Aplicar</span></button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6 offset-lg-2">
+						<div class="cart_total">
+							<div class="section_title">Total de compra</div>
+							<div class="section_subtitle">Informacion Final</div>
+							<div class="cart_total_container">
+								<ul>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_total_title">Subtotal</div>
+										<div class="cart_total_value ml-auto">$790.90</div>
+									</li>
+									
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_total_title">Total</div>
+										
+										<div class="cart_total_value ml-auto" ><input type="text" id="total" name="total"  readonly></div>
+									</li>
+								</ul>
+							</div>
+							<div class="button checkout_button"><a href="#">Cancelar</a></div>
+						</div>
+					</div>
+				</div>
+			</div>		

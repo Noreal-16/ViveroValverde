@@ -66,14 +66,15 @@ class CarritoController {
                             cantidad: 1,
                             precio: itemServ.precio,
                             precio_total: itemServ.precio,
-                            categoria: itemServ.descripcion
+                            categoria: itemServ.descripcion,
+                            stock: 1
 
                         };
                         console.log(datos);
                         carrito.push(datos);
                     } else {
                         var dato = carrito[pos];
-                        dato.cantidad = dato.cantidad + 1;
+                        dato.cantidad = 1;
                         dato.precio_total = dato.cantidad * dato.precio;
                         carrito[pos] = dato;
                     }
@@ -145,7 +146,7 @@ class CarritoController {
          */
     carrito(req, res) {
         if (req.user != undefined && req.user.nombre != undefined) {
-            
+
             res.render('index', {
                 titulo: 'Panel de Usuario',
                 fragmento: 'carrito/carritoPr',
@@ -154,7 +155,7 @@ class CarritoController {
                 msg: { error: req.flash('error'), info: req.flash('info') }
             });
         } else {
-            
+
             res.render('index', {
                 titulo: 'Panel de Usuario',
                 fragmento: 'carrito/carritoPr',
