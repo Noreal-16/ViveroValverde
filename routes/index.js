@@ -173,12 +173,12 @@ router.post('/Perfil/Modificar',auth, persona.modificarvistacliente);
  * Visualizacion de vista servicio cliente
  */
 router.get('/Servicios', servicio.visualizarServicio);
-
+router.get('/galeriaServicio', servicio.listagaleriaServico);
 /**
  * Visualizacion vista articulo cliente
  */
 router.get('/Articulo', articuloC.visualizarRegistro);
-
+router.get('/galeriaArticulo', articuloC.listargaleriaArticulo);
 /**
  * Administracion registro de cliente vista cliente
  */

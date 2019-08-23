@@ -87,12 +87,14 @@ function cargarTabla(data) {
     $.each(data, function (index, item) {
         html += '<tr>';
         html += '<td WIDTH="60">' + (index + 1) + '</td>';
+        html += '<td>' + item.nombre + ' [' + item.categoria + ']</td>';
         html += '<td align="center">';
         html += '<div class="input-group">'
         html += '<a href="#" onClick="return item(' + "'" + item.external + "'" + ', 1)" class="btn btn-danger">-</a>';
         html += '<input readonly type="text" value="' + item.cantidad + '" class="form-control col-sm-2">';
         html += '<a href="#" onClick="return item(' + "'" + item.external + "'" + ', 0)" class="btn btn-success">+</a>';
-        html += '</div></td><td>' + item.nombre + ' [' + item.categoria + ']</td>';
+        html += '</div></td>';
+        html += '<td>' + item.stock + '</td>'
         html += '<td>$' + item.precio + '</td>';
         html += '<td>$' + item.precio_total + '</td></<td>';
         subtotal += item.precio_total;

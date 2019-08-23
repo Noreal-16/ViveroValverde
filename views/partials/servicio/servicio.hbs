@@ -17,7 +17,7 @@
               html += '<div class="card-product__img">';
               html += '<img class="card-img" src="/images/g2.jpg" alt="">';
               html += '<ul class="card-product__imgOverlay">';
-              html += ' <li><button data-toggle="modal"data-target="#detalle"data-toggle="modal"  onclick="cargardetalleServicio(' + item.external_id + ')"><i class="ti-search"></i></button></li>';
+              html += '<li><button data-target="#detalle" data-toggle="modal"  onclick="cargardetalleServicio(' + item.external_id + ')"><i class="ti-search"></i></button></li>';
               html += '<li><button name="external" onclick="return agregarServicio(' + item.external_id + ')"><i class="ti-shopping-cart"></i></button></li>';
               html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
               html += '<div class="card-body">';
@@ -64,7 +64,7 @@
       <div class="input-group col-md-8">
         <input type="text" name="texto" id="texto" class="form-control" placeholder="Buscar">
         <div class="input-group-append">
-          <button class="btn btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
+          <button class="btn btn-success" type="button" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
         </div>
       </div><br>
       <div class="row form-group " id="datos">
@@ -74,7 +74,7 @@
             <div class="card-product__img">
               <img class="card-img" src="/images/g2.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button data-toggle="modal" data-target="#detalle" data-toggle="modal" onclick="cargardetalleServicio('{{listad.external_id}}')"><i class="ti-search"></i></button></li>
+                <li><button type="button" data-target="#detalle" data-toggle="modal" onclick="cargarImagenesServicio('{{listad.external_id}}')"><i class="ti-search"></i></button></li>
                 <li><button name="external" onclick="return agregarServicio('{{listad.external_id}}')"><i class="ti-shopping-cart"></i></button></li>
                 <li><button><i class="ti-heart"></i></button></li>
               </ul>

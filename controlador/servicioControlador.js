@@ -38,6 +38,35 @@ class servicioControlador {
         });
     }
 
+    listagaleriaServico(req, res) {
+        var external = req.query.external;
+        var data;
+        Servicio.filter({ external_id: external }).then(function (resulServ) {
+            if (resulServ.length > 0) {
+                var serviciol = resulServ[0];
+                galeria.filter({ id_servicio: serviciol.id }).then(function (listgale) {
+                    data = {
+                        nombre: serviciol.nombre,
+                        external_idArt: serviciol.external_id,
+                        descripcion: serviciol.descripcion,
+                        medida: serviciol.medida,
+                        precio: serviciol.precio,
+                        lista: listgale
+                    };
+                    res.json(data);
+                }).error(function () {
+
+                });
+            } else {
+
+            }
+        }).error(function (error) {
+            req.flash('error', "Se ha registrado correctamente");
+            res.redirect("/Admin");
+        })
+    }
+
+
     /**
      * Presentacion de pantalla para el cliente
      * @param {*} req 

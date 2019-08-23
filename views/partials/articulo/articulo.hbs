@@ -76,7 +76,7 @@
             <div class="card-product__img">
               <img class="card-img" src="/images/g1.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button data-target="#detalle" data-toggle="modal" onclick="cargarGaleria('{{listadoAr.external_id}}')"><i class="ti-search"></i></button></li>
                 <li><button name="external" onclick="return agregarItem('{{listadoAr.external_id}}')"><i class="ti-shopping-cart"></i></button></li>
                 <li><button><i class="ti-heart"></i></button></li>
               </ul>
@@ -95,3 +95,6 @@
   </section>
 </div>
 <!--//gallery -->
+<div>
+  {{> 'articulo/detalle'}}
+</div>

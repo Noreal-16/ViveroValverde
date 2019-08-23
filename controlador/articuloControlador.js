@@ -19,46 +19,75 @@ class articuloControlador {
      */
     visualizarRegistro(req, res) {
         articulo.getJoin({ categoria: true }).filter({ estado: true }).then(function (listaArt) {
-            categoria.filter({ estado: true }).then(function (lista) {
-                if (req.user != undefined && req.user.nombre != undefined) {
-                    res.render('index', {
-                        title: 'Plantas y Flores',
-                        fragmento: "articulo/articulo",
-                        sesion: true,
-                        listaA: listaArt,
-                        lista: lista,
-                        usuario: { persona: req.user.nombre },
-                        msg: {
-                            error: req.flash('error'),
-                            info: req.flash('info')
-                        }
-                    });
-
-
-                } else {
-                    res.render('index', {
-                        title: 'Plantas y Flores',
-                        fragmento: "articulo/articulo",
-                        sesion: false,
-                        listaA: listaArt,
-                        lista: lista,
-                        msg: {
-                            error: req.flash('error'),
-                            info: req.flash('info')
-                        }
-                    });
-                }
-
-            }).error(function (error) {
-                req.flash('error', 'Hubo un error!');
-                res.redirect('/');
-            });
-
+            if (req.user != undefined && req.user.nombre != undefined) {
+                res.render('index', {
+                    title: 'Plantas y Flores',
+                    fragmento: "articulo/articulo",
+                    sesion: true,
+                    listaA: listaArt,
+                    usuario: { persona: req.user.nombre },
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info')
+                    }
+                });
+            } else {
+                res.render('index', {
+                    title: 'Plantas y Flores',
+                    fragmento: "articulo/articulo",
+                    sesion: false,
+                    listaA: listaArt,
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info')
+                    }
+                });
+            }
         }).error(function (error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/');
         });
     }
+    /**
+     * Metodo que permite listar las imagenes de los articulos en la vista cliente
+     * @param {external articulo} req 
+     * @param {json [data]} res 
+     */
+    listargaleriaArticulo(req, res) {
+        var external = req.query.external;
+        var data;
+        articulo.filter({ external_id: external }).then(function (resulArt) {
+            if (resulArt.length > 0) {
+                var artic = resulArt[0];
+                galeria.filter({ id_articulo: artic.id }).then(function (listgale) {
+                    data = {
+                        nombre: artic.nonbre,
+                        external_idArt: artic.external_id,
+                        descripcion: artic.descripcion,
+                        tamanio: artic.tamanio,
+                        stok: artic.stok,
+                        precio: artic.precio,
+                        lista: listgale
+                    };
+                    res.json(data);
+                }).error(function () {
+
+                });
+            } else {
+
+            }
+        }).error(function (error) {
+            req.flash('error', "Se ha registrado correctamente");
+            res.redirect("/Admin");
+        })
+    }
+
+
+
+
+
+
+
 
     /**
      * Visualizacion de datos para el administrador
@@ -274,7 +303,6 @@ class articuloControlador {
      * @param {*} res 
      */
     subirImagenes(req, res) {
-
         var form = new formidable.IncomingForm();
         form.maxFileSize = 200 * 1024 * 1024;
         form.parse(req, function (err, fiels, files) {

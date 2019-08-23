@@ -12,7 +12,7 @@ class facturaControlador {
 
     visualizaFactura(req, res) {
         factura.then(function (resultFactura) {
-            var nro = "#0000" + (resultFactura.length + 1);
+            var nro = "0000" + (resultFactura.length + 1);
             articulo.getJoin({ categoria: true }).then(function (listaA) {
                 if (req.session.factura == undefined) {
                     req.session.factura = [];
