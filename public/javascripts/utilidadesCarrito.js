@@ -31,9 +31,11 @@ function refrescar() {
         }
     });
 }
+var listaArticulo;
 
 function cargarTabla(data) {
-    console.log(data);
+    listaArticulo = data;
+    console.log(listaArticulo);
     var html = '';
     var descuento = 0;
     var subtotal = 0;
@@ -172,4 +174,79 @@ function buscar() {
             }
         });
     });
+}
+/**
+ * Cargar fecha actual en la factura
+ * 
+ */
+function fechaActual() {
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth() + 1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if (dia < 10)
+        dia = '0' + dia; //agrega cero si el menor de 10
+    if (mes < 10)
+        mes = '0' + mes //agrega cero si el menor de 10
+    return (ano + "/" + mes + "/" + dia);
+}
+/**
+ * Guardar datos articulos
+ */
+function guardarfactiras(external) {
+    var dataDetalle = listaArticulo;
+    console.log("esta es la data del articulo");
+    var external = external;
+    console.log(external);
+
+
+    var dataA = {
+        external_id: external,
+        fecha_pedido: fechaActual(),
+        fecha_entrga: null,
+        iva: '0',
+        subtotal: $("#subtotal").val(),
+        total: $("#totall").val(),
+        descuento: '0',
+        tipo_pago: null,
+        tipo_fact: 'pedido'
+    }
+    $.ajax({
+        url: base_url + 'guardarFacturas',
+        type: 'POST',
+        dataType: 'json',
+        // cache: false,
+        async: false,
+        data: { dataA: JSON.stringify(dataA) },
+        success: function(data, textStatus, jqXHR) {
+            console.log("Retorno de guardado  ==> { " + data.data);
+            console.log(data.idFactura);
+            $.each(dataDetalle, function(index, item) {
+                console.log(item);
+                $.ajax({
+                    url: base_url + 'guardarDetalleFacturas',
+                    type: 'POST',
+                    dataType: 'json',
+                    //cahce: false,
+                    async: false,
+                    data: { item: JSON.stringify(item), id: data.idFactura },
+                    success: function(data, textStatus, jqXHR) {
+                        console.log("Retorno de guardado  ==> { " + data.data);
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+
+                });
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+        }
+
+    });
+
+
 }

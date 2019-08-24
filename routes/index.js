@@ -304,6 +304,10 @@ router.get('/agregar:external', carritoC.agregarItem);
 
 router.get('/quitar:external', carritoC.quitarItem);
 router.get('/listarcarrito', carritoC.mostrarCarrito);
-
+/**
+ * Guardar facturas
+ */
+router.post('/guardarFacturas', factura.guardar);
+router.post('/guardarDetalleFacturas', factura.guardaDetalle);
 
 module.exports = router;
