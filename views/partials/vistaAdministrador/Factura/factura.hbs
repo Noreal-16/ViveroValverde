@@ -8,13 +8,18 @@
 </script>
 {{> 'vistaAdministrador/Factura/modalArticulo'}}
 <!-- Main content -->
+<div class="input-group col-md-4">
+    <input type="text" name="texto" id="texto" class="form-control" placeholder="Buscar">
+    <div class="input-group-append">
+        <button class="btn btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
+    </div>
+</div>
 <div class="invoice p-3 mb-3">
     <!-- title row -->
     <div class="row">
         <div class="col-12">
             <h4>
                 <i class="fas fa-globe"></i> Factura. #{{nro}}
-
                 <small class="float-right">
                     <div class="input-group">
                         <span class="input-group-text form-control-sm bg-info">Fecha:</span>
@@ -153,7 +158,7 @@
             <button onclick="window.print();" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
             <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Metodos de Pago
             </button>
-            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+            <button type="button" class="btn btn-primary float-right" onclick="guardarfactura()" style="margin-right: 5px;">
                 <i class="fas fa-download"></i> Generate PDF
             </button>
         </div>

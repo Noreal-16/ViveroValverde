@@ -77,8 +77,9 @@ function mostrarDatos(data) {
  * Permite llenar la tabla conlos datos de articulo
  * @param {data} data 
  */
+var listaArticulos;
 function cargarTabla(data) {
-    console.log(data);
+    // console.log(" "+data);
     var html = '';
     var subtotal = 0;
     var descuento = 0;
@@ -107,7 +108,9 @@ function cargarTabla(data) {
     $("#total").text(total);
     $("#descuento").text("0.00");
 
-    console.log("Presentasion de datos en servuico: "+data);
+    console.log(Object.values(data));
+    listaArticulos = data;
+    // console.log("Presentasion de datos en servuico: "+data);
 }
 
 
@@ -130,6 +133,36 @@ function item(external, tipo) {
     return false;
 }
 
+/**
+ * Metodo para redondeo de datos
+ */
 function redondeoDecimal(num) {
     return Math.round(num * 100) / 100;
+}
+
+
+function guardarfactura() {
+    console.log("llega para facturar");
+    console.log(listaArticulos);
+    var url = base_url + 'guardarFactura';
+    $.each(listaArticulos, function (index, item) {
+        console.log(item);
+        console.log(item.cantidad);
+        console.log(item.external);
+        console.log(item.precio_total);
+        console.log(item.precio);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                // mostrarDatos(data);
+                cargarTabla(data);
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+            }
+        });
+    })
 }
