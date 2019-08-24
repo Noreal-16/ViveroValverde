@@ -1,7 +1,7 @@
 'use strict';
 var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
-var servicio = require('../modelo/servicio');
+//var servicio = require('../modelo/servicio');
 
 class CarritoController {
     /**
@@ -11,7 +11,9 @@ class CarritoController {
      */
     agregarItem(req, res) {
             var carrito = req.session.carrito;
+            console.log("Este es de articulo =============> " + carrito);
             var external = req.params.external;
+            console.log("Este es de articulo =============> " + external);
             articulo.filter({ external_id: external }).getJoin({ categoria: true }).then(function(articl) {
                 if (articl.length >= 0) {
                     var artic = articl[0];
@@ -47,51 +49,51 @@ class CarritoController {
             });
 
         }
-        /**
-         * metodo para agregar al carrito de compras los servicios
-         * @param {M} req 
-         * @param {*} res 
-         */
-    agregarServicio(req, res) {
-            var carrito = req.session.carrito;
-            var external = req.params.external;
-            servicio.filter({ external_id: external }).then(function(serv) {
-                if (serv.length >= 0) {
-                    var itemServ = serv[0];
-                    var pos = CarritoController.verificar(carrito, external);
-                    if (pos == -1) {
-                        var datos = {
-                            external: external,
-                            nombre: itemServ.nonbre,
-                            cantidad: 1,
-                            precio: itemServ.precio,
-                            precio_total: itemServ.precio,
-                            categoria: itemServ.descripcion,
-                            stock: 1
+        //     /**
+        //      * metodo para agregar al carrito de compras los servicios
+        //      * @param {M} req 
+        //      * @param {*} res 
+        //      */
+        // agregarServicio(req, res) {
+        //         var carrito = req.session.carrito;
+        //         var external = req.params.external;
+        //         servicio.filter({ external_id: external }).then(function(serv) {
+        //             if (serv.length >= 0) {
+        //                 var itemServ = serv[0];
+        //                 var pos = CarritoController.verificar(carrito, external);
+        //                 if (pos == -1) {
+        //                     var datos = {
+        //                         external: external,
+        //                         nombre: itemServ.nombre,
+        //                         cantidad: 1,
+        //                         precio: itemServ.precio,
+        //                         precio_total: itemServ.precio,
+        //                         categoria: itemServ.descripcion,
+        //                         stock: 1
 
-                        };
-                        console.log(datos);
-                        carrito.push(datos);
-                    } else {
-                        var dato = carrito[pos];
-                        dato.cantidad = 1;
-                        dato.precio_total = dato.cantidad * dato.precio;
-                        carrito[pos] = dato;
-                    }
-                    req.session.carrito = carrito;
-                    console.log(req.session.carrito);
-                    res.status(200).json(req.session.carrito);
-                }
-            }).error(function(error) {
-                req.flash('error', "Se produjo un error al enciar datos");
-                res.redirect('/')
-            });
-        }
-        /**
-         * metodo para disminuir unidades del carrito
-         * @param {*} req 
-         * @param {*} res 
-         */
+    //                     };
+    //                     console.log(datos);
+    //                     carrito.push(datos);
+    //                 } else {
+    //                     var dato = carrito[pos];
+    //                     dato.cantidad = 1;
+    //                     dato.precio_total = dato.cantidad * dato.precio;
+    //                     carrito[pos] = dato;
+    //                 }
+    //                 req.session.carrito = carrito;
+    //                 console.log(req.session.carrito);
+    //                 res.status(200).json(req.session.carrito);
+    //             }
+    //         }).error(function(error) {
+    //             req.flash('error', "Se produjo un error al enciar datos");
+    //             res.redirect('/')
+    //         });
+    //     }
+    /**
+     * metodo para disminuir unidades del carrito
+     * @param {*} req 
+     * @param {*} res 
+     */
     quitarItem(req, res) {
             var carrito = req.session.carrito;
             var external = req.params.external;
@@ -145,24 +147,31 @@ class CarritoController {
          * @param {*} res 
          */
     carrito(req, res) {
-        if (req.user != undefined && req.user.nombre != undefined) {
+        if (req.session.carrito.length >= 1 || req.session.carritoServicio.length >= 1) {
+            if (req.user != undefined && req.user.nombre != undefined) {
 
-            res.render('index', {
-                titulo: 'Panel de Usuario',
-                fragmento: 'carrito/carritoPr',
-                sesion: true,
-                usuario: { persona: req.user.nombre },
-                msg: { error: req.flash('error'), info: req.flash('info') }
-            });
+                //console.log(" Este es la variable session " + req.session.carrito);
+                res.render('index', {
+                    titulo: 'Panel de Usuario',
+                    fragmento: 'carrito/carritoPr',
+                    sesion: true,
+                    usuario: { persona: req.user.nombre },
+                    msg: { error: req.flash('error'), info: req.flash('info') }
+                });
+            } else {
+                //console.log(" Este es la variable session " + req.session.carrito.length);
+                res.render('index', {
+                    titulo: 'Panel de Usuario',
+                    fragmento: 'carrito/carritoPr',
+                    sesion: false,
+                    msg: { error: req.flash('error'), info: req.flash('info') }
+                });
+            }
         } else {
-
-            res.render('index', {
-                titulo: 'Panel de Usuario',
-                fragmento: 'carrito/carritoPr',
-                sesion: false,
-                msg: { error: req.flash('error'), info: req.flash('info') }
-            });
+            req.flash('info', "Por favor agregue un producto al carrito de compras");
+            res.redirect('/');
         }
+
     }
 }
 

@@ -1,7 +1,8 @@
 <script>
-$(document).ready(function() {
-    mostrar();
-});
+    $(document).ready(function () {
+        mostrarSevicio();
+        mostrar();
+    });
 </script>
 <link rel="stylesheet" type="text/css" href="/assetsClie/styles/cart.css">
 <br><br><br><br>
@@ -17,12 +18,13 @@ $(document).ready(function() {
                                 <div class="card">
                                     <div class="card-header">
                                         <i class="mr-2 fa fa-align-justify"></i>
-                                        <strong class="card-title" v-if="headerText">Carrito</strong>
+                                        <strong class="card-title" v-if="headerText">Carrito Articulos </strong>
+
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive m-b-40">
-                                            <table class="table table-borderless table-data3" id="carrito">
-                                                <thead>
+                                            <table class="table table-borderless table-data3" id="carritoA">
+                                                {{!-- <thead>
                                                     <tr>
                                                         <th>Cantidad</th>
                                                         <th>Descripción</th>
@@ -31,10 +33,35 @@ $(document).ready(function() {
                                                     </tr>
                                                 </thead>
                                                 <tbody id="carritoDatos">
-                                                </tbody>
+                                                </tbody>--}}
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <i class="mr-2 fa fa-align-justify"></i>
+                                            <strong class="card-title" v-if="headerText">Carrito Servicios
+                                                Jardineria</strong>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive m-b-40">
+                                                <table class="table table-borderless table-data3" id="carritoS">
+                                                    {{!--<thead>
+                                                    <tr>
+                                                        <th>Cantidad</th>
+                                                        <th>Descripción</th>
+                                                        <th>Precio Unitario</th>
+                                                        <th>Precio Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="carritoDatosServicio">
+                                                </tbody>--}}
+                                                </table>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                             {{!-- </div>
@@ -46,7 +73,7 @@ $(document).ready(function() {
                                     <div class="section_subtitle">Ingrese su código de cupón</div>
                                     <div class="coupon_form_container">
                                         <form action="#" id="coupon_form" class="coupon_form">
-                                            <input type="text" class="coupon_input" required="required">
+                                            <input type="text" class="coupon_input" required="required" id="desc">
                                             <button class="button coupon_button"><span>Aplicar</span></button>
                                         </form>
                                     </div>
@@ -60,14 +87,21 @@ $(document).ready(function() {
                                         <ul>
                                             <li class="d-flex flex-row align-items-center justify-content-start">
                                                 <div class="cart_total_title">Subtotal</div>
-                                                <div class="cart_total_value ml-auto">$790.90</div>
+                                                <div class="cart_total_value ml-auto">$<input id="subtotal" value="0"
+                                                        type="text"></div>
+
+                                            </li>
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_total_title">Descuento</div>
+                                                <div class="cart_total_value ml-auto">$<input id="descuento" value="0"
+                                                        type="text"></div>
+
                                             </li>
                                             <li class="d-flex flex-row align-items-center justify-content-start">
                                                 <div class="cart_total_title">Total</div>
-                                                <tr>
-                                                    <th>Total:</th>
-                                                    <td id="total"></td>
-                                                </tr>
+                                                <div class="cart_total_value ml-auto">$<input id="totall" value="0"
+                                                        type="text"></div>
+
                                             </li>
                                         </ul>
                                     </div>

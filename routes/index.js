@@ -51,6 +51,8 @@ var loginC = new login();
  */
 var carrito = require('../controlador/CarritoController');
 var carritoC = new carrito();
+var carritoServicio = require('../controlador/servicioCarrito');
+var servicioCarr = new carritoServicio();
 
 /**
  * Controlador rol ------------------------------------>
@@ -125,8 +127,9 @@ router.get('/cerrar_sesion', auth, loginC.cerrar);
  */
 router.get('/', function(req, res, next) {
     rol.crear_roles();
-    if (req.session.carrito == undefined) {
+    if (req.session.carrito == undefined || req.session.carritoServicio == undefined) {
         req.session.carrito = [];
+        req.session.carritoServicio = [];
     }
 
     if (req.isAuthenticated()) {
@@ -287,11 +290,18 @@ router.get('/quitarArt', auth, admin, factura.quitarItem);
 router.get('/listafacturaArt', auth, admin, factura.mostrarCarrito1);
 
 /**
+ * Carrito servicio
+ */
+
+router.get('/agregarServicio:external', servicioCarr.agregarServicio);
+router.get('/quitarServicio:external', servicioCarr.quitarServicio);
+router.get('/listarServicio', servicioCarr.mostrarCarritoServicio);
+/**
  *administra carrito de compra vista cliente
  */
 router.get('/carrito', carritoC.carrito);
 router.get('/agregar:external', carritoC.agregarItem);
-router.get('/servicio:external', carritoC.agregarServicio);
+
 router.get('/quitar:external', carritoC.quitarItem);
 router.get('/listarcarrito', carritoC.mostrarCarrito);
 
