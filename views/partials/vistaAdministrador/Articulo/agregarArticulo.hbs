@@ -1,3 +1,50 @@
+<script>
+    $(function () {
+
+        var extensionesValidas = ".png, .gif, .jpeg, .jpg";
+        // Cuando cambie #fichero
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            $('#imagenArticulo').attr('src', '');
+            if (validarExtension(this)) {
+                verImagen(this);
+            }
+        });
+
+        // Validacion de extensiones permitidas
+        function validarExtension(datos) {
+            var ruta = datos.value;
+            console.log(ruta);
+            var extension = ruta.substring(ruta.lastIndexOf('.') + 1).toLowerCase();
+            var extensionValida = extensionesValidas.indexOf(extension);
+            if (extensionValida < 0) {
+                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+                mensaje += "La extensión no es válida Su fichero tiene de extensión: ." + extension;
+                mensaje += '</div>';
+                $("#errorExt").show();
+                $("#errorExt").html(mensaje);
+                $("#errorExt").hide(8000);
+                $('#imagenArticulo').attr('src', '/images/not-found.png');
+                $("#inputcargarImagen").val("")
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // Vista preliminar de la imagen.
+        function verImagen(datos) {
+            if (datos.files && datos.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagenArticulo').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(datos.files[0]);
+            }
+        }
+    });
+
+</script>
 <!-- Modal  agregar articulo-->
 <div class="modal fade" id="agregarArticulo1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -8,18 +55,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formArticulo" method="POST" action="/Administra/Articulo/guardar">
+            <form id="formArticulo" enctype="multipart/form-data" method="POST" action="/Administra/Articulo/guardar">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8">
                                 <label for="nombre">Nombre</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-info"></i></span>
                                     <input type="text" class="form-control" id="nombre" placeholder="Nombre de la planta" name="nombre" onkeypress="return validaletra(event)" maxlength="50">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8">
                                 <label for="descripcion">Descripcion</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-info"></i></span>
@@ -43,49 +90,39 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8">
                                 <label for="precio">Pecio</label>
                                 <div class="input-group">
                                     <span class="input-group-text"> <i class="fas fa-dollar-sign"></i></span>
                                     <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio" onkeypress="return validaNumero(event)">
                                 </div>
                             </div><br>
-                            <span class="badge badge-pill badge-primary">Categorias</span>
-                            <div class="input-group col-md-8">
-                                <span class="input-group-text"><i class="far fa-list-alt"></i></span>
-                                <select class="form-control" name="categoria" id="categoria">
-                                    {{#each lista as |listados i|}}
-                                    <option value="{{listados.external_id}}"> {{listados.nombre}} </option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="srcimagen">
-                                    </div>
+                            <div class="form-group col-md-8">
+                                <span class="badge badge-pill badge-primary">Categorias</span>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="far fa-list-alt"></i></span>
+                                    <select class="form-control" name="categoria" id="categoria">
+                                        {{#each lista as |listados i|}}
+                                        <option value="{{listados.external_id}}"> {{listados.nombre}} </option>
+                                        {{/each}}
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="card border-primary mb-3 " style="width: 18rem;">
-                                        <div class="card-header bg-success mb-3">
-                                            <h3>Cargar Imagen</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <img src="/images/fondoPlanta.png" id="imagenArticulo" class="card-img-top" alt="..."></div>
-                                        <div class="card-footer">
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" multiple="true" id="customFileLang" lang="es">
-                                                    {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
-                                                    <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Imagen</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="button"><i class="fa fa-camera-retro"></i></button>
-                                                </div>
-                                            </div>
+                            <div class="col-sm-3">
+                                <div class="card border-primary mb-3 " style="width: 18rem;">
+                                    <div id="errorExt"></div>
+                                    <div class="card-header text-center bg-success mb-3">
+                                        <h4>Foto de Portada</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="/images/fondoPlanta.png" id="imagenArticulo" class="card-img-top" alt="..."></div>
+                                    <div class="card-footer">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" multiple="true" id="inputcargarImagen" name="inputcargarImagen" lang="es">
+                                            {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                            <label class="custom-file-label" for="inputcargarImagen" data-browse="Elegir">Imagen</label>
                                         </div>
                                     </div>
                                 </div>

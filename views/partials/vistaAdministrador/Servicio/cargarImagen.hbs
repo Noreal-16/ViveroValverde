@@ -1,36 +1,45 @@
 <script>
     $(function () {
-        $(".custom-file-input").on("change", function (e) {
+        var extensionesValidas = ".png, .gif, .jpeg, .jpg";
+        // Cuando cambie #fichero
+        $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            addImage(e);
-        });
-        function addImage(e) {
-            var file = e.target.files[0], imageType = /image.*/;
-            if (!file.type.match(imageType))
-                return;
-            var reader = new FileReader();
-            reader.onload = fileOnload;
-            reader.readAsDataURL(file);
-        }
-        function fileOnload(e) {
-            var result = e.target.result;
-            $('#galeriaImagen').attr("src", result);
-            console.log("llega");
-        }
-        $("#btnagregar11").click(function () {
-            console.log("llega: " + $("#customFileLang1").val());
-            if (($("#customFileLang1").val()) != "") {
-                //guardarImagenes();
-            } else {
-                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
-                mensaje += "Seleccione una imagen";
-                mensaje += "</div>";
-                $("#errorIma").show();
-                $("#errorIma").html(mensaje);
-                $("#errorIma").hide(4000);
+            $('#galeriaImagen').attr('src', '');
+            if (validarExtension(this)) {
+                verImagen(this);
             }
-        })
+        });
+
+        // Validacion de extensiones permitidas
+        function validarExtension(datos) {
+            var ruta = datos.value;
+            var extension = ruta.substring(ruta.lastIndexOf('.') + 1).toLowerCase();
+            var extensionValida = extensionesValidas.indexOf(extension);
+            if (extensionValida < 0) {
+                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+                mensaje += "La extensión no es válida Su fichero tiene de extensión: ." + extension;
+                mensaje += '</div>';
+                $("#errorExtG").show();
+                $("#errorExtG").html(mensaje);
+                $("#errorExtG").hide(8000);
+                $('#galeriaImagen').attr('src', '/images/not-found.png');
+                $('#customFileLang1').val("");
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // Vista preliminar de la imagen.
+        function verImagen(datos) {
+            if (datos.files && datos.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#galeriaImagen').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(datos.files[0]);
+            }
+        }
     });
 
 </script>
@@ -40,7 +49,9 @@
         <div class="modal-content" style="background: #EFF7F1">
             <div class="modal-header bg-dark">
                 <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Agregar Imagenes <i class="far fa-images"></i>
-                <strong><p id="nombreServicio"></p></strong>
+                    <strong>
+                        <p id="nombreServicio"></p>
+                    </strong>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -54,7 +65,7 @@
                                 <div class="card-header">
                                     <span class="btn btn-success fileinput-button">
                                         <i class="far fa-images"></i>
-                                        <span>Imagenes</span> 
+                                        <span>Imagenes</span>
                                         {{!-- <input type="file" name="files[]" multiple /> --}}
                                     </span>
                                 </div>
@@ -64,7 +75,7 @@
                             </div>
                         </div>
                         <div class="col-3">
-                            <div id="errorIma"></div>
+                            <div id="errorExtG"></div>
                             <div class="card border-primary mb-3 " style="width: 15rem;">
                                 <div class="card-header bg-dark text-white">
                                     <h5>Cargar Imagen</h5>
@@ -72,16 +83,18 @@
                                 <div class="card-body">
                                     <img src="/images/jardin.jpg" id="galeriaImagen" class="card-img-top" alt="..."></div>
                                 <div class="card-footer">
-                                    <form enctype="multipart/form-data" id="formImagen" action="/subirImagenesServicio" method="POST">
+                                    <form enctype="multipart/form-data" id="formImagenS" action="/subirImagenesServicio" method="POST">
                                         <input type="hidden" name="externalServicio" id="externalServicio" value="1">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="archivo" multiple="true" id="customFileLang1" lang="es">
-                                                {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
-                                                <label class="custom-file-label" for="customFileLang1" data-browse="Elegir">Imagen</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-info" id="btnagregar11" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="submit"><i class="fa fa-camera-retro"></i></button>
+                                        <div class="form-group ">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="archivo" multiple="true" id="customFileLang1" lang="es">
+                                                    {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                                    <label class="custom-file-label" for="customFileLang1" data-browse="Elegir">Imagen</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info" id="btnagregar11" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="submit"><i class="fa fa-camera-retro"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

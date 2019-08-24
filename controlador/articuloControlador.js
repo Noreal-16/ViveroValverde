@@ -82,13 +82,6 @@ class articuloControlador {
         })
     }
 
-
-
-
-
-
-
-
     /**
      * Visualizacion de datos para el administrador
      * @param {*} req 
@@ -129,35 +122,57 @@ class articuloControlador {
      */
 
     guardar(req, res) {
-        categoria.filter({ external_id: req.body.categoria }).then(function (catg) {
-            if (catg.length > 0) {
-                var datosA = {
-                    nonbre: req.body.nombre,
-                    descripcion: req.body.descripcion,
-                    tamanio: req.body.tamanio,
-                    stok: req.body.stock,
-                    precio: req.body.precio,
-                    estado: true,
-                    id_categoria: catg[0].id
+        var form = new formidable.IncomingForm();
+        form.maxFileSize = 200 * 1024 * 1024;
+        form.parse(req, function (err, fiels, files) {
+            if (files.inputcargarImagen.size <= form.maxFileSize) {
+                var extension = files.inputcargarImagen.name.split(".").pop().toLowerCase();
+                if (extensiones.includes(extension)) {
+                    var nombreportada = new Date().toISOString() + "." + extension;
+                    fs.rename(files.inputcargarImagen.path, "public/images/uploads/" + nombreportada, function (err) {
+                        if (err) {
+                            req.flash('error', "El tipo de archvo tiene que ser imagen: " + err);
+                            res.redirect("Administra/Articulo");
+                        } else {
+                            categoria.filter({ external_id: fiels.categoria }).then(function (catg) {
+                                if (catg.length > 0) {
+                                    var datosA = {
+                                        nonbre: fiels.nombre,
+                                        descripcion: fiels.descripcion,
+                                        tamanio: fiels.tamanio,
+                                        stok: fiels.stock,
+                                        precio: fiels.precio,
+                                        estado: true,
+                                        portada: nombreportada,
+                                        id_categoria: catg[0].id
+                                    }
+                                    var articuloC = new articulo(datosA);
+                                    articuloC.save().then(function (articuloSave) {
+                                        req.flash('success', 'El articulo se guardo correctamente');
+                                        res.redirect('/Administra/Articulo');
+                                    }).error(function (error) {
+                                        req.flash('error', 'Ocurrio un error al guardar articulo');
+                                        res.redirect('/Administra/Articulo');
+                                    });
+                                } else {
+                                    req.flash('error', 'No existe la categoria!');
+                                    res.redirect('/');
+                                }
+                            }).error(function (error) {
+                                req.flash('error', 'Se produjo un error comunicarse con el desarrollador!');
+                                res.redirect('/');
+                            });
+                        }
+                    });
+                } else {
+                    req.flash('error', "El tipo de archvo tiene que ser de imagen");
+                    res.redirect('/Administra/Articulo');
                 }
-                var articuloC = new articulo(datosA);
-                articuloC.save().then(function (articuloSave) {
-                    req.flash('success', 'El articulo se guardo correctamente');
-                    res.redirect('/Administra/Articulo');
-                }).error(function (error) {
-                    req.flash('error', 'Ocurrio un error al guardar articulo');
-                    res.redirect('/Administra/Articulo');
-                });
             } else {
-                req.flash('error', 'No existe la categoria!');
-                res.redirect('/');
+                req.flash('error', "El tamaño no puede superar a 1MB");
+                res.redirect('/Administra/Articulo');
             }
-
-        }).error(function (error) {
-            req.flash('error', 'Se produjo un error comunicarse con el desarrollador!');
-            res.redirect('/');
         });
-
     }
 
     /**
@@ -177,6 +192,7 @@ class articuloControlador {
                     tamanio: artc.tamanio,
                     stok: artc.stok,
                     precio: artc.precio,
+                    portada: artc.portada,
                     external_id: artc.external_id,
                     external_idC: artc.categoria.external_id,
                     lista: listaC
@@ -198,33 +214,85 @@ class articuloControlador {
      * @param {*} res 
      */
     modificar(req, res) {
-        articulo.filter({ external_id: req.body.external }).then(function (resultAr) {
-            if (resultAr.length > 0) {
-                var articulo = resultAr[0];
-                categoria.filter({ external_id: req.body.categoria1 }).then(function (resultC) {
-                    articulo.nonbre = req.body.nombreA;
-                    articulo.descripcion = req.body.descripcionA;
-                    articulo.tamanio = req.body.tamanioA;
-                    articulo.precio = req.body.precioA;
-                    articulo.stok = req.body.stockA;
-                    articulo.id_categoria = resultC[0].id;
-                    articulo.save().then(function (resultArticulo) {
-                        req.flash('success', 'Articulo modificado correctamente');
-                        res.redirect('/Administra/Articulo');
-                    }).error(function (error) {
-                        res.flash('error', 'Se produjo un error al modificar articulo');
-                        res.redirect('/Administra/Articulo');
+      var form = new formidable.IncomingForm();
+        form.maxFileSize = 200 * 1024 * 1024;
+        form.parse(req, function (err, fiels, files) {
+            if (files.inputcargarImagenM.size <= form.maxFileSize) {
+                var extension = files.inputcargarImagenM.name.split(".").pop().toLowerCase();
+                if (extensiones.includes(extension)) {
+                    var nombreportada = new Date().toISOString() + "." + extension;
+                    fs.rename(files.inputcargarImagenM.path, "public/images/uploads/" + nombreportada, function (err) {
+                        if (err) {
+                            req.flash('error', "El tipo de archvo tiene que ser imagen: " + err);
+                            res.redirect("/Administra/Articulo");
+                        } else {
+                            articulo.filter({ external_id: fiels.externalA }).then(function (resultAr) {
+                                if (resultAr.length > 0) {
+                                    var articulo = resultAr[0];
+                                    categoria.filter({ external_id: fiels.categoria1 }).then(function (resultC) {
+                                        articulo.nonbre = fiels.nombreA;
+                                        articulo.descripcion = fiels.descripcionA;
+                                        articulo.tamanio = fiels.tamanioA;
+                                        articulo.precio = fiels.precioA;
+                                        articulo.stok = fiels.stockA;
+                                        articulo.portada = nombreportada;
+                                        articulo.id_categoria = resultC[0].id;
+                                        articulo.save().then(function (resultArticulo) {
+                                            req.flash('success', 'Articulo modificado correctamente');
+                                            res.redirect('/Administra/Articulo');
+                                        }).error(function (error) {
+                                            res.flash('error', 'Se produjo un error al modificar articulo');
+                                            res.redirect('/Administra/Articulo');
+                                        });
+                                    }).error(function (error) {
+                                        res.flash('error', 'Se produjo un error en categorias');
+                                        res.redirect('Administra/Articulo');
+                                    });
+                                } else {
+                                    res.flash('error', 'Se produjo un error en categorias');
+                                    res.redirect('Administra/Articulo');
+                                }
+                            }).error(function (error) {
+                                res.send(error);
+                            });
+                        }
                     });
-                }).error(function (error) {
-                    res.flash('error', 'Se produjo un error en categorias');
-                    res.redirect('Administra/Articulo');
-                });
+                } else {
+                    articulo.filter({ external_id: fiels.externalA }).then(function (resultAr) {
+                        if (resultAr.length > 0) {
+                            var articulo = resultAr[0];
+                            categoria.filter({ external_id: fiels.categoria1 }).then(function (resultC) {
+                                articulo.nonbre = fiels.nombreA;
+                                articulo.descripcion = fiels.descripcionA;
+                                articulo.tamanio = fiels.tamanioA;
+                                articulo.precio = fiels.precioA;
+                                articulo.stok = fiels.stockA;
+                                articulo.id_categoria = resultC[0].id;
+                                articulo.save().then(function (resultArticulo) {
+                                    req.flash('success', 'Articulo modificado correctamente');
+                                    res.redirect('/Administra/Articulo');
+                                }).error(function (error) {
+                                    res.flash('error', 'Se produjo un error al modificar articulo');
+                                    res.redirect('/Administra/Articulo');
+                                });
+                            }).error(function (error) {
+                                res.flash('error', 'Se produjo un error en categorias');
+                                res.redirect('Administra/Articulo');
+                            });
+                        } else {
+                            res.flash('error', 'Se produjo un error en categorias');
+                            res.redirect('Administra/Articulo');
+                        }
+                    }).error(function (error) {
+                        res.send(error);
+                    });
+                    // req.flash('error', "El tipo de archvo tiene que ser de imagen");
+                    // res.redirect('/Administra/Articulo');
+                }
             } else {
-                res.flash('error', 'Se produjo un error en categorias');
-                res.redirect('Administra/Articulo');
+                req.flash('error', "El tamaño no puede superar a 1MB");
+                res.redirect('/Administra/Articulo');
             }
-        }).error(function (error) {
-            res.send(error);
         });
     }
     /**
@@ -319,7 +387,7 @@ class articuloControlador {
                     fs.rename(files.archivo.path, "public/images/uploads/" + nombrefoto, function (err) {
                         if (err) {
                             req.flash('error', "El tipo de archvo tiene que ser de imagen: " + err);
-                            res.redirect("/Foto");
+                            res.redirect("Administra/Articulo");
                         } else {
                             articulo.filter({ external_id: external }).then(function (resultArt) {
                                 if (resultArt.length > 0) {

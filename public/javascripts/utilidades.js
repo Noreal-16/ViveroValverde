@@ -327,13 +327,15 @@ function validarServicio() {
             nombre: "required",
             medida: "required",
             descripcion: "required",
-            precio: "required"
+            precio: "required",
+            fileAgregar:"required"
         },
         messages: {
             nombre: "Ingrese un nombre para el registro",
             medida: "Ingrese la medida ",
             descripcion: "Ingrese una descripcion del servicio",
             precio: "Debe ingresar un precio del producto",
+            fileAgregar:"Seleccione una foto de portada"
         },
         //permite presentar la validacion de los campos de texto
         highlight: function (element) {
@@ -366,6 +368,32 @@ function validarServicio() {
             medidam: "Ingrese la medida ",
             descripcionm: "Ingrese una descripcion del servicio",
             preciom: "Debe ingresar un precio del producto",
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $("#formImagenS").validate({
+        rules: {
+            archivo: "required",
+        },
+        messages: {
+            archivo: "Seleccione una imagen para cargar"
         },
         //permite presentar la validacion de los campos de texto
         highlight: function (element) {
@@ -459,13 +487,15 @@ function validarArticulo() {
             nombre: "required",
             descripcion: "required",
             tamanio: "required",
-            precio: "required"
+            precio: "required",
+            inputcargarImagen:"required"
         },
         messages: {
             nombre: "Ingrese un nombre para el registro",
             descripcion: "Ingrese una descripcion del servicio",
             tamanio: "Ingrese un tamaño para el registro",
-            precio: "Ingrese un precio para el registro"
+            precio: "Ingrese un precio para el registro",
+            inputcargarImagen:"Seleccione una imagen de portada"
         },
         //permite presentar la validacion de los campos de texto
         highlight: function (element) {
@@ -506,6 +536,32 @@ function validarArticulo() {
         unhighlight: function (element) {
             $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
             $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+        },
+        errorElement: 'span',
+        errorClass: 'invalid-feedback',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $("#formImagen").validate({
+        rules: {
+            archivo: "required",
+        },
+        messages: {
+            archivo: "Seleccione una imagen para cargar"
+        },
+        //permite presentar la validacion de los campos de texto
+        highlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-invalid');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').find(".form-control:first").removeClass('is-invalid');
+            $(element).closest('.form-group').find(".form-control:first").addClass('is-valid');
+
         },
         errorElement: 'span',
         errorClass: 'invalid-feedback',

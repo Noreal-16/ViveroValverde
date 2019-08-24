@@ -37,7 +37,11 @@ class servicioControlador {
             res.redirect('/Admin');
         });
     }
-
+    /**
+     * Metodo que permnite presentar las imagenes de la galeria segun el external del servicio
+     * @param {external} req 
+     * @param {data} res 
+     */
     listagaleriaServico(req, res) {
         var external = req.query.external;
         var data;
@@ -104,22 +108,45 @@ class servicioControlador {
      * @param {*} res 
      */
     guardar(req, res) {
-        var datos = {
-            nombre: req.body.nombre,
-            medida: req.body.medida,
-            descripcion: req.body.descripcion,
-            precio: req.body.precio,
-            estado: true
-        };
-        var servicio = new Servicio(datos);
-        servicio.save().then(function (result) {
-            req.flash('success', 'Servicio registrado!');
-            res.redirect("/Administra/Servicios");
-        }).catch(function (error) {
-            req.flash('error', 'No se pudo registrar!');
-            res.redirect("/Administra/Servicios");
+        var form = new formidable.IncomingForm();
+        form.maxFileSize = 200 * 1024 * 1024;
+        form.parse(req, function (err, fiels, files) {
+            if (files.fileAgregar.size <= form.maxFileSize) {
+                var extension = files.fileAgregar.name.split(".").pop().toLowerCase();
+                if (extensiones.includes(extension)) {
+                    var nombrefoto = new Date().toISOString() + "." + extension;
+                    fs.rename(files.fileAgregar.path, "public/images/uploadsServicio/" + nombrefoto, function (err) {
+                        if (err) {
+                            req.flash('error', "El tipo de archvo tiene que ser de imagen: " + err);
+                            res.redirect("/Administra/Servicios");
+                        } else {
+                            var datos = {
+                                nombre: fiels.nombre,
+                                medida: fiels.medida,
+                                descripcion: fiels.descripcion,
+                                precio: fiels.precio,
+                                portada: nombrefoto,
+                                estado: true
+                            };
+                            var servicio = new Servicio(datos);
+                            servicio.save().then(function (result) {
+                                req.flash('success', 'Servicio registrado!');
+                                res.redirect("/Administra/Servicios");
+                            }).catch(function (error) {
+                                req.flash('error', 'No se pudo registrar!');
+                                res.redirect("/Administra/Servicios");
+                            });
+                        }
+                    });
+                } else {
+                    req.flash('error', "El tipo de archvo tiene que ser de imagen");
+                    res.redirect('/Administra/Servicios');
+                }
+            } else {
+                req.flash('error', "El tamaño no puede superar a 1MB");
+                res.redirect('/Administra/Servicios');
+            }
         });
-
     }
     /**
      * Permite cargar datos en el modal de modificar servicio
@@ -136,7 +163,8 @@ class servicioControlador {
                 nombre: item.nombre,
                 descripcion: item.descripcion,
                 medida: item.medida,
-                precio: item.precio
+                precio: item.precio,
+                portada: item.portada
             };
             res.json(data);
         }).error(function (error) {
@@ -151,28 +179,73 @@ class servicioControlador {
      * @param {*} res 
      */
     modificar(req, res) {
-        Servicio.filter({ external_id: req.body.external }).then(function (data) {
-            if (data.length > 0) {
-                var arreglo = data[0];
-                arreglo.nombre = req.body.nombrem;
-                arreglo.medida = req.body.medidam;
-                arreglo.precio = req.body.preciom;
-                arreglo.descripcion = req.body.descripcionm;
-                arreglo.saveAll().then(function (result) {
-                    req.flash('success', 'Se ha modificado correctamente');
-                    res.redirect('/Administra/Servicios');
-                }).error(function (error) {
-                    console.log(error);
-                    req.flash('error', 'No se pudo modificar');
-                    res.redirect('/Administra/Servicios');
-                });
+        var form = new formidable.IncomingForm();
+        form.maxFileSize = 200 * 1024 * 1024;
+        form.parse(req, function (err, fiels, files) {
+            if (files.fileModificar.size <= form.maxFileSize) {
+                var extension = files.fileModificar.name.split(".").pop().toLowerCase();
+                if (extensiones.includes(extension)) {
+                    var nombrefoto = new Date().toISOString() + "." + extension;
+                    fs.rename(files.fileModificar.path, "public/images/uploadsServicio/" + nombrefoto, function (err) {
+                        if (err) {
+                            req.flash('error', "El tipo de archvo tiene que ser de imagen: " + err);
+                            res.redirect("/Administra/Servicios");
+                        } else {
+                            Servicio.filter({ external_id: fiels.external }).then(function (data) {
+                                if (data.length > 0) {
+                                    var arreglo = data[0];
+                                    arreglo.nombre = fiels.nombrem;
+                                    arreglo.medida = fiels.medidam;
+                                    arreglo.precio = fiels.preciom;
+                                    arreglo.descripcion = fiels.descripcionm;
+                                    arreglo.portada=nombrefoto;
+                                    arreglo.saveAll().then(function (result) {
+                                        req.flash('success', 'Se ha modificado correctamente');
+                                        res.redirect('/Administra/Servicios');
+                                    }).error(function (error) {
+                                        console.log(error);
+                                        req.flash('error', 'No se pudo modificar');
+                                        res.redirect('/Administra/Servicios');
+                                    });
+                                } else {
+                                    req.flash('error', 'No existe el dato a buscar');
+                                    res.redirect('/Administra/Servicios');
+                                }
+                            }).error(function (error) {
+                                req.flash('error', 'se produjo un error');
+                                res.redirect('/Administra/Servicios');
+                            });
+                        }
+                    });
+                } else {
+                    Servicio.filter({ external_id: fiels.external }).then(function (data) {
+                        if (data.length > 0) {
+                            var arreglo = data[0];
+                            arreglo.nombre = fiels.nombrem;
+                            arreglo.medida = fiels.medidam;
+                            arreglo.precio = fiels.preciom;
+                            arreglo.descripcion = fiels.descripcionm;
+                            arreglo.saveAll().then(function (result) {
+                                req.flash('success', 'Se ha modificado correctamente');
+                                res.redirect('/Administra/Servicios');
+                            }).error(function (error) {
+                                console.log(error);
+                                req.flash('error', 'No se pudo modificar');
+                                res.redirect('/Administra/Servicios');
+                            });
+                        } else {
+                            req.flash('error', 'No existe el dato a buscar');
+                            res.redirect('/Administra/Servicios');
+                        }
+                    }).error(function (error) {
+                        req.flash('error', 'se produjo un error');
+                        res.redirect('/Administra/Servicios');
+                    });
+                }
             } else {
-                req.flash('error', 'No existe el dato a buscar');
+                req.flash('error', "El tamaño no puede superar a 1MB");
                 res.redirect('/Administra/Servicios');
             }
-        }).error(function (error) {
-            req.flash('error', 'se produjo un error');
-            res.redirect('/Administra/Servicios');
         });
     }
 

@@ -20,9 +20,9 @@
       <div class="row form-group" id="datos">
         {{#each listaA as |listadoAr i|}}
         <div class="col-md-4 col-lg-3">
-          <div class="card text-center card-product">
+          <div class="card  text-center card-product mb-3" ><!--style="max-width: 18rem; max-height: 25rem;"-->
             <div class="card-product__img">
-              <img class="card-img" src="/images/g1.jpg" alt="">
+              <img class="card-img" src="/images/uploads/{{listadoAr.portada}}" class="rounded mx-auto d-block" style=" height:180px;" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button data-target="#detalle" data-toggle="modal" onclick="cargarGaleria('{{listadoAr.external_id}}')"><i class="ti-search"></i></button></li>
                 <li><button name="external" onclick="return agregarItem('{{listadoAr.external_id}}')"><i class="ti-shopping-cart"></i></button></li>

@@ -1,3 +1,47 @@
+<script>
+    $(function () {
+        var extensionesValidas = ".png, .gif, .jpeg, .jpg";
+        // Cuando cambie #fichero
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            $('#imagenServicio').attr('src', '');
+            if (validarExtension(this)) {
+                verImagen(this);
+            }
+        });
+
+        // Validacion de extensiones permitidas
+        function validarExtension(datos) {
+            var ruta = datos.value;
+            var extension = ruta.substring(ruta.lastIndexOf('.') + 1).toLowerCase();
+            var extensionValida = extensionesValidas.indexOf(extension);
+            if (extensionValida < 0) {
+                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+                mensaje += "La extensión no es válida Su fichero tiene de extensión: ." + extension;
+                mensaje += '</div>';
+                $("#errorExt").show();
+                $("#errorExt").html(mensaje);
+                $("#errorExt").hide(6000);
+                $('#imagenServicio').attr('src', '/images/not-found.png');
+                $('#fileAgregar').val("");
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // Vista preliminar de la imagen.
+        function verImagen(datos) {
+            if (datos.files && datos.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagenServicio').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(datos.files[0]);
+            }
+        }
+    });
+</script>
 <!--Modal registro servicio--->
 <div class="modal fade" id="agregarServicio" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -8,7 +52,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formulario" method="POST" action="/Administra/Servicios/Guardar">
+            <form id="formulario" enctype="multipart/form-data" method="POST" action="/Administra/Servicios/Guardar">
                 <div class="modal-body mx-3">
                     <div class="row">
                         <div class="col-lg-6 col-md-5 col-sm-8 col-xs-12">
@@ -40,34 +84,24 @@
                                     <input type="text" class="form-control" name="precio" id="precio" placeholder="Precio" onkeypress="return validaNumeroReales(event)">
                                 </div>
                             </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 col-xs-6 thumb" id="srcimagen">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <div class="row">
                                 <div class="col-sm-3">
+
                                     <div class="card border-primary mb-3 " style="width: 18rem;">
-                                        <div class="card-header bg-success mb-3">
-                                            <h3>Cargar Imagen</h3>
+                                        <div id="errorExt"></div>
+                                        <div class="card-header bg-success text-center mb-3">
+                                            <h4>Foto de Portada</h4>
                                         </div>
                                         <div class="card-body">
-                                            <div id="error"></div>
-                                            <img src="/images/jardin.jpg" id="imagenArticulo" class="card-img-top" alt="..." style="max-width:100%;width:auto;height:auto;">
+                                            <img src="/images/jardin.jpg" id="imagenServicio" class="card-img-top" alt="..." style="max-width:100%;width:auto;height:auto;">
                                         </div>
                                         <div class="card-footer">
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" multiple="true" id="customFileLang" lang="es">
-                                                    {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
-                                                    <label class="custom-file-label" for="customFileLang" data-browse="Elegir">Imagen</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-info" id="btnagregar" data-tooltip="tooltip" data-placement="left" title="Agregar Imagen" type="button"><i class="fa fa-camera-retro"></i></button>
-                                                </div>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" multiple="true" id="fileAgregar" name="fileAgregar" lang="es">
+                                                {{!-- para cmabiar el nombre de archivos se utiliza  data-browse="Elegir">Imagen --}}
+                                                <label class="custom-file-label" for="fileAgregar" data-browse="Elegir">Imagen</label>
                                             </div>
                                         </div>
                                     </div>

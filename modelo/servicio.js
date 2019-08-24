@@ -6,7 +6,7 @@ var Servicio = thinky.createModel("Servicio", {
     external_id: type.string().default(r.uuid()),
     nombre: type.string(),
     descripcion: type.string(),
-    galeria: type.string(),
+    portada: type.string(),
     medida: type.string(),
     precio: type.string(),
     estado: type.boolean(),

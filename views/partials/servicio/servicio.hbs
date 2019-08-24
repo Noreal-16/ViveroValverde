@@ -1,6 +1,6 @@
 <script>
   $(document).ready(function () {
-   buscaServicio() 
+    buscaServicio()
   });
 
 </script>
@@ -16,12 +16,12 @@
           <button class="btn btn-success" type="button" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
         </div>
       </div><br>
-      <div class="row form-group " id="datos">
+      <div class="row form-group" id="datos">
         {{#each listado as |listad i|}}
         <div class="col-md-4 col-lg-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img" src="/images/g2.jpg" alt="">
+              <img class="card-img" src="/images/uploadsServicio/{{listad.portada}}" class="rounded mx-auto d-block" style=" height:180px;" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button type="button" data-target="#detalle" data-toggle="modal" onclick="cargarImagenesServicio('{{listad.external_id}}')"><i class="ti-search"></i></button></li>
                 <li><button name="external" onclick="return agregarServicio('{{listad.external_id}}')"><i class="ti-shopping-cart"></i></button></li>

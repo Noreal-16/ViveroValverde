@@ -226,10 +226,10 @@ router.get('/contacto', auth, function(req, res, next) {
 /**
  * Administracion de servicio de jardineria vista administrador
  */
-router.get('/cargarServicio', auth, admin, servicio.cargarServicio); //carga datos de servico para modificar
 router.get('/servicio/buscar', servicio.buscador);
 router.get('/Administra/Servicios', auth, admin, servicio.visualizarLista);
 router.post('/Administra/Servicios/Guardar', auth, admin, servicio.guardar);
+router.get('/cargarServicio', auth, admin, servicio.cargarServicio); //carga datos de servico para modificar
 router.post('/Administra/Servicios/Modificar', auth, admin, servicio.modificar);
 
 router.get('/cargarImagenesServicio', auth, admin, servicio.listarGaleria);

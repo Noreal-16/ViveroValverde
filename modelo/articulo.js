@@ -9,7 +9,7 @@ var Articulo = thinky.createModel("Articulo", {
     tamanio: type.number(),
     stok: type.number(),
     precio: type.number(),
-    galeria: type.string(),
+    portada: type.string(),
     estado: type.boolean(),
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),

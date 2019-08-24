@@ -17,26 +17,32 @@ function cargarGaleria(external) {
             $("#externalArticulo").text(data.external_idArt);
             $("#btnExternal").val(data.external_idArt);
             var html = '';
-            $.each(data.lista, function (index, item) {
-                if (index == 0) {
-                    html += '<li data-target="#demo" data-slide-to="' + index + '" class="active"></li>';
-                } else {
-                    html += '<li data-target="#demo" data-slide-to="' + index + '"></li>';
-                }
-            });
-            $("#ulindicador").html(html);
             var html1 = '';
-            $.each(data.lista, function (index, item) {
-                if (index == 0) {
-                    html1 += '<div class="carousel-item active">';
-                    html1 += '<img src="/images/uploads/' + item.nonbre + '" alt="" width="1100" height="500">';
-                    html1 += '</div>';
-                } else {
-                    html1 += '<div class="carousel-item">';
-                    html1 += '<img src="/images/uploads/' + item.nonbre + '" alt="" width="1100" height="500">';
-                    html1 += '</div>';
-                }
-            });
+            if (data.lista.length > 0) {
+                $.each(data.lista, function (index, item) {
+                    if (index == 0) {
+                        html += '<li data-target="#demo" data-slide-to="' + index + '" class="active"></li>';
+                    } else {
+                        html += '<li data-target="#demo" data-slide-to="' + index + '"></li>';
+                    }
+                });
+                $.each(data.lista, function (index, item) {
+                    if (index == 0) {
+                        html1 += '<div class="carousel-item active">';
+                        html1 += '<img src="/images/uploads/' + item.nonbre + '" alt="" width="1100" height="500">';
+                        html1 += '</div>';
+                    } else {
+                        html1 += '<div class="carousel-item">';
+                        html1 += '<img src="/images/uploads/' + item.nonbre + '" alt="" width="1100" height="500">';
+                        html1 += '</div>';
+                    }
+                });
+            } else {
+                html1 += '<div class="carousel-item active">';
+                html1 += '<img src="/images/not-found.png" alt="" width="1100" height="500">';
+                html1 += '</div>';
+            }
+            $("#ulindicador").html(html);
             $("#divinner").html(html1);
 
 
@@ -58,35 +64,38 @@ function cargarImagenesServicio(external) {
         success: function (data, textStatus, jqXHR) {
             console.log(data);
             $("#nombre").text(data.nombre);
-            $("#medidaServ").text(data.medida +"m2");
+            $("#medidaServ").text(data.medida + "m2");
             $("#descripcionServ").text(data.descripcion);
             $("#precioServ").text(data.precio);
             $("#btnExternal").val(data.external_idArt);
             var html = '';
-            $.each(data.lista, function (index, item) {
-                if (index == 0) {
-                    html += '<li data-target="#demo" data-slide-to="' + index + '" class="active"></li>';
-                } else {
-                    html += '<li data-target="#demo" data-slide-to="' + index + '"></li>';
-                }
-            });
-            $("#ulindicador").html(html);
             var html1 = '';
-            $.each(data.lista, function (index, item) {
-                if (index == 0) {
-                    html1 += '<div class="carousel-item active">';
-                    html1 += '<img src="/images/uploadsServicio/' + item.nonbre + '" alt="" width="1100" height="500">';
-                    html1 += '</div>';
-                } else {
-                    html1 += '<div class="carousel-item">';
-                    html1 += '<img src="/images/uploadsServicio/' + item.nonbre + '" alt="" width="1100" height="500">';
-                    html1 += '</div>';
-                }
-            });
+            if (data.lista.length > 0) {
+                $.each(data.lista, function (index, item) {
+                    if (index == 0) {
+                        html += '<li data-target="#demo" data-slide-to="' + index + '" class="active"></li>';
+                    } else {
+                        html += '<li data-target="#demo" data-slide-to="' + index + '"></li>';
+                    }
+                });
+                $.each(data.lista, function (index, item) {
+                    if (index == 0) {
+                        html1 += '<div class="carousel-item active">';
+                        html1 += '<img src="/images/uploadsServicio/' + item.nonbre + '" alt="" width="1100" height="500">';
+                        html1 += '</div>';
+                    } else {
+                        html1 += '<div class="carousel-item">';
+                        html1 += '<img src="/images/uploadsServicio/' + item.nonbre + '" alt="" width="1100" height="500">';
+                        html1 += '</div>';
+                    }
+                });
+            } else {
+                html1 += '<div class="carousel-item active">';
+                html1 += '<img src="/images/not-found.png" alt="" width="1100" height="500">';
+                html1 += '</div>';
+            }
+            $("#ulindicador").html(html);
             $("#divinner").html(html1);
-
-
-
         }, error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
             console.log(textStatus);

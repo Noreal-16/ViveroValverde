@@ -48,6 +48,7 @@ function cargardatosArticulo(external) {
             $("#tamanioA").val(data.tamanio);
             $("#stockA").val(data.stok);
             $("#precioA").val(data.precio);
+            $('#imagenArticuloM').attr("src", "/images/uploads/" + data.portada);
             var html = '';
             $.each(data.lista, function (index, item) {
                 if (item.external_id == data.external_idC) {
@@ -119,6 +120,7 @@ function cargardatosServicio(external) {
             $("#medidam").val(data.medida);
             $("#descripcionm").val(data.descripcion);
             $("#preciom").val(data.precio);
+            $('#imagenServicioM').attr("src", "/images/uploadsServicio/" + data.portada);
         }
     });
 }
