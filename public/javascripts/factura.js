@@ -98,14 +98,16 @@ function cargarTabla(data) {
         html += '<td>$' + item.precio + '</td>';
         html += '<td>$' + item.precio_total + '</td></<td>';
         subtotal += item.precio_total;
-        iva = subtotal * 0.12;
-        total = subtotal + iva;
+        iva = redondeoDecimal(subtotal * 0.12);
+        total = redondeoDecimal(subtotal + iva);
     });
     $('#tbodyFac').html(html);
     $("#subtotal").text(subtotal);
     $("#iva").text(iva);
     $("#total").text(total);
     $("#descuento").text("0.00");
+
+    console.log("Presentasion de datos en servuico: "+data);
 }
 
 
@@ -126,4 +128,8 @@ function item(external, tipo) {
         }
     });
     return false;
+}
+
+function redondeoDecimal(num) {
+    return Math.round(num * 100) / 100;
 }

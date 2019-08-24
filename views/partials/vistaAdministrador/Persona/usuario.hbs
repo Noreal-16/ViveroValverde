@@ -12,15 +12,15 @@
         {{> 'vistaAdministrador/Persona/agregarcliente'}}
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Cliente
-                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarCliente">Registrar Cliente <i class="fas fa-plus-circle"></i></a></h3>
+                <h3 class="card-title">Usuario
+                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#agregarCliente">Registrar Usuario <i class="fas fa-user-plus"></i></a></h3>
             </div>
         </div>
         <!-- /.card -->
 
         <div class="card">
             <div class="card-header bg-dark">
-                <h3 class="card-title">Lista Clientes</h3>
+                <h3 class="card-title">Lista Usuarios</h3>
 
             </div>
             <!-- /.card-header -->
@@ -68,24 +68,15 @@
                                 </div>
                                 <div class="btn-group">
                                     {{#if listas.estado}}
-                                    <a href="/desactivarPersona/{{listas.external_id}}" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" ><i class="fas fa-unlock-alt"></i></a>
+                                    <a href="#" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
                                     {{else}}
-                                    <a href="/desactivarPersona/{{listas.external_id}}" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></a>
+                                    <a href="#" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-lock"></i></a>
                                     {{/if}}
                                 </div>
                             </td>
                         </tr>
                         {{/each}}
                     </tbody>
-                    <!-- <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>-->
                 </table>
             </div>
             <!-- /.card-body -->
@@ -94,17 +85,3 @@
     </div>
     <!-- /.col -->
 </div>
-
-
-<!--<script>
-  $(function () {
-    $('#listaCliente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
-</script>-->

@@ -271,7 +271,9 @@ router.get('/correoRepetida', persona.correoRepetida);
 router.get('/cargarPersona', auth, admin, persona.cargarPersona);
 router.post('/Administra/cliente/modificar', auth, admin, persona.modificar);
 
+router.get('/desactivarPersona/:external', auth, admin, persona.descativar);
 
+router.get('/Administra/usuario', auth, persona.visualizarUsuario);
 /**
  * Administracion de factura vista administrador
  */
