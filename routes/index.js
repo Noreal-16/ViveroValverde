@@ -51,8 +51,16 @@ var loginC = new login();
  */
 var carrito = require('../controlador/CarritoController');
 var carritoC = new carrito();
+
+
 var carritoServicio = require('../controlador/servicioCarrito');
 var servicioCarr = new carritoServicio();
+
+/**
+ * Carga del controlador para la vista principal
+ */
+var Principal= require('../controlador/PrincipalController');
+var principalC = new Principal();
 
 /**
  * Controlador rol ------------------------------------>
@@ -196,16 +204,17 @@ router.get('/Regitro', loginC.visualizarRegistro);
  * //////////////////////////////////////////////////////////////////////////////
  * Presentacion de vista administrador
  */
-router.get('/Admin', auth, admin, function(req, res, next) {
-    res.render(
-        'index1', {
-            layout: 'layout1',
-            title: 'Vivero Valverde',
-            fragmento: 'principal/principal',
-            usuario: { persona: req.user.nombre },
-            active: { inicio: true }
-        });
-});
+router.get('/Admin', auth, admin, principalC.cargardatosPrincipal);
+// router.get('/Admin', auth, admin, function(req, res, next) {
+//     res.render(
+//         'index1', {
+//             layout: 'layout1',
+//             title: 'Vivero Valverde',
+//             fragmento: 'principal/principal',
+//             usuario: { persona: req.user.nombre },
+//             active: { inicio: true }
+//         });
+// });
 
 
 /**
@@ -213,6 +222,8 @@ router.get('/Admin', auth, admin, function(req, res, next) {
  */
 
 router.get('/Pedido', auth, admin, factura.visualizarPedidos);
+router.get('/pedidoCliente', auth, admin, factura.cargarClientePedido);
+router.get('/cargarPedidos', auth, admin, factura.cargarPedidoDetalle);
 // router.get('/Pedido', auth, function(req, res, next) {
 //     res.render(
 //         'index1', {

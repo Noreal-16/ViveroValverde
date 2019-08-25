@@ -1,4 +1,14 @@
 <!-- Row -->
+<script>
+     function convert(fecha1) {
+        var date = new Date(fecha1),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+        var fecha = ([date.getFullYear(), mnth, day].join("-"));
+    // $("#fecha").val(fecha);
+         return fecha;
+}
+</script>
 <div class="row">
 
     <div class="col-lg-3 col-6">
@@ -65,6 +75,12 @@
                     </thead>
                     <tbody>
                         {{#each lista as |listaPedido i|}}
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#fecha{{i}}").text(convert('{{listaPedido.fecha_pedido}}'));
+                                cargarCliente('{{i}}','{{listaPedido.id_persona}}')
+                            });
+                        </script>
                         <tr>
                             <th scope="row">
                                 {{i}}
@@ -72,18 +88,16 @@
                             <td>
                                 {{listaPedido.external_id}}
                             </td>
-                            <td>
-                                {{listaPedido.persona.nombres}} {{listaPedido.persona.apellidos}}
+                            <td id="cliente{{i}}">
                             </td>
-                            <td>
-                                {{listaPedido.fecha_pedido}}
+                            <td id="fecha{{i}}">  
                             </td>
                             <td>
                                 {{listaPedido.total}}
                             </td>
                             <td>
-                                <div class="btn-group">
-                                    <a href="#" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="AgregarArticulo1('{{listaPedido.external_id}}')"><i class="far fa-plus-square"></i></i></a>
+                                 <div class="btn-group">
+                                    <a href="#" data-toggle="modal" data-target="#datosPedido" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargarPedidosDetalle('{{listaPedido.id}}')"><i class="far fa-edit"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -93,4 +107,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+      {{> 'vistaAdministrador/Pedidos/presentaPedidos'}}
 </div>

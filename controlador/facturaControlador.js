@@ -330,6 +330,63 @@ class facturaControlador {
             res.redirect('/Admin');
         })
     }
+    /**
+     * Metodo para caragar clientes en la tabla de pedidos
+     * @param {external cliente} req 
+     * @param {json cliente} res 
+     */
+    cargarClientePedido(req, res) {
+        var external = req.query.external;
+        var data;
+        persona.get(external).then(function (persona) {
+            data = {
+                cedula: persona.cedula,
+                nombre: persona.nombres,
+                apellido: persona.apellidos,
+                direccion: persona.direccion,
+                telefono: persona.telefono,
+                celular: persona.celular,
+                external_id: persona.external_id
+            };
+            res.json(data);
+        }).error(function (error) {
+            res.json({ data: "Error al traer cliente" });
+        })
+    }
 
+    /**
+     * metodo que permite caragar datos del pedido y su detalle eb la vista
+     */
+    cargarPedidoDetalle(req, res) {
+        var external = req.query.external;
+        var data;
+        factura.get(external).then(function (resultFac) {
+            console.log("Presenta factura ");
+            console.log(resultFac);
+            persona.get(resultFac.id_persona).then(function (resultPers) {
+                console.log("Presenta datos persona");
+                console.log(resultPers);
+                detalleFactura.filter({ id_factura: resultFac.id }).getJoin({ articulo: true }).then(function (resultDetalle) {
+                    console.log("Presenta detalle");
+                    console.log(resultDetalle);
+                    data = {
+                        factura: resultFac,
+                        persona: resultPers,
+                        apellido: persona.apellidos,
+                        direccion: persona.direccion,
+                        telefono: persona.telefono,
+                        celular: persona.celular,
+                        external_id: persona.external_id
+                    };
+                }).error(function (error) {
+
+                })
+            }).error(function (error) {
+
+            })
+        }).error(function (error) {
+
+        })
+    }
 }
 module.exports = facturaControlador;
