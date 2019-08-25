@@ -1,7 +1,7 @@
 'use strict';
 var Servicio = require('../modelo/servicio');
 var galeria = require('../modelo/galeriaServicio');
-
+var utilidades = require('../controlador/rolControlador');
 /**
  * Librerias para cargar imagenes 
  */
@@ -77,6 +77,7 @@ class servicioControlador {
      * @param {*} res 
      */
     visualizarServicio(req, res) {
+        utilidades.crearsessiones(req);
         Servicio.filter({ estado: true }).then(function (resultS) {
             if (req.user != undefined && req.user.nombre != undefined) {
                 res.render('index', {

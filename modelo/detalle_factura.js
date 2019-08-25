@@ -11,7 +11,6 @@ var Dettalle_Factura = thinky.createModel("Dettalle_Factura", {
     updatedAt: type.date().default(r.now()),
     id_articulo: type.string(),
     id_factura: type.string()
-
 });
 module.exports = Dettalle_Factura;
 var Factura = require('./factura');

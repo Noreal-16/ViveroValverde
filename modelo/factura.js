@@ -15,7 +15,6 @@ var Factura = thinky.createModel("Factura", {
     createdAt: type.date().default(r.now()),
     updatedAt: type.date().default(r.now()),
     id_persona: type.string(),
-
 });
 module.exports = Factura;
 var Persona = require('./persona');

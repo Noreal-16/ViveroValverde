@@ -127,10 +127,11 @@ router.get('/cerrar_sesion', auth, loginC.cerrar);
  */
 router.get('/', function(req, res, next) {
     rol.crear_roles();
-    if (req.session.carrito == undefined || req.session.carritoServicio == undefined) {
-        req.session.carrito = [];
-        req.session.carritoServicio = [];
-    }
+    rol.crearsessiones(req);
+    // if (req.session.carrito == undefined || req.session.carritoServicio == undefined) {
+    //     req.session.carrito = [];
+    //     req.session.carritoServicio = [];
+    // }
 
     if (req.isAuthenticated()) {
         console.log(req.session.user + "///////////////////");

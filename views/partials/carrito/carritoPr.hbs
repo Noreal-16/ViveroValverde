@@ -39,17 +39,17 @@
                                     </div>
                                 </div>
 
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <i class="mr-2 fa fa-align-justify"></i>
-                                            <strong class="card-title" v-if="headerText">Carrito Servicios
-                                                Jardineria</strong>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="mr-2 fa fa-align-justify"></i>
+                                        <strong class="card-title" v-if="headerText">Carrito Servicios
+                                            Jardineria</strong>
 
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive m-b-40">
-                                                <table class="table table-borderless table-data3" id="carritoS">
-                                                    {{!--<thead>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive m-b-40">
+                                            <table class="table table-borderless table-data3" id="carritoS">
+                                                {{!--<thead>
                                                     <tr>
                                                         <th>Cantidad</th>
                                                         <th>Descripción</th>
@@ -59,16 +59,16 @@
                                                 </thead>
                                                 <tbody id="carritoDatosServicio">
                                                 </tbody>--}}
-                                                </table>
-                                            </div>
+                                            </table>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                             {{!-- </div>
                         <div class="row row_extra"> --}}
                             <div class="col-lg-4">
                                 <!-- Coupon Code -->
-                                <div class="coupon">
+                                {{!-- <div class="coupon">
                                     <div class="section_title">Codigo de descuento</div>
                                     <div class="section_subtitle">Ingrese su código de cupón</div>
                                     <div class="coupon_form_container">
@@ -77,7 +77,7 @@
                                             <button class="button coupon_button"><span>Aplicar</span></button>
                                         </form>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-lg-6 offset-lg-2">
                                 <div class="cart_total">
@@ -87,25 +87,19 @@
                                         <ul>
                                             <li class="d-flex flex-row align-items-center justify-content-start">
                                                 <div class="cart_total_title">Subtotal</div>
-                                                <div class="cart_total_value ml-auto">$<input id="subtotal" value="0"
-                                                        type="text"></div>
-
+                                                <div class="cart_total_value ml-auto">$<input id="subtotal" value="0" type="text"></div>
                                             </li>
                                             <li class="d-flex flex-row align-items-center justify-content-start">
                                                 <div class="cart_total_title">Descuento</div>
-                                                <div class="cart_total_value ml-auto">$<input id="descuento" value="0"
-                                                        type="text"></div>
-
+                                                <div class="cart_total_value ml-auto">$<input id="descuento" value="0" type="text"></div>
                                             </li>
                                             <li class="d-flex flex-row align-items-center justify-content-start">
                                                 <div class="cart_total_title">Total</div>
-                                                <div class="cart_total_value ml-auto">$<input id="totall" value="0"
-                                                        type="text"></div>
-
+                                                <div class="cart_total_value ml-auto">$<input id="totall" value="0" type="text"></div>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="button checkout_button" onclick="return guardarfactiras('{{usuario.external}}')"><a href="#" >Comprar</a></div>
+                                    <div class="button checkout_button" onclick="return guardarfactiras('{{usuario.external}}')"><a href="#">Comprar</a></div>
                                 </div>
                             </div>
                         </div>

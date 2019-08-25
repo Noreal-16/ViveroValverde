@@ -1,6 +1,8 @@
 'use strict';
+var utilidades = require('../controlador/rolControlador');
 class inisioSesionControl {
     visualizarLogin(req, res) {
+        utilidades.crearsessiones(req);
         res.render('index', {
             title: "Inicio sesion",
             sesion: true,
@@ -13,6 +15,7 @@ class inisioSesionControl {
         });
     }
     visualizarRegistro(req, res) {
+        utilidades.crearsessiones(req);
         res.render('index', {
             title: "Inicio sesion",
             sesion: true,

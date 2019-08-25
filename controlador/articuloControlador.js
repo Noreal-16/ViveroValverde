@@ -2,7 +2,11 @@
 var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
 var galeria = require('../modelo/galeriaArticulo');
-
+var utilidades = require('../controlador/rolControlador');
+// var r = require('rethinkdb');
+var thinky = require('../config/thinky_init');
+var type = thinky.type;
+var r = thinky.r;
 /**
  * Librerias para cargar imagenes 
  */
@@ -13,12 +17,17 @@ var extensiones = ["jpg", "png", "gif"];
 class articuloControlador {
 
     /**
-     * Visualizacion de datos para el cliente
+     * Metodo para vissualizar de datos articulo para el cliente
      * @param {*} req 
      * @param {*} res 
      */
     visualizarRegistro(req, res) {
-        articulo.getJoin({ categoria: true }).filter({ estado: true }).then(function (listaArt) {
+        utilidades.crearsessiones(req);
+        // articulo.getJoin({ categoria: true }).filter({stok: r.row("stok").gt(0) }).then(function (listaArt) {
+        articulo.getJoin({ categoria: true }).filter(function (datos) {
+            return datos('stok').gt(0);
+        }).then(function (listaArt) {
+            console.log(listaArt);
             if (req.user != undefined && req.user.nombre != undefined) {
                 res.render('index', {
                     title: 'Plantas y Flores',
@@ -44,7 +53,7 @@ class articuloControlador {
                 });
             }
         }).error(function (error) {
-            req.flash('error', 'Hubo un error!');
+            req.flash('error', 'Hubo un error! ' + error);
             res.redirect('/');
         });
     }
@@ -214,7 +223,7 @@ class articuloControlador {
      * @param {*} res 
      */
     modificar(req, res) {
-      var form = new formidable.IncomingForm();
+        var form = new formidable.IncomingForm();
         form.maxFileSize = 200 * 1024 * 1024;
         form.parse(req, function (err, fiels, files) {
             if (files.inputcargarImagenM.size <= form.maxFileSize) {

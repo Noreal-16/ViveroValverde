@@ -6,7 +6,7 @@ var base_url = 'http://localhost:8001/';
 function mostrarDatos(data) {
     console.log(data);
     var cantidad = 0;
-    $.each(data, function(i, item) {
+    $.each(data, function (i, item) {
 
         cantidad += item.cantidad;
         console.log(cantidad);
@@ -23,10 +23,10 @@ function refrescar() {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             mostrarDatos(data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -52,7 +52,7 @@ function cargarTabla(data) {
         html += '</thead>';
         html += '<tbody >';
     }
-    $.each(data, function(index, item) {
+    $.each(data, function (index, item) {
         html += '<tr><td>';
         html += '<div class="input-group">'
         html += '<a href="#" onClick="return item(' + "'" + item.external + "'" + ', 0)" class="btn btn-success">+</a>';
@@ -87,12 +87,12 @@ function item(external, tipo) {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             mostrarDatos(data);
             cargarTabla(data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -105,12 +105,12 @@ function mostrar() {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             mostrarDatos(data);
             cargarTabla(data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -123,11 +123,11 @@ function agregarItem(external) {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             console.log(data);
             refrescar();
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -137,17 +137,17 @@ function agregarItem(external) {
  * Busca por nombre del articulo 
  */
 function buscar() {
-    $("#buscar").click(function() {
+    $("#buscar").click(function () {
         var texto = $("#texto").val();
         console.log(texto);
         $.ajax({
             url: base_url + "articulo/buscar",
             data: 'texto=' + texto,
-            success: function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 console.log(data)
                 var html = '';
                 if (data.length != 0) {
-                    $.each(data, function(index, item) {
+                    $.each(data, function (index, item) {
                         html += '<div class="row form-group ">';
                         html += '<div class="col-md-6 col-lg-4">';
                         html += '<div class="card text-center card-product">';
@@ -195,58 +195,95 @@ function fechaActual() {
  */
 function guardarfactiras(external) {
     var dataDetalle = listaArticulo;
-    console.log("esta es la data del articulo");
+    // console.log("esta es la data del articulo");
     var external = external;
-    console.log(external);
-
-
-    var dataA = {
-        external_id: external,
-        fecha_pedido: fechaActual(),
-        fecha_entrga: null,
-        iva: '0',
-        subtotal: $("#subtotal").val(),
-        total: $("#totall").val(),
-        descuento: '0',
-        tipo_pago: null,
-        tipo_fact: 'pedido'
-    }
-    $.ajax({
-        url: base_url + 'guardarFacturas',
-        type: 'POST',
-        dataType: 'json',
-        // cache: false,
-        async: false,
-        data: { dataA: JSON.stringify(dataA) },
-        success: function(data, textStatus, jqXHR) {
-            console.log("Retorno de guardado  ==> { " + data.data);
-            console.log(data.idFactura);
-            $.each(dataDetalle, function(index, item) {
-                console.log(item);
-                $.ajax({
-                    url: base_url + 'guardarDetalleFacturas',
-                    type: 'POST',
-                    dataType: 'json',
-                    //cahce: false,
-                    async: false,
-                    data: { item: JSON.stringify(item), id: data.idFactura },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log("Retorno de guardado  ==> { " + data.data);
-
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                    }
-
-                });
-            });
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
+    // console.log(external);
+    if (external !== "") {
+        var dataA = {
+            external_id: external,
+            fecha_pedido: fechaActual(),
+            fecha_entrga: null,
+            iva: '0',
+            subtotal: $("#subtotal").val(),
+            total: $("#totall").val(),
+            descuento: '0',
+            tipo_pago: null,
+            tipo_fact: 'pedido'
         }
+        $.ajax({
+            url: base_url + 'guardarFacturas',
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            data: { dataA: JSON.stringify(dataA) },
+            success: function (data, textStatus, jqXHR) {
+                // console.log("Retorno de guardado  ==> { " + data.data);
+                // console.log(data.idFactura);
+                $.each(dataDetalle, function (index, item) {
+                    var aux = $.param(item)
+                    $.ajax({
+                        url: base_url + 'guardarDetalleFacturas',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { item: aux, id: data.idFactura },
+                        success: function (data, textStatus, jqXHR) {
+                            console.log("Retorno de guardado  ==> { " + data.data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //Validar error y dar control de errores : status
+                            if (jqXHR.status === 0) {
+                                alert('Not connect: Verify Network.');
+                            } else if (jqXHR.status == 404) {
+                                alert('Requested page not found [404]');
+                            } else if (jqXHR.status == 500) {
+                                alert('Internal Server Error [500].');
+                            } else if (textStatus === 'parsererror') {
+                                alert('Requested JSON parse failed.');
+                            } else if (textStatus === 'timeout') {
+                                alert('Time out error.');
+                            } else if (textStatus === 'abort') {
+                                alert('Ajax request aborted.');
+                            } else {
+                                alert('Uncaught Error: ' + jqXHR.responseText);
+                            }
+                        }
 
-    });
+                    });
+                });
+                alert("Pedido realizado con exito");
+                var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+                mensaje += "Pedido realizado con exito";
+                mensaje += '</div>';
+                $("#mensajePedido").show();
+                $("#mensajePedido").html(mensaje);
+                $("#mensajePedido").hide(6000);
+                location.href = "/";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //Validar error y dar control de errores : status
+                if (jqXHR.status === 0) {
+                    alert('Not connect: Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else if (textStatus === 'parsererror') {
+                    alert('Requested JSON parse failed.');
+                } else if (textStatus === 'timeout') {
+                    alert('Time out error.');
+                } else if (textStatus === 'abort') {
+                    alert('Ajax request aborted.');
+                } else {
+                    alert('Uncaught Error: ' + jqXHR.responseText);
+                }
+            }
+
+        });
+    } else {
+        alert("Inicie session o Registrese para realizar el pedido")
+    }
+
+
 
 
 }

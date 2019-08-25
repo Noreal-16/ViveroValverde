@@ -11,7 +11,7 @@ module.exports = function (passport) {
     // Permite deserialize la cuenta de usuario
     passport.deserializeUser(function (id, done) {
         cuenta.get(id).getJoin({ persona: { rol: true } }).then(function (cuenta) {
-            console.log(Object.values(cuenta));
+            // console.log(Object.values(cuenta));
             console.log("llega nombre:  " + cuenta.persona.nombres);
             console.log("llega rol:  " + cuenta.persona.rol.nombre);
             if (cuenta) {
