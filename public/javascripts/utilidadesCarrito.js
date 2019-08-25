@@ -6,7 +6,7 @@ var base_url = 'http://localhost:8001/';
 function mostrarDatos(data) {
     console.log(data);
     var cantidad = 0;
-    $.each(data, function (i, item) {
+    $.each(data, function(i, item) {
 
         cantidad += item.cantidad;
         console.log(cantidad);
@@ -23,10 +23,10 @@ function refrescar() {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             mostrarDatos(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -52,7 +52,7 @@ function cargarTabla(data) {
         html += '</thead>';
         html += '<tbody >';
     }
-    $.each(data, function (index, item) {
+    $.each(data, function(index, item) {
         html += '<tr><td>';
         html += '<div class="input-group">'
         html += '<a href="#" onClick="return item(' + "'" + item.external + "'" + ', 0)" class="btn btn-success">+</a>';
@@ -87,12 +87,12 @@ function item(external, tipo) {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             console.log(data);
             mostrarDatos(data);
             cargarTabla(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -105,12 +105,12 @@ function mostrar() {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             console.log(data);
             mostrarDatos(data);
             cargarTabla(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -123,11 +123,11 @@ function agregarItem(external) {
         url: url,
         type: 'GET',
         dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             console.log(data);
             refrescar();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -137,17 +137,17 @@ function agregarItem(external) {
  * Busca por nombre del articulo 
  */
 function buscar() {
-    $("#buscar").click(function () {
+    $("#buscar").click(function() {
         var texto = $("#texto").val();
         console.log(texto);
         $.ajax({
             url: base_url + "articulo/buscar",
             data: 'texto=' + texto,
-            success: function (data, textStatus, jqXHR) {
+            success: function(data, textStatus, jqXHR) {
                 console.log(data)
                 var html = '';
                 if (data.length != 0) {
-                    $.each(data, function (index, item) {
+                    $.each(data, function(index, item) {
                         html += '<div class="row form-group ">';
                         html += '<div class="col-md-6 col-lg-4">';
                         html += '<div class="card text-center card-product">';
@@ -156,7 +156,7 @@ function buscar() {
                         html += '<ul class="card-product__imgOverlay">';
                         html += '<li><button><i class="ti-search"></i></button></li>';
                         html += '<li><button><i class="ti-shopping-cart"></i></button></li>';
-                        html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
+                        html += '</ul>';
                         html += '<div class="card-body">';
                         html += '<p>' + item.categoria.nombre + '</>';
                         html += '<h4 class="card-product__title"><a href="#">' + item.nonbre + '</a></h4>';
@@ -216,20 +216,20 @@ function guardarfactiras(external) {
             dataType: 'json',
             async: false,
             data: { dataA: JSON.stringify(dataA) },
-            success: function (data, textStatus, jqXHR) {
+            success: function(data, textStatus, jqXHR) {
                 // console.log("Retorno de guardado  ==> { " + data.data);
                 // console.log(data.idFactura);
-                $.each(dataDetalle, function (index, item) {
+                $.each(dataDetalle, function(index, item) {
                     var aux = $.param(item)
                     $.ajax({
                         url: base_url + 'guardarDetalleFacturas',
                         type: 'POST',
                         dataType: 'json',
                         data: { item: aux, id: data.idFactura },
-                        success: function (data, textStatus, jqXHR) {
+                        success: function(data, textStatus, jqXHR) {
                             console.log("Retorno de guardado  ==> { " + data.data);
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown) {
                             //Validar error y dar control de errores : status
                             if (jqXHR.status === 0) {
                                 alert('Not connect: Verify Network.');
@@ -259,7 +259,7 @@ function guardarfactiras(external) {
                 $("#mensajePedido").hide(6000);
                 location.href = "/";
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 //Validar error y dar control de errores : status
                 if (jqXHR.status === 0) {
                     alert('Not connect: Verify Network.');

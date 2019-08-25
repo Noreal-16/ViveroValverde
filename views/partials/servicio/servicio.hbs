@@ -25,13 +25,13 @@
               <ul class="card-product__imgOverlay">
                 <li><button type="button" data-target="#detalle" data-toggle="modal" onclick="cargarImagenesServicio('{{listad.external_id}}')"><i class="ti-search"></i></button></li>
                 <li><button name="external" onclick="return agregarServicio('{{listad.external_id}}')"><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
+                {{!--<li><button><i class="ti-heart"></i></button></li>--}}
               </ul>
             </div>
             <div class="card-body">
-              <p>{{listad.categoria}} </p>
+              <p>{{listad.descripcion}} </p>
               <h4 class="card-product__title"><a href="#"> {{listad.nombre}}</a></h4>
-              <p class="card-product__price"><b>Precio: </b>${{listad.precio}}<br><b>Medida: </b>{{listad.medida}} metros</p>
+              <p class="card-product__price"><b>Precio: </b>${{listad.precio}}<br><b> por metro cuadrado. Medida minima: </b>{{listad.medida}} metros</p>
             </div>
           </div>
         </div>

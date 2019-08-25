@@ -45,8 +45,7 @@ function cargarTablaServicio(data) {
         html += '<tr>';
         html += '<th>Cantidad</th>';
         html += '<th>Descripción</th>';
-        html += '<th>Precio Unitario</th>';
-        html += '<th>Precio Total</th>';
+        html += '<th>Precio por metro cuadrado</th>';
         html += '</tr>';
         html += '</thead>';
         html += '<tbody id="carritoDatosServicio">';
@@ -59,18 +58,9 @@ function cargarTablaServicio(data) {
         html += '<a href="#" onClick="return itemSer(' + "'" + item.external + "'" + ', 1)" class="btn btn-danger">-</a>';
         html += '</div></td><td>' + item.nombre + '  [' + item.descripcion + ']</td>';
         html += '<td>$' + item.precio + '</td>';
-        html += '<td>$' + item.precio_total + '</td></tr>';
-        subtotal += item.precio_total
-        total = subtotal;
+
     });
     html += '</tbody>';
-    console.log(total);
-    $('#total').text(subtotal);
-    console.log($('#total').val());
-    $('#subtotal').val(subtotal);
-    $('#descuento').val("0.00");
-    $('#totall').val(total);
-
     // html += '<td></td><td></td><td>Total</td><td>$' + total.toFixed(2) + '</td>';
     $('#carritoS').html(html);
 }
@@ -158,11 +148,11 @@ function buscaServicio() {
                         html += '<ul class="card-product__imgOverlay">';
                         html += ' <li><button data-toggle="modal"data-target="#detalle"data-toggle="modal"  onclick="cargardetalleServicio(' + item.external_id + ')"><i class="ti-search"></i></button></li>';
                         html += '<li><button name="external" onclick="return agregarServicio(' + item.external_id + ')"><i class="ti-shopping-cart"></i></button></li>';
-                        html += '<li><button><i class="ti-heart"></i></button></li> </ul>';
+                        html += '</ul>';
                         html += '<div class="card-body">';
                         html += '<p>' + item.descripcion + '</p>';
                         html += '<h4 class="card-product__title"><a href="#">' + item.nombre + '</a></h4>';
-                        html += '<p class="card-product__price"><b>Precio: </b>$' + item.precio + '<br><b>Medida: </b>' + item.medida + ' metros</p>';
+                        html += '<p class="card-product__price"><b>Precio: </b>$' + item.precio + '<br><b> por metro cuadrado. Medida minima: </b>' + item.medida + ' metros</p>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
