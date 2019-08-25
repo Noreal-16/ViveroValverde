@@ -366,16 +366,17 @@ class personaControlador {
      * Meyodo para desacctivar Persona
      */
     descativar(req, res) {
-        var external = req.params.external;
+        var external = req.body.externalPersona;
         Persona.filter({ external_id: external }).then(function (resultPer) {
             var persona = resultPer[0];
             if (persona.estado) {
+                req.flash('success', 'Persona desactivado correctamente');
                 persona.estado = false;
             } else {
+                req.flash('success', 'Persona activado correctamente');
                 persona.estado = true;
             }
             persona.save().then(function (resultPerso) {
-                req.flash('info', 'Ariculo Activado/desactivado correctamente');
                 res.redirect("/Administra/clientes");
             }).error(function (error) {
                 res.flash('error', 'Se produjo un error al guardar');

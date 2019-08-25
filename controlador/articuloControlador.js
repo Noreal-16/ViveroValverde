@@ -23,9 +23,12 @@ class articuloControlador {
      */
     visualizarRegistro(req, res) {
         utilidades.crearsessiones(req);
+
         // articulo.getJoin({ categoria: true }).filter({stok: r.row("stok").gt(0) }).then(function (listaArt) {
         articulo.getJoin({ categoria: true }).filter(function (datos) {
-            return datos('stok').gt(0);
+            // var estado=true;
+            // return datos('articulo') ('stok').gt(0).or(estado);
+            return datos('stok').gt(0).or(datos('estado').default('foo').eq(true));
         }).then(function (listaArt) {
             console.log(listaArt);
             if (req.user != undefined && req.user.nombre != undefined) {
@@ -310,23 +313,22 @@ class articuloControlador {
      * @param {*} res 
      */
     descativar(req, res) {
-        var external = req.param.external;
-        var data;
+        var external = req.body.externalArticulo;
         articulo.filter({ external_id: external }).then(function (resultAr) {
             var articulo = resultAr[0];
             if (articulo.estado) {
+                req.flash('success', 'Ariculo desactivado correctamente');
                 articulo.estado = false;
             } else {
+                req.flash('success', 'Ariculo Activado correctamente');
                 articulo.estado = true;
             }
             articulo.save().then(function (resultArticulo) {
-                req.flash('info', 'Ariculo Activado/desactivado correctamente');
                 res.redirect('/Administra/Articulo');
             }).error(function (error) {
                 res.flash('error', 'Se produjo un error al guardar');
                 res.redirect('/Administra/Articulo');
             });
-            // res.json(data);
         }).error(function (error) {
             res.send(error);
         });

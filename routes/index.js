@@ -205,17 +205,6 @@ router.get('/Regitro', loginC.visualizarRegistro);
  * Presentacion de vista administrador
  */
 router.get('/Admin', auth, admin, principalC.cargardatosPrincipal);
-// router.get('/Admin', auth, admin, function(req, res, next) {
-//     res.render(
-//         'index1', {
-//             layout: 'layout1',
-//             title: 'Vivero Valverde',
-//             fragmento: 'principal/principal',
-//             usuario: { persona: req.user.nombre },
-//             active: { inicio: true }
-//         });
-// });
-
 
 /**
  * Administracion de pedidos vista administrador
@@ -224,6 +213,7 @@ router.get('/Admin', auth, admin, principalC.cargardatosPrincipal);
 router.get('/Pedido', auth, admin, factura.visualizarPedidos);
 router.get('/pedidoCliente', auth, admin, factura.cargarClientePedido);
 router.get('/cargarPedidos', auth, admin, factura.cargarPedidoDetalle);
+router.post('/Despachar', auth, admin, factura.despacharPedido);
 // router.get('/Pedido', auth, function(req, res, next) {
 //     res.render(
 //         'index1', {
@@ -248,6 +238,7 @@ router.get('/Administra/Servicios', auth, admin, servicio.visualizarLista);
 router.post('/Administra/Servicios/Guardar', auth, admin, servicio.guardar);
 router.get('/cargarServicio', auth, admin, servicio.cargarServicio); //carga datos de servico para modificar
 router.post('/Administra/Servicios/Modificar', auth, admin, servicio.modificar);
+router.post('/desactivarServicio', auth, admin, servicio.descativarServicio);
 
 router.get('/cargarImagenesServicio', auth, admin, servicio.listarGaleria);
 router.post('/subirImagenesServicio', auth, admin, servicio.cargarImagenes);
@@ -269,7 +260,7 @@ router.post('/Administrador/Modificar', auth, admin, categoriaC.modificarCategor
  */
 router.get('/Administra/Articulo', auth, admin, articuloC.visualizarLista);
 router.get('/cargarArticulo', auth, admin, articuloC.cargarArticulo);
-router.get('/desactivarArticulo', auth, admin, articuloC.descativar);
+router.post('/desactivarArticulo', auth, admin, articuloC.descativar);
 router.post('/Administra/Articulo/guardar', auth, admin, articuloC.guardar);
 router.post('/Administra/Articulo/modificar', auth, admin, articuloC.modificar);
 router.get('/articulo/buscar', articuloC.buscador);
@@ -288,7 +279,7 @@ router.get('/correoRepetida', persona.correoRepetida);
 router.get('/cargarPersona', auth, admin, persona.cargarPersona);
 router.post('/Administra/cliente/modificar', auth, admin, persona.modificar);
 
-router.get('/desactivarPersona/:external', auth, admin, persona.descativar);
+router.post('/desactivarPersona', auth, admin, persona.descativar);
 
 router.get('/Administra/usuario', auth, persona.visualizarUsuario);
 /**

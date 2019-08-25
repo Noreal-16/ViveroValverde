@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg" id="datosPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content " style="background: #EFF7F1">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">Datos del Pedido <i class="fas fa-list"></i></h5>
@@ -81,7 +81,7 @@
                                                     {{!-- <th>Accion</th> --}}
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbodyFac">
+                                            <tbody id="tbodyPedido">
                                                 <!----Cargar datos de los productos------>
                                             </tbody>
                                         </table>
@@ -123,7 +123,12 @@
                 <!-- /.card -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <form method="POST" action="/Despachar">
+                    <input type="hidden" value="0" name="externalFcatura" id="externalFcatura">
+                    <button type="submit" class="btn btn-success">Despachar pedido <i class="fas fa-dolly-flatbed"></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </form>
+
             </div>
         </div>
     </div>

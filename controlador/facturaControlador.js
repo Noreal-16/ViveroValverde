@@ -363,7 +363,7 @@ class facturaControlador {
         factura.get(external).then(function (resultFac) {
             console.log("Presenta factura ");
             console.log(resultFac);
-            persona.get(resultFac.id_persona).then(function (resultPers) {
+            persona.get(resultFac.id_persona).getJoin({ cuenta: true }).then(function (resultPers) {
                 console.log("Presenta datos persona");
                 console.log(resultPers);
                 detalleFactura.filter({ id_factura: resultFac.id }).getJoin({ articulo: true }).then(function (resultDetalle) {
@@ -372,21 +372,41 @@ class facturaControlador {
                     data = {
                         factura: resultFac,
                         persona: resultPers,
-                        apellido: persona.apellidos,
-                        direccion: persona.direccion,
-                        telefono: persona.telefono,
-                        celular: persona.celular,
-                        external_id: persona.external_id
+                        detalle: resultDetalle
                     };
+                    res.json(data);
                 }).error(function (error) {
-
+                    res.json({ data: "Error al traer detalle de factura" });
                 })
             }).error(function (error) {
-
+                res.json({ data: "Error al traer persona" });
             })
         }).error(function (error) {
-
+            res.json({ data: "Error al traer factura" });
         })
+    }
+
+
+ /**
+  * Metodo que permite despachar el pedido 
+  * @param {external factura} req 
+  * @param {*} res 
+  */
+    despacharPedido(req, res) {
+        var external = req.body.externalFcatura;
+        factura.get(external).then(function (resultFac) {
+            resultFac.tipo_fact = "factura";
+            resultFac.save().then(function (save) {
+                req.flash('success', 'Pedido despachado correctamente!');
+                res.redirect('/Pedido');
+            }).error(function (error) {
+                req.flash('error', 'Hubo un error!' + error);
+                res.redirect('/Admin');
+            })
+        }).error(function (error) {
+            req.flash('error', 'Hubo un error!' + error);
+            res.redirect('/Admin');
+        });
     }
 }
 module.exports = facturaControlador;

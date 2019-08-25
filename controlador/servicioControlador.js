@@ -333,6 +333,37 @@ class servicioControlador {
             }
         });
     }
+
+
+
+ /**
+     * Metodo permite desactivar articulo 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    descativarServicio(req, res) {
+        var external = req.body.externalServicio;
+        Servicio.filter({ external_id: external }).then(function (resultSer) {
+            var servicio = resultSer[0];
+            if (servicio.estado) {
+                req.flash('success', 'Servicio desactivado correctamente');
+                servicio.estado = false;
+            } else {
+                req.flash('success', 'Servicio Activado correctamente');
+                servicio.estado = true;
+            }
+            servicio.save().then(function (resultArticulo) {
+                res.redirect('/Administra/Servicios');
+            }).error(function (error) {
+                res.flash('error', 'Se produjo un error al guardar');
+                res.redirect('/Administra/Servicios');
+            });
+        }).error(function (error) {
+            res.send(error);
+        });
+    }
+
+
     /**
      * permite buscar los servicios que se encuentran activos
      * @param {*} req 
