@@ -211,15 +211,17 @@ router.get('/Admin', auth, admin, function(req, res, next) {
 /**
  * Administracion de pedidos vista administrador
  */
-router.get('/Pedido', auth, function(req, res, next) {
-    res.render(
-        'index1', {
-            layout: 'layout1',
-            title: 'Pedidos',
-            fragmento: 'vistaAdministrador/Pedidos/pedidos',
-            active: { pedido: true }
-        });
-});
+
+router.get('/Pedido', auth, admin, factura.visualizarPedidos);
+// router.get('/Pedido', auth, function(req, res, next) {
+//     res.render(
+//         'index1', {
+//             layout: 'layout1',
+//             title: 'Pedidos',
+//             fragmento: 'vistaAdministrador/Pedidos/pedidos',
+//             active: { pedido: true }
+//         });
+// });
 
 
 router.get('/contacto', auth, function(req, res, next) {
@@ -310,5 +312,9 @@ router.get('/listarcarrito', carritoC.mostrarCarrito);
  */
 router.post('/guardarFacturas', factura.guardar);
 router.post('/guardarDetalleFacturas', factura.guardaDetalle);
+/**
+ * Direeccion permite guardar la factura desde el administrador
+ */
+router.post('/guardarFacturaAdmin', factura.guardarFcaturaAdmin);
 
 module.exports = router;

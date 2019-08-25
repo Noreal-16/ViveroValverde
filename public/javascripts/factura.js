@@ -99,14 +99,19 @@ function cargarTabla(data) {
         html += '<td>$' + item.precio + '</td>';
         html += '<td>$' + item.precio_total + '</td></<td>';
         subtotal += item.precio_total;
-        iva = redondeoDecimal(subtotal * 0.12);
-        total = redondeoDecimal(subtotal + iva);
+        //iva = redondeoDecimal(subtotal * 0.12);
+        //total = redondeoDecimal(subtotal + iva);
+        total = redondeoDecimal(subtotal);
     });
     $('#tbodyFac').html(html);
-    $("#subtotal").text(subtotal);
-    $("#iva").text(iva);
-    $("#total").text(total);
-    $("#descuento").text("0.00");
+    // $("#subtotal").text(subtotal);
+    $("#subtotalF").val(subtotal);
+    // $("#iva").text("0");
+    $("#ivaF").val("0");
+    // $("#total").text(total);
+    $("#totalF").val(total);
+    // $("#descuento").text("0.00");
+    $("#descuentoF").val("0");
 
     console.log(Object.values(data));
     listaArticulos = data;
@@ -142,27 +147,66 @@ function redondeoDecimal(num) {
 
 
 function guardarfactura() {
-    console.log("llega para facturar");
-    console.log(listaArticulos);
-    var url = base_url + 'guardarFactura';
-    $.each(listaArticulos, function (index, item) {
-        console.log(item);
-        console.log(item.cantidad);
-        console.log(item.external);
-        console.log(item.precio_total);
-        console.log(item.precio);
 
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                // console.log(data);
-                // mostrarDatos(data);
-                cargarTabla(data);
-            }, error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
+    var external_idCli = $("#externalCliente").val();
+    if (external_idCli !== "") {
+        if (listaArticulos !== undefined) {
+            var dataF = {
+                external_id: external_idCli,
+                fecha_pedido: $("#fechaActual").val(),
+                fecha_entrga: $("#fechaActual").val(),
+                iva: $("#ivaF").val(),
+                subtotal: $("#subtotalF").val(),
+                total: $("#totalF").val(),
+                descuento: $("#descuentoF").val(),
+                tipo_pago: null,
+                tipo_fact: 'factura'
             }
-        });
-    })
+            $.ajax({
+                url: base_url + 'guardarFacturaAdmin',
+                type: 'POST',
+                dataType: 'json',
+                data: { dataF: JSON.stringify(dataF), listaArt: JSON.stringify(listaArticulos) },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.data == "ok") {
+                        alert("" + data.data);
+                        location.href = "/Factura";
+                    } else {
+                        alert(data.data);
+                        mensajePrese("Error al guradar datos: " + data.error)
+                    }
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    //Validar error y dar control de errores : status
+                    if (jqXHR.status === 0) {
+                        alert('Not connect: Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        alert('Requested page not found [404]');
+                    } else if (jqXHR.status == 500) {
+                        alert('Internal Server Error [500].');
+                    } else if (textStatus === 'parsererror') {
+                        alert('Requested JSON parse failed.');
+                    } else if (textStatus === 'timeout') {
+                        alert('Time out error.');
+                    } else if (textStatus === 'abort') {
+                        alert('Ajax request aborted.');
+                    } else {
+                        alert('Uncaught Error: ' + jqXHR.responseText);
+                    }
+                }
+            });
+        } else {
+            mensajePrese("Agrege productos a la factura");
+        }
+    } else {
+        mensajePrese("Seleccione un cliente para la factura");
+    }
 }
+function mensajePrese(mensaje1) {
+    var mensaje = '<div class="alert alert-danger" style="font-size: 15px">';
+    mensaje += mensaje1;
+    mensaje += '</div>';
+    $("#errorCliente").show();
+    $("#errorCliente").html(mensaje);
+    $("#errorCliente").hide(8000);
+}
+

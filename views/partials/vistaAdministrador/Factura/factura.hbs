@@ -1,21 +1,52 @@
+<!-----------Select------------------------>
+<link href="assetsClie/select2/css/select2.min.css" rel="stylesheet" />
+<script src="assetsClie/select2/js/select2.min.js"></script>
 <script type="text/javascript" src="/javascripts/factura.js"></script>
 <script type="text/javascript">
 
     $(function () {
         fechaActual();
+        $("#selectCli").select2({
+            placeholder: "Busca el cliente",
+            allowClear: true
+        });
+
+        $('#selectCli').change(function () {
+            var datos = $('#selectCli').val();
+            var arreglo = datos.split('/');
+            if (datos != "") {
+                $('#txtcedulaF').val(arreglo[6]);
+                $('#externalCliente').val(arreglo[0]);
+                $('#txtnombresF').val(arreglo[1] + " " + arreglo[2]);
+                $('#txtdireccionF').val(arreglo[3]);
+                $('#txttelefonoF').val(arreglo[4]);
+                $('#txtcorreoF').val(arreglo[5]);
+                //console.log(arreglo);
+            } else {
+               $('#txtcedulaF').val("");
+                $('#externalCliente').val("");
+                $('#txtnombresF').val("");
+                $('#txtdireccionF').val("");
+                $('#txttelefonoF').val("");
+                $('#txtcorreoF').val("");
+            }
+        });
+
+        
     });
 
 </script>
 {{> 'vistaAdministrador/Factura/modalArticulo'}}
 <!-- Main content -->
-<div class="col-md-6"></div>
-<div class="form-group">
-    <div class="input-group col-md-4">
-        <input type="text" name="texto" id="texto" class="form-control" placeholder="Buscar">
-        <div class="input-group-append">
-            <button class="btn btn-success" id="buscar"><i class="fa fa-search" aria-hidden="true"> Buscar</i></button>
-        </div>
-    </div>
+
+<div class="form-group col-md-6">
+    <label for="">Buscar Cliente</label>
+    <select class="form-control col-md-6" name="selectCli" id="selectCli">
+        <option value="">Selecciona</option>
+        {{#each listaCli as |cliente i|}}
+        <option value="{{cliente.external_id}}/{{cliente.nombres}}/{{cliente.apellidos}}/{{cliente.direccion}}/{{cliente.telefono}}/{{cliente.cuenta.correo}}/{{cliente.cedula}}">{{cliente.cedula}} - {{cliente.nombres}} {{cliente.apellidos}}</option>
+        {{/each}}
+    </select>
 </div>
 <div class="invoice p-3 mb-3">
     <!-- title row -->
@@ -135,19 +166,19 @@
                 <table class="table table-sm">
                     <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td id="subtotal"></td>
+                        <td id="subtotal"><input type='text' value="0" name="subtotal" id="subtotalF" readonly ></td>
                     </tr>
                     <tr>
                         <th>Descuento</th>
-                        <td id="descuento"></td>
+                        <td id="descuento"><input type='text' value="0" name="subtotal" id="descuentoF" readonly ></td>
                     </tr>
                     <tr>
                         <th>IVA 12%:</th>
-                        <td id="iva"></td>
+                        <td id="iva"><input type='text' value="0" name="subtotal" id="ivaF" readonly></td>
                     </tr>
                     <tr>
                         <th>Total:</th>
-                        <td id="total"></td>
+                        <td id="total"><input type='text' value="0" name="subtotal" id="totalF"  readonly></td>
                     </tr>
                 </table>
             </div>
@@ -160,10 +191,11 @@
     <div class="row no-print">
         <div class="col-12">
             <button onclick="window.print();" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+            <div id="errorCliente"></div>
             <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Metodos de Pago
             </button>
-            <button type="button" class="btn btn-primary float-right" onclick="guardarfactura()" style="margin-right: 5px;">
-                <i class="fas fa-download"></i> Generate PDF
+            <button type="button"  class="btn btn-primary float-right" onclick="guardarfactura()" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> Generar venta
             </button>
         </div>
     </div>

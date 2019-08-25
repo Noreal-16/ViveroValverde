@@ -1,50 +1,41 @@
 <!-- Row -->
 <div class="row">
-    <!-- total de reservas -->
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Numero Pedidos</h4>
+
+    <div class="col-lg-3 col-6">
+        <!-- total de peddos small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{nro}}</h3>
+                <p>Pedidos</p>
             </div>
-            <div class="card-body">
-                <div class="text-right">
-                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-success"></i></h2>
-                </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
             </div>
-            <div class="card-footer">
-                <span class="text-muted">Pedido</span>
-            </div>
+            {{!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
     </div>
-    <!-- fin de total de reservas -->
-    <!--  calcular el total de imgresos -->
-    <div class="col-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Total de Ingresos</h4>
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>
+                    <script>
+                        var total = 0;
+                        {{#each lista }}
+                        total += {{ this.total }};
+                        {{/each}}
+                          document.write('$ ' + total);
+                    </script>
+                    <sup style="font-size: 20px">%</sup></h3>
+                <p>Ingresos</p>
             </div>
-            <div class="card-body">
-                <div class="text-right">
-                    <h2 class="font-light m-b-0"><i class="ti-arrow-up text-info"></i>
-                        {{!-- <script>
-                            var total = 0;
-                            { { #each reserva } }
-                            total += {{ this.valorTotal }};
-                            {
-                                {
-                                    /each}}
-                                    document.write('$ ' + total);
-                        </script> --}}
-                    </h2>
-                </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
             </div>
-            <div class="card-footer">
-                <span class="text-muted">Ingresos</span>
-            </div>
+            {{!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
     </div>
-</div>
-<!-- fin de calcular el total de imgresos -->
+    <!-- fin de calcular el total de imgresos -->
 </div>
 <!-- Row -->
 <!-- RESERVAS-->
@@ -73,7 +64,30 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        {{#each lista as |listaPedido i|}}
+                        <tr>
+                            <th scope="row">
+                                {{i}}
+                            </th>
+                            <td>
+                                {{listaPedido.external_id}}
+                            </td>
+                            <td>
+                                {{listaPedido.persona.nombres}} {{listaPedido.persona.apellidos}}
+                            </td>
+                            <td>
+                                {{listaPedido.fecha_pedido}}
+                            </td>
+                            <td>
+                                {{listaPedido.total}}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="#" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="AgregarArticulo1('{{listaPedido.external_id}}')"><i class="far fa-plus-square"></i></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

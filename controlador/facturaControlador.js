@@ -13,6 +13,9 @@ class facturaControlador {
      */
 
     visualizaFactura(req, res) {
+        if (req.session.factura == undefined) {
+            req.session.factura = [];
+        }
         factura.then(function (resultFactura) {
             var valor = 0;
             var nro = resultFactura.length + 1;
@@ -24,32 +27,34 @@ class facturaControlador {
                 valor = '00000' + nro;
             }
             nro = valor;
-
-            articulo.getJoin({ categoria: true }).then(function (listaA) {
-                if (req.session.factura == undefined) {
-                    req.session.factura = [];
-                }
-                res.render('index1', {
-                    layout: 'layout1',
-                    title: 'Facturación',
-                    fragmento: 'vistaAdministrador/Factura/factura',
-                    active: { factura: true },
-                    sesion: true,
-                    listaA: listaA,
-                    usuario: { persona: req.user.nombre },
-                    nro: nro,
-                    msg: {
-                        error: req.flash('error'),
-                        info: req.flash('info'),
-                        success: req.flash('success')
-                    }
-                });
+            persona.getJoin({ cuenta: true }).then(function (resultLista) {
+                articulo.getJoin({ categoria: true }).then(function (listaA) {
+                    res.render('index1', {
+                        layout: 'layout1',
+                        title: 'Facturación',
+                        fragmento: 'vistaAdministrador/Factura/factura',
+                        active: { factura: true },
+                        sesion: true,
+                        listaA: listaA,
+                        listaCli: resultLista,
+                        usuario: { persona: req.user.nombre },
+                        nro: nro,
+                        msg: {
+                            error: req.flash('error'),
+                            info: req.flash('info'),
+                            success: req.flash('success')
+                        }
+                    });
+                }).error(function (error) {
+                    req.flash('error', 'Hubo un error!' + error);
+                    res.redirect('/Admin');
+                })
             }).error(function (error) {
-                req.flash('error', 'Hubo un error!');
+                req.flash('error', 'Hubo un error!' + error);
                 res.redirect('/Admin');
             });
         }).error(function (error) {
-            req.flash('error', 'Hubo un error!');
+            req.flash('error', 'Hubo un error!' + error);
             res.redirect('/Admin');
         });
 
@@ -94,7 +99,7 @@ class facturaControlador {
             }
         }).error(function (error) {
             req.flash('error', "Se produjo un error al enciar datos");
-            res.redirect('/')
+            res.redirect('/Admin')
         });
 
     }
@@ -153,18 +158,6 @@ class facturaControlador {
      */
     guardar(req, res) {
         var datosFact = JSON.parse(req.body.dataA);
-        console.log("Presenta datos factura: ");
-        console.log(datosFact);
-        console.log("Presenta datos factura: ");
-        console.log(datosFact.external_id);
-        console.log(datosFact.fecha_pedido);
-        console.log(datosFact.fecha_entrga);
-        console.log(datosFact.subtotal);
-        console.log(datosFact.total);
-        console.log(datosFact.iva);
-        console.log(datosFact.descuento);
-        console.log(datosFact.tipo_pago);
-        console.log(datosFact.tipo_fact);
         persona.filter({ external_id: datosFact.external_id }).then(function (personaFactura) {
             if (personaFactura.length >= 0) {
                 var personaF = personaFactura[0];
@@ -196,6 +189,11 @@ class facturaControlador {
             res.redirect('/');
         });
     }
+    /**
+     * Metodo para guardar detalle de factura y actualizar stock de articulo
+     * @param {data json} req 
+     * @param {data mensaje} res 
+     */
     guardaDetalle(req, res) {
         var data = req.body.item;
         var datos = JSON.parse('{"' + data.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) });
@@ -217,23 +215,120 @@ class facturaControlador {
                 detalleS.save().then(function (detalleSave) {
                     articulo.stok = (articulo.stok - datos.cantidad);
                     articulo.save().then(function (resultArticulo) {
-                        req.session.carrito=[];
-                        req.session.carritoServicio=[];
+                        req.session.carrito = [];
+                        req.session.carritoServicio = [];
                         res.json({ data: " Detalle Factura guardada con exito" });
                     }).error(function (error) {
                         res.json({ data: " error al actualizar articulo" });
                     });
                 }).error(function (error) {
-                    res.json({ data: " error en detalle Detalle Factura" + error});
+                    res.json({ data: " error en detalle Detalle Factura" + error });
                 });
             } else {
-                res.json({ data: " error en detalle Detalle Factura" + error});
+                res.json({ data: " error en detalle Detalle Factura" + error });
             }
         }).error(function (error) {
-            res.json({ data: " error en detalle Detalle Factura" + error});
+            res.json({ data: " error en detalle Detalle Factura" + error });
         });
+    }
 
+    /***
+     * Metodo para guardar factura desde la vista del administrador
+     */
 
+    guardarFcaturaAdmin(req, res) {
+        var datosFact = JSON.parse(req.body.dataF);
+        var lista = JSON.parse(req.body.listaArt);
+        console.log("Giardar factura desde administrador")
+        console.log(datosFact);
+        console.log(lista);
+        persona.filter({ external_id: datosFact.external_id }).then(function (personaFactura) {
+            if (personaFactura.length >= 0) {
+                var personaF = personaFactura[0];
+                var datosFactura = {
+                    fecha_pedido: datosFact.fecha_pedido,
+                    fecha_entrga: datosFact.fecha_entrga,
+                    iva: datosFact.iva,
+                    subtotal: datosFact.subtotal,
+                    total: datosFact.total,
+                    decuento: datosFact.descuento,
+                    tipo_pago: datosFact.tipo_pago,
+                    tipo_fact: datosFact.tipo_fact,
+                    id_persona: personaF.id
+                }
+                var facturaS = new factura(datosFactura);
+                facturaS.save().then(function (facturaSave) {
+                    lista.forEach(elementItem => {
+                        articulo.filter({ external_id: elementItem.external }).then(function (articuloArt) {
+                            if (articuloArt.length >= 0) {
+                                var articulo = articuloArt[0];
+                                var dataDetalle = {
+                                    cantidad: elementItem.cantidad,
+                                    precio_unit: elementItem.precio,
+                                    precio_total: elementItem.precio_total,
+                                    id_articulo: articulo.id,
+                                    id_factura: facturaSave.id
+                                }
+                                var detalleS = new detalleFactura(dataDetalle);
+                                detalleS.save().then(function (detalleSave) {
+                                    articulo.stok = (articulo.stok - elementItem.cantidad);
+                                    articulo.save().then(function (resultArticulo) {
+                                        req.session.factura = [];
+                                        res.json({ data: "ok" });
+                                    }).error(function (error) {
+                                        res.json({ data: "error" });
+                                    });
+                                }).error(function (error) {
+                                    res.json({ data: " error en detalle Detalle Factura" + error });
+                                });
+                            } else {
+                                res.json({ data: " error en detalle Detalle Factura" + error });
+                            }
+                        }).error(function (error) {
+                            res.json({ data: " error en detalle Detalle Factura" + error });
+                        });
+                    });
+                }).error(function (error) {
+                    res.json({ data: "error al guardar factura" });
+                });
+            } else {
+                res.json({ data: "error al guardar factura" });
+            }
+        }).error(function (error) {
+            res.json({ data: "Ocurrio un error contactarse con el desarrollador del sistema: ", error: error });
+        });
+    }
+
+    /**
+     * Metodo para visualizar pedidos en la tabla
+     * @param {*} req 
+     * @param {*} res 
+     */
+
+    visualizarPedidos(req, res) {
+        factura.filter({ tipo_fact: "pedido" }).getJoin({ persona: true }).then(function (resulLista) {
+            console.log(resulLista);
+            var numero = resulLista.length;
+            res.render('index1',
+                {
+                    layout: 'layout1',
+                    title: 'Pedidos',
+                    sesion: true,
+                    fragmento: 'vistaAdministrador/Pedidos/pedidos',
+                    active: { pedido: true },
+                    usuario: { persona: req.user.nombre },
+                    nro: numero,
+                    lista: resulLista,
+                    msg: {
+                        error: req.flash('error'),
+                        info: req.flash('info'),
+                        success: req.flash('success')
+                    }
+                });
+        }).error(function (error) {
+            req.flash('error', 'Hubo un error!' + error);
+            res.redirect('/Admin');
+        })
     }
 
 }
