@@ -1,0 +1,18 @@
+<!-- ============================================================== -->
+<!--  Contenido de los pagos  -->
+<!-- ============================================================== -->
+<section id="call-to-action">
+    <div class="container">
+        <div class="col-lg-12 text-center">
+            <h3 class="cta-title" >Realice su pago para el pedido</h3>
+            <h5 class="cta-text">Fácil, rápido y seguro </h5>
+            <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+            <!-- Realizar Pago -->
+            <div class="card-title" style="color: #E79C21;font-size: 90%; font-family: 'Audiowide', cursive;"><b >Valor a pagar ${{precio}}</b></div>
+            <script src = "https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{Checkout}}"></script>
+            <form action="http://localhost:3000/usuario_pagar_reserva" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+            <!-- /Forma de Pago -->
+        </div>
+        <!--  Fin Card -->
+    </div>
+</section>

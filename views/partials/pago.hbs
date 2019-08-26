@@ -1,4 +1,7 @@
-<div class="modal fade" id="detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+
+
+<div class="modal fade" id="pago" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="margin-top: 20px">
             <div class="modal-header bg-dark text-white">
@@ -8,9 +11,52 @@
                 </button>
             </div>
             <div class="modal-body">
-<div class="row">
-    
-</div>
+                <div class="row">
+                    <div class="col-xs-1-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row display-tr">
+                                    <h3>Pago en line</h3>
+                                </div>
+                            </div>
+                            <form id="formPago">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="">Nombre tarjeta</label>
+                                        <input data-conekta="card[name]" type="text" class="form-control" name="name" id="name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Numero tarjeta</label>
+                                        <input data-conekta="card[number]" type="text" class="form-control" name="number" id="number">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="">CVC</label>
+                                        <input data-conekta="card[cvc]" type="text" maxlength="4" class="form-control" name="cvc" id="cvc">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Fecha de expiracion (MM/AA)</label>
+                                        <di>
+                                            <input style="width:50px; display:inline-block" value="11" maxlength="2" data-conekta="card[exp_month]" type="text" class="form-control" name="fech" id="fech">
+                                            <input style="width:50px; display:inline-block" value="20" maxlength="2" data-conekta="card[exp_year]" type="text" class="form-control" name="anio" id="anio">
+                                        </di>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                       <button class="btn btn-success btn-lg"><i class="fa fa-dollar"></i>Pagar</button>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <input type="text" name="conektaTokenId" id="conektaTokenId" value="">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
 
@@ -18,3 +64,25 @@
         </div>
     </div>
 </div>
+<script>
+Conekta.setPublicKey("key_eYvWV7gUaMyaN4iD");
+var successResponseHandler = function(token) {
+   
+ $("#conektaTokenId").(token.id);
+}
+var errorResponseHandler = function(error) {
+  var form=$("#formPago");
+  alert(error.message_to_purchaser);
+};
+
+$(function(){
+    $("#formPago").click(function(e){
+        e.preventDefault();
+        var form=$("#formPago");
+        Conekta.Token.create(form,successResponseHandler,errorResponseHandler);
+    })
+})
+
+
+
+</script>

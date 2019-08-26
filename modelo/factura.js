@@ -23,3 +23,5 @@ var Detalle_Factura = require('./detalle_factura');
 Factura.hasMany(Detalle_Factura, "detalle_factura", "id", "id_detalleFactura");
 var Detalle_Servicio = require('./detalle_servicio');
 Factura.hasMany(Detalle_Servicio, "detalle_servicio", "id", "id_detalleFactura");
+var Pago = require('./pago');
+Factura.belongsTo(Pago, "pago", "id", "id_pago");

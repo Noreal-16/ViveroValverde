@@ -67,6 +67,9 @@ var principalC = new Principal();
 var Reportes= require('../controlador/reportesControlador');
 var reportesC = new Reportes();
 
+var Pago= require('../controlador/pagosControl');
+var pagoC = new Pago();
+
 /**
  * Controlador rol ------------------------------------>
  */
@@ -332,7 +335,8 @@ router.get('/reportesClientes', auth, admin, reportesC.reporteCliente);
 router.get('/reportesArticulo', auth, admin, reportesC.reporteArticulo);
 
 
-
+router.get('/ver_pago', auth, pagoC.verPago);
+router.get('/usuario_paga', auth, pagoC.verResultadoPago);
 
 
 module.exports = router;

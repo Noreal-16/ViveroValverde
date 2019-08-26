@@ -23,7 +23,7 @@
                 $('#txtcorreoF').val(arreglo[5]);
                 //console.log(arreglo);
             } else {
-               $('#txtcedulaF').val("");
+                $('#txtcedulaF').val("");
                 $('#externalCliente').val("");
                 $('#txtnombresF').val("");
                 $('#txtdireccionF').val("");
@@ -32,7 +32,7 @@
             }
         });
 
-        
+
     });
 
 </script>
@@ -167,11 +167,11 @@
                 <table class="table table-sm">
                     <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td id="subtotal"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="subtotalF" readonly ></td>
+                        <td id="subtotal"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="subtotalF" readonly></td>
                     </tr>
                     <tr>
                         <th>Descuento</th>
-                        <td id="descuento"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="descuentoF" readonly ></td>
+                        <td id="descuento"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="descuentoF" readonly></td>
                     </tr>
                     <tr>
                         <th>IVA 12%:</th>
@@ -179,7 +179,7 @@
                     </tr>
                     <tr>
                         <th>Total:</th>
-                        <td id="total"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="totalF"  readonly></td>
+                        <td id="total"><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="totalF" readonly></td>
                     </tr>
                 </table>
             </div>
@@ -193,12 +193,81 @@
         <div class="col-12">
             <button onclick="window.print();" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
             <div id="errorCliente"></div>
-            <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Metodos de Pago
+            <button data-toggle="modal" data-target="#pago" data-tooltip="tooltip" data-placement="top" title="Pago en linea" type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Metodos de Pago
             </button>
-            <button type="button"  class="btn btn-primary float-right" onclick="guardarfactura()" style="margin-right: 5px;">
+            <button type="button" class="btn btn-primary float-right" onclick="guardarfactura()" style="margin-right: 5px;">
                 <i class="fas fa-download"></i> Generar venta
             </button>
         </div>
     </div>
 </div>
 <!-- /.invoice -->
+<div>
+    {{> pago}}
+</div>
+
+{{!-- <div class="row">
+    <div class="col-xs-1-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row display-tr">
+                    <h3>Pago en line</h3>
+                </div>
+            </div>
+            <form id="formPago">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Nombre tarjeta</label>
+                            <input data-conekta="card[name]" type="text" class="form-control" name="name" id="name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Numero tarjeta</label>
+                            <input data-conekta="card[number]" type="text" class="form-control" name="number" id="number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">CVC</label>
+                            <input data-conekta="card[cvc]" type="text" maxlength="4" class="form-control" name="cvc" id="cvc">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Fecha de expiracion (MM/AA)</label>
+                            <di>
+                                <input style="width:50px; display:inline-block" value="11" maxlength="2" data-conekta="card[exp_month]" type="text" class="form-control" name="fech" id="fech">
+                                <input style="width:50px; display:inline-block" value="20" maxlength="2" data-conekta="card[exp_year]" type="text" class="form-control" name="anio" id="anio">
+                            </di>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success btn-lg"><i class="fa fa-dollar"></i>Pagar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="conektaTokenId" id="conektaTokenId" value="">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    Conekta.setPublicKey("key_eYvWV7gUaMyaN4iD");
+    var successResponseHandler = function (token) {
+        alert("exitosa");
+        $("#conektaTokenId").val(token.id);
+    }
+    var errorResponseHandler = function (error) {
+        var form = $("#formPago");
+        alert(error.message_to_purchaser);
+    };
+    $(document).ready(function () {
+        $("#formPago").submit(function (e) {
+            e.preventDefault();
+            var form = $("#formPago");
+            Conekta.Token.create(form, successResponseHandler, errorResponseHandler);
+        })
+    })
+
+</script> --}}
