@@ -61,6 +61,11 @@ var servicioCarr = new carritoServicio();
  */
 var Principal= require('../controlador/PrincipalController');
 var principalC = new Principal();
+/**
+ * Carga del controlador para la vista principal
+ */
+var Reportes= require('../controlador/reportesControlador');
+var reportesC = new Reportes();
 
 /**
  * Controlador rol ------------------------------------>
@@ -310,13 +315,24 @@ router.get('/agregar:external', carritoC.agregarItem);
 router.get('/quitar:external', carritoC.quitarItem);
 router.get('/listarcarrito', carritoC.mostrarCarrito);
 /**
- * Guardar facturas
+ * Guardar factura desde el cliente
  */
 router.post('/guardarFacturas', factura.guardar);
 router.post('/guardarDetalleFacturas', factura.guardaDetalle);
 /**
  * Direeccion permite guardar la factura desde el administrador
  */
-router.post('/guardarFacturaAdmin', factura.guardarFcaturaAdmin);
+router.post('/guardarFacturaAdmin', auth, admin, factura.guardarFcaturaAdmin);
+
+/**
+ * Dioreccion para caragar reportes
+ */
+router.get('/reportesFactura', auth, admin, reportesC.reporteFactura);
+router.get('/reportesClientes', auth, admin, reportesC.reporteCliente);
+router.get('/reportesArticulo', auth, admin, reportesC.reporteArticulo);
+
+
+
+
 
 module.exports = router;

@@ -1,0 +1,64 @@
+<script>
+     function convert(fecha1) {
+        var date = new Date(fecha1),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+        var fecha = ([date.getFullYear(), mnth, day].join("-"));
+    // $("#fecha").val(fecha);
+         return fecha;
+}
+</script>
+<div class="row">
+
+</div>
+<!-- Row -->
+<!-- RESERVAS-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            {{!-- <div class="card-header">
+                <h3 class="card-title">Perportes
+            </div> --}}
+        </div>
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title">Reportes</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped order-column" id="tablapedido">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Numero Fcatura</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each listaf as |listadoAr i|}}
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#fecha{{i}}").text(convert('{{listadoAr.fecha_pedido}}'));
+                            });
+                        </script>
+                        <tr>
+                            <th scope="row">
+                                {{i}}
+                            </th>
+                            <td>
+                                {{listadoAr.external_id}}
+                            </td>
+                            <td id="fecha{{i}}">
+                            </td>
+                            <td>
+                                {{listadoAr.total}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -246,8 +246,8 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item has-treeview {{#if active.menu1 }} menu-open {{/if}}">
+                        <a href="#" class="nav-link {{#if active.menu1 }} active {{/if}}">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Reportes
@@ -256,19 +256,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                <a href="/reportesClientes" class="nav-link{{#if active.reporteC }} active {{/if}}">
                                     <i class="fas fa-id-badge"></i>
                                     <p>Clientes</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
+                                <a href="/reportesArticulo" class="nav-link{{#if active.reporteA }} active {{/if}}">
                                     <i class="fas fa-leaf"></i>
                                     <p>Articulo</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/inline.html" class="nav-link">
+                                <a href="/reportesFactura" class="nav-link{{#if active.reportef }} active {{/if}}" >
                                     <i class="fas fa-file-alt"></i>
                                     <p>Facturas</p>
                                 </a>

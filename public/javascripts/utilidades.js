@@ -630,8 +630,8 @@ $(function () {
 function dataTable() {
     //tabla pedidos data tables para realizar busquedas
     $('#tablapedido').DataTable({
-        // "dom": "Blfrtip",
-        // "buttons": ['excel', 'pdf', 'copy'],
+        "dom": "Blfrtip",
+        "buttons": ['excel', 'pdf', 'copy'],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por pagina",
             "zeroRecords": "No se encontraron resultados en su busqueda",

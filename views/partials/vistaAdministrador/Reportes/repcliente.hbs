@@ -1,0 +1,75 @@
+<script>
+    function convert(fecha1) {
+        var date = new Date(fecha1),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        var fecha = ([date.getFullYear(), mnth, day].join("-"));
+        return fecha;
+    }
+</script>
+<div class="row">
+
+</div>
+<!--Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                {{!-- <div class="card-header">
+                    <h3 class="card-title">Perportes
+                </div> --}}
+            </div>
+            <!-- /.card -->
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="card-title">Reportes</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped order-column" id="tablapedido">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cedula</th>
+                                <th>Nombres</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                                <th>Fecha Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each listaP as |listaPers i|}}
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#fecha{{i}}").text(convert('{{listaPers.createdAt }}'));
+                                });
+                            </script>
+                            <tr>
+                                <th scope="row">
+                                    {{ i }}
+                                </th>
+                                <td>
+                                    {{ listaPers.cedula }}
+                                </td>
+                                <td>
+                                    {{ listaPers.nombres }} {{ listaPers.apellidos }}
+                                </td>
+                                <td>
+                                    {{ listaPers.direccion }}
+                                </td>
+                                <td>
+                                    {{ listaPers.telefono }}
+                                </td>
+                                <td>
+                                    {{ listaPers.cuenta.correo }}
+                                </td>
+                                <td id="fecha{{i}}">
+                                   
+                                </td>
+                            </tr>
+                            {{/ each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

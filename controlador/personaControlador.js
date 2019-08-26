@@ -367,6 +367,8 @@ class personaControlador {
      */
     descativar(req, res) {
         var external = req.body.externalPersona;
+        console.log("llega para desactivar persona");
+        console.log(external);
         Persona.filter({ external_id: external }).then(function (resultPer) {
             var persona = resultPer[0];
             if (persona.estado) {

@@ -1,0 +1,51 @@
+<!-- Row -->
+<!-- RESERVAS-->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            {{!-- <div class="card-header">
+                <h3 class="card-title">Perportes
+            </div> --}}
+        </div>
+        <!-- /.card -->
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title">Reportes</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped order-column" id="tablapedido">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Categoria</th>
+                            <th>Nombres</th>
+                            <th>Stock</th>
+                            <th>Tamnio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each listaArt as |listArt i|}}
+                        <tr>
+                            <th scope="row">
+                                {{i}}
+                            </th>
+                            <td>
+                                {{listArt.categoria.nombre}}
+                            </td>
+                            <td>
+                                {{listArt.nonbre}}
+                            </td>
+                            <td>
+                                {{listArt.stok}}
+                            </td>
+                            <td>
+                                {{listArt.tamanio}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

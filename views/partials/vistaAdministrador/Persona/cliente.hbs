@@ -68,11 +68,11 @@
                                 </div>
                                 <div class="btn-group">
                                     <form method="POST" action="/desactivarPersona">
-                                    <input type="hidden" value="{{listas.external_id}}" name="externalPersona" id="externalPersona">
+                                        <input type="hidden" value="{{listas.external_id}}" name="externalPersona" id="externalPersona">
                                         {{#if listas.estado}}
-                                        <button type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm"><i class="fas fa-unlock-alt"></i></button>
+                                        <a type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm"><i class="fas fa-unlock-alt"></i></a>
                                         {{else}}
-                                        <button type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></button>
+                                        <a type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></a>
                                         {{/if}}
                                     </form>
                                 </div>
@@ -80,15 +80,6 @@
                         </tr>
                         {{/each}}
                     </tbody>
-                    <!-- <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>-->
                 </table>
             </div>
             <!-- /.card-body -->
@@ -97,17 +88,3 @@
     </div>
     <!-- /.col -->
 </div>
-
-
-<!--<script>
-  $(function () {
-    $('#listaCliente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
-</script>-->
