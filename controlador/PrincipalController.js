@@ -3,17 +3,20 @@ var persona = require('../modelo/persona');
 var rol = require('../modelo/rol');
 var factura = require('../modelo/factura');
 var detalleFcatura = require('../modelo/detalle_factura');
+/**
+ * @class {*} {PrincipalController}
+ */
 class PrincipalController {
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
+     * Para visualizacion con numero de pedidos, y numeros de usuarios registrados
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     cargardatosPrincipal(req, res) {
-        rol.filter({ nombre: "Usuario" }).then(function (resultR) {
-            persona.filter({ id_Rol: resultR[0].id }).then(function (lista) {
+        rol.filter({ nombre: "Usuario" }).then(function(resultR) {
+            persona.filter({ id_Rol: resultR[0].id }).then(function(lista) {
                 var listaClie = lista.length;
-                factura.filter({ tipo_fact: "pedido" }).getJoin({ persona: true }).then(function (resulLista) {
+                factura.filter({ tipo_fact: "pedido" }).getJoin({ persona: true }).then(function(resulLista) {
                     var numPed = resulLista.length;
                     res.render(
                         'index1', {
@@ -32,16 +35,16 @@ class PrincipalController {
                             },
                             listaPedidos: resulLista
                         })
-                }).error(function (error) {
+                }).error(function(error) {
                     req.flash('error', 'Hubo un error!');
                     res.redirect('/Admin');
                 })
-            }).error(function (error) {
+            }).error(function(error) {
                 req.flash('error', 'Hubo un error!');
                 res.redirect('/Admin');
             });
 
-        }).error(function (error) {
+        }).error(function(error) {
             req.flash('error', 'Hubo un error!');
             res.redirect('/Admin');
         });

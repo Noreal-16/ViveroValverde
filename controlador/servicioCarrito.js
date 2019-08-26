@@ -1,12 +1,14 @@
 'use strict';
 var servicio = require('../modelo/servicio');
-
+/**
+ * @class {*} {servicioCarrito}
+ */
 class servicioCarrito {
 
     /**
      * metodo para agregar al carrito de compras los servicios
-     * @param {M} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     agregarServicio(req, res) {
             var carritoServicio = req.session.carritoServicio;
@@ -46,8 +48,8 @@ class servicioCarrito {
         }
         /**
          * metodo para disminuir unidades del carrito
-         * @param {*} req 
-         * @param {*} res 
+         * @param {*} req para pedidos al servidor
+         * @param {*} res para respuesta
          */
     quitarServicio(req, res) {
             var carritoServicio = req.session.carritoServicio;
@@ -75,16 +77,16 @@ class servicioCarrito {
         }
         /**
          * metodo para mostar los datos en la tabla de pedidos
-         * @param {*} req 
-         * @param {*} res 
+         * @param {*} req para pedidos al servidor
+         * @param {*} res para respuesta
          */
     mostrarCarritoServicio(req, res) {
             res.status(200).json(req.session.carritoServicio);
         }
         /**
-         * metodo para verificar si existen o no datos repetidos en el carrito
-         * @param {*} lista 
-         * @param {*} external 
+         * metodo para verificar el servicio en el carrito
+         * @param {*} lista recoge la lista de los servicios
+         * @param {*} external envia el external
          */
     static verificar(lista, external) {
         var pos = -1;
