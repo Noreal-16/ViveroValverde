@@ -1,12 +1,14 @@
 'use strict';
 var Categoria = require('../modelo/categoria');
-
+/**
+ * @class {*} {categoriaControlador}
+ */
 class categoriaControlador {
 
     /**
      * Guardar categorias recibiendo datos por body
-     * @param {*} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     guardar(req, res) {
         var datosC = {
@@ -28,8 +30,8 @@ class categoriaControlador {
 
     /**
      * Cargara datos en le modal para modificar categoria
-     * @param {*} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     cargarCategorias(req, res) {
         var external = req.query.external;
@@ -53,8 +55,8 @@ class categoriaControlador {
 
     /**
      * Modificar categoria recibiendo datos por body
-     * @param {*} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     modificarCategoris(req, res) {
         Categoria.filter({ external_id: req.body.external }).then(function(resultC) {

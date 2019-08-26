@@ -2,20 +2,20 @@
 var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
 var utilidades = require('../controlador/rolControlador');
-//var servicio = require('../modelo/servicio');
 
+/**
+ * @class {*} {CarritoController}
+ */
 class CarritoController {
 
     /**
      * metodo para agregar articulos al carrito de compras
-     * @param {*} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     agregarItem(req, res) {
         var carrito = req.session.carrito;
-        console.log("Este es de articulo =============> " + carrito);
         var external = req.params.external;
-        console.log("Este es de articulo =============> " + external);
         articulo.filter({ external_id: external }).getJoin({ categoria: true }).then(function(articl) {
             if (articl.length >= 0) {
                 var artic = articl[0];
@@ -54,8 +54,8 @@ class CarritoController {
 
     /**
      * metodo para disminuir unidades del carrito
-     * @param {*} req 
-     * @param {*} res 
+     * @param {*} req para pedidos al servidor
+     * @param {*} res para respuesta
      */
     quitarItem(req, res) {
             var carrito = req.session.carrito;
@@ -83,16 +83,16 @@ class CarritoController {
         }
         /**
          * metodo para mostar los datos en la tabla de pedidos
-         * @param {*} req 
-         * @param {*} res 
+         * @param {*} req para pedidos al servidor
+         * @param {*} res para respuesta
          */
     mostrarCarrito(req, res) {
             res.status(200).json(req.session.carrito);
         }
         /**
          * metodo para verificar si existen o no datos repetidos en el carrito
-         * @param {*} lista 
-         * @param {*} external 
+         * @param {*} lista verifica el tamanio de la lista
+         * @param {*} external verifica si encuentra la lista del external
          */
     static verificar(lista, external) {
             var pos = -1;
@@ -106,8 +106,8 @@ class CarritoController {
         }
         /**
          * metodo para llamar a la tabla del carrito con sus productos
-         * @param {*} req 
-         * @param {*} res 
+         * @param {*} req para pedidos al servidor
+         * @param {*} res para respuesta
          */
     carrito(req, res) {
         utilidades.crearsessiones(req);
