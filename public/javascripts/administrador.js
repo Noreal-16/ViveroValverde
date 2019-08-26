@@ -248,9 +248,10 @@ function listarImagenes(external) {
         dataType: "json",
         data: "external=" + external,
         success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            console.log(data.external_idArt);
             $("#externalArticulo").val(data.external_idArt);
             $("#nombreArt").text(data.nombre);
-            console.log(data);
             var html = '';
             html += '<div class="card-columns">';
             if (data.lista.length > 0) {

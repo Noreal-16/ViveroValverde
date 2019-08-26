@@ -345,7 +345,7 @@ class servicioControlador {
      * @param {*} res para respuesta
      */
     descativarServicio(req, res) {
-        var external = req.body.externalServicio;
+        var external = req.body.externalServicioD;
         Servicio.filter({ external_id: external }).then(function(resultSer) {
             var servicio = resultSer[0];
             if (servicio.estado) {

@@ -54,6 +54,35 @@ function cargarPedidosDetalle(external) {
                 html += '</tr>';
             })
             $("#tbodyPedido").html(html);
+
+            if (data.detalleS.length > 0) {
+                var html1 = '';
+                html1 += '<div class="col" id="card-servicio">';
+                html1 += '<div class="card">';
+                html1 += '<div class="card-header">';
+                html1 += '<span class="btn btn-success fileinput-button">';
+                html1 += '<i class="far fa-images"></i>';
+                html1 += '<span>Servicio pedidos</span>';
+                html1 += '</span>';
+                html1 += '</div>';
+                html1 += '<div class="card-body" id="fileImagen">';
+                html1 += '<div class="card-columns">';
+                $.each(data.detalleS, function (index, item) {
+                    html1 += '<div class="card" style="width:200px;height="200"">';
+                    html1 += '<img class="card-img-top" src="/images/uploadsServicio/' + item.servicio.portada + '" width="250" height="250" alt="Card image cap">';
+                    html1 += '<div class="card-footer">';
+                    html1 += '<h4>'+item.servicio.nombre+'</h4>'
+                    html1 += '<p>'+item.servicio.precio+'</p>'
+                    html1 += '</div>';
+                    html1 += '</div>';
+                });
+                html1 += '</div>'
+                html1 += '</div>';
+                html1 += '</div>';
+                html1 += '</div>';
+                $("#col-nueva").html(html1);
+
+            }
         }, error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
             console.log(textStatus);

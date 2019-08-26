@@ -3,25 +3,17 @@ var articulo = require('../modelo/articulo');
 var categoria = require('../modelo/categoria');
 var galeria = require('../modelo/galeriaArticulo');
 var utilidades = require('../controlador/rolControlador');
-var thinky = require('../config/thinky_init');
-var type = thinky.type;
-var r = thinky.r;
+
 /**
  * Librerias para cargar imagenes 
  */
 var formidable = require('formidable');
 var fs = require('fs');
 var extensiones = ["jpg", "png", "gif"];
-/**
- * @class {*} {articuloControlador}
- */
+
 class articuloControlador {
 
-    /**
-     * Metodo para vissualizar de datos articulo para el cliente
-     * @param {*} req para pedidos al servidor
-     * @param {*} res para respuesta
-     */
+  
     visualizarRegistro(req, res) {
             utilidades.crearsessiones(req);
 
@@ -314,7 +306,7 @@ class articuloControlador {
          * @param {*} res para respuesta
          */
     descativar(req, res) {
-        var external = req.body.externalArticulo;
+        var external = req.body.externalArticuloD;
         articulo.filter({ external_id: external }).then(function(resultAr) {
             var articulo = resultAr[0];
             if (articulo.estado) {
@@ -357,6 +349,8 @@ class articuloControlador {
         var data;
         articulo.filter({ external_id: external }).then(function(resulArt) {
             if (resulArt.length > 0) {
+                console.log("lllega visualizar galeria");
+                console.log(resulArt);
                 var artic = resulArt[0];
                 galeria.filter({ id_articulo: artic.id }).then(function(listgale) {
                     data = {
@@ -378,9 +372,7 @@ class articuloControlador {
     }
 
     /**
-     * Metodo para guradar imagen el base de datos
-     * @param {file} req requiere archivo file de formidable para recoger datos
-     * @param {*} res para respuesta
+  
      */
     subirImagenes(req, res) {
         var form = new formidable.IncomingForm();
@@ -392,16 +384,21 @@ class articuloControlador {
             console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT     " + files.archivo.size);
 
             if (files.archivo.size <= form.maxFileSize) {
+                console.log("llega asta tamaño")
                 var extension = files.archivo.name.split(".").pop().toLowerCase();
                 if (extensiones.includes(extension)) {
+                    console.log("llega as extensiones")
                     var external = fiels.externalArticulo;
                     var nombrefoto = new Date().toISOString() + "." + extension;
                     fs.rename(files.archivo.path, "public/images/uploads/" + nombrefoto, function(err) {
+                        console.log("llega asta copiado carpeta");
                         if (err) {
                             req.flash('error', "El tipo de archvo tiene que ser de imagen: " + err);
                             res.redirect("Administra/Articulo");
                         } else {
                             articulo.filter({ external_id: external }).then(function(resultArt) {
+                                console.log("llega a resultados");
+                                console.log(resultArt);
                                 if (resultArt.length > 0) {
                                     var datosGa = {
                                         nonbre: nombrefoto,
@@ -432,7 +429,6 @@ class articuloControlador {
                 req.flash('error', "El tamaño no puede superar a 1MB");
                 res.redirect('/Administra/Articulo');
             }
-
         });
     }
 

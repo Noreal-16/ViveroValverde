@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg" id="datosPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content " style="background: #EFF7F1">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">Datos del Pedido <i class="fas fa-list"></i></h5>
@@ -9,124 +9,143 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <div id="error"></div>
-                    <!-- /.card-body -->
-                    <div class="card-body">
-                        <div class="row invoice-info">
-                            <div class="col-sm-6 ">
-                                <strong>Datos Cliente</strong>
-                                <address>
-                                    <input type="hidden" name="externalCliente" id="externalCliente">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-text form-control-sm bg-info">Cedula:</span>
-                                            <input type="text" class="form-control-sm" placeholder="Cedula" name="txtcedulaF" id="txtcedulaF" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-text form-control-sm bg-info">Nombres:</span>
-                                            <input type="text" class="form-control-sm" placeholder="Nombres" name="txtnombresF" id="txtnombresF" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-text form-control-sm bg-info">Dirección:</span>
-                                            <input type="text" class="form-control-sm" placeholder="Dirección" name="txtdireccionF" id="txtdireccionF" readonly>
-                                        </div>
-                                    </div>
-                                </address>
+                <div class="row" id="col-nueva">
+                    {{!-- <div class="col" id="card-servicio"> --}}
+                        {{!-- <div class="card">
+                            <div class="card-header">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="far fa-images"></i>
+                                    <span>Servicio pedidos</span>
+                                </span>
                             </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6 ">
-                                <strong></strong><br>
-                                <address>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-text form-control-sm bg-info">Telefono:</span>
-                                            <input type="text" class="form-control-sm" placeholder="Dirección" name="txttelefonoF" id="txttelefonoF" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-text form-control-sm bg-info">Correo:</span>
-                                            <input type="text" class="form-control-sm" placeholder="Dirección" name="txtcorreoF" id="txtcorreoF" readonly>
-                                        </div>
-                                    </div>
-                                </address>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
+                            <div class="card-body" id="fileImagen">
 
-                        <!-- Table row -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header bg-dark">
-                                        <div class="text-center font-weight-bold">
-                                            <strong>DETALLE PEDIDO </strong>
+                            </div>
+                        </div> --}}
+                    {{!-- </div> --}}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div id="error"></div>
+                            <!-- /.card-body -->
+                            <div class="card-body">
+                                <div class="row invoice-info">
+                                    <div class="col-sm-6 ">
+                                        <strong>Datos Cliente</strong>
+                                        <address>
+                                            <input type="hidden" name="externalCliente" id="externalCliente">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-text form-control-sm bg-info">Cedula:</span>
+                                                    <input type="text" class="form-control-sm" placeholder="Cedula" name="txtcedulaF" id="txtcedulaF" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-text form-control-sm bg-info">Nombres:</span>
+                                                    <input type="text" class="form-control-sm" placeholder="Nombres" name="txtnombresF" id="txtnombresF" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-text form-control-sm bg-info">Dirección:</span>
+                                                    <input type="text" class="form-control-sm" placeholder="Dirección" name="txtdireccionF" id="txtdireccionF" readonly>
+                                                </div>
+                                            </div>
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-6 ">
+                                        <strong></strong><br>
+                                        <address>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-text form-control-sm bg-info">Telefono:</span>
+                                                    <input type="text" class="form-control-sm" placeholder="Dirección" name="txttelefonoF" id="txttelefonoF" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-text form-control-sm bg-info">Correo:</span>
+                                                    <input type="text" class="form-control-sm" placeholder="Dirección" name="txtcorreoF" id="txtcorreoF" readonly>
+                                                </div>
+                                            </div>
+                                        </address>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <!-- Table row -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header bg-dark">
+                                                <div class="text-center font-weight-bold">
+                                                    <strong>DETALLE PEDIDO </strong>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <table class="table table-bordered table-striped table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>PRODUCTO</th>
+                                                            <th>CANT.</th>
+                                                            <th>PRECIO UNIT.</th>
+                                                            <th>PRECIO TOTAL.</th>
+                                                            {{!-- <th>Accion</th> --}}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbodyPedido">
+                                                        <!----Cargar datos de los productos------>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <table class="table table-bordered table-striped table-sm">
-                                            <thead>
+                                    <!-- /.col -->
+                                </div>
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-4">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>PRODUCTO</th>
-                                                    <th>CANT.</th>
-                                                    <th>PRECIO UNIT.</th>
-                                                    <th>PRECIO TOTAL.</th>
-                                                    {{!-- <th>Accion</th> --}}
+                                                    <th style="width:50%">Subtotal:</th>
+                                                    <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="subtotalF" readonly></td>
                                                 </tr>
-                                            </thead>
-                                            <tbody id="tbodyPedido">
-                                                <!----Cargar datos de los productos------>
-                                            </tbody>
-                                        </table>
+                                                <tr>
+                                                    <th>Descuento</th>
+                                                    <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="descuentoF" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>IVA 12%:</th>
+                                                    <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="ivaF" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total:</th>
+                                                    <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="totalF" readonly></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
+                                    <!-- /.col -->
                                 </div>
                             </div>
-                            <!-- /.col -->
-                        </div>
-                        <div class="row">
-                            <!-- /.col -->
-                            <div class="col-md-6"></div>
-                            <div class="col-md-4">
-                                <div class="table-responsive">
-                                    <table class="table table-sm">
-                                        <tr>
-                                            <th style="width:50%">Subtotal:</th>
-                                            <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="subtotalF" readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Descuento</th>
-                                            <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="descuentoF" readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <th>IVA 12%:</th>
-                                            <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="ivaF" readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td><input type='text' class="form-control form-control-sm" value="0" name="subtotal" id="totalF" readonly></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- /.col -->
+                            <!-- /.card-body -->
                         </div>
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
             </div>
             <div class="modal-footer">
                 <form method="POST" action="/Despachar">
                     <input type="hidden" value="0" name="externalFcatura" id="externalFcatura">
                     <button type="submit" class="btn btn-success">Despachar pedido <i class="fas fa-dolly-flatbed"></i></button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <a href="/Pedido" class="btn btn-danger" >Cerrar</a>
                 </form>
 
             </div>
