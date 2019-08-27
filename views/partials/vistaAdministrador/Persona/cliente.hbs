@@ -70,9 +70,9 @@
                                     <form method="POST" action="/desactivarPersona">
                                         <input type="hidden" value="{{listas.external_id}}" name="externalPersona" id="externalPersona">
                                         {{#if listas.estado}}
-                                        <a type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm"><i class="fas fa-unlock-alt"></i></a>
+                                        <button type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm"><i class="fas fa-unlock-alt"></i></button>
                                         {{else}}
-                                        <a type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></a>
+                                        <button type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></button>
                                         {{/if}}
                                     </form>
                                 </div>

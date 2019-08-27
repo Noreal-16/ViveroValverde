@@ -261,6 +261,7 @@ function validarRegistroPersona() {
             txtcorreoM: {
                 required: true,
                 email: true
+                // correoRepetida: true
             },
             claveM: {
                 required: true,

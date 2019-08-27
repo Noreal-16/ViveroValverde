@@ -280,7 +280,7 @@ router.post('/subirImagenes', auth, admin, articuloC.subirImagenes);
 /**
  * Administra clientes vista administrador
  */
-router.get('/Administra/clientes', auth, persona.visualizarCliente);
+router.get('/Administra/clientes', auth,admin, persona.visualizarCliente);
 router.post('/Administra/clientes/guardar', auth, admin, persona.guardar);
 router.get('/cedulaRepetida', persona.cedulaRepetida);
 router.get('/correoRepetida', persona.correoRepetida);

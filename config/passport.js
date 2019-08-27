@@ -45,9 +45,13 @@ module.exports = function (passport) {
     },
         function (req, email, password, done) {
             cuenta.filter({ correo: email }).then(function (cuentaP) {
+                
                 var cuenta = cuentaP[0];
                 console.log(email + " " + password)
                 console.log("Cuenta clave: " + cuenta.clave + " " + password)
+                if (cuenta.estado!==true) {
+                    return done(null, false, { message: req.flash('error', 'Su cuenta esta desacticada contacte al Administrador !.') });
+                }
                 if (!cuenta) {
                     return done(null, false, { message: req.flash('error', 'Cuenta no existe') });
                 }

@@ -6,10 +6,14 @@
         validarRegistroPersona();
     });
 </script>
+<div>
+    {{> 'vistaAdministrador/Persona/modificarCliente'}}
+</div>
+<div>
+    {{> 'vistaAdministrador/Persona/agregarcliente'}}
+</div>
 <div class="row">
     <div class="col-12">
-        {{> 'vistaAdministrador/Persona/modificarCliente'}}
-        {{> 'vistaAdministrador/Persona/agregarcliente'}}
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Usuario
@@ -67,11 +71,14 @@
                                     <a href="#" data-toggle="modal" data-target="#modificarCliente" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-primary btn-sm" onclick="cargardatosPersona('{{listas.external_id}}')"><i class="far fa-edit"></i></a>
                                 </div>
                                 <div class="btn-group">
-                                    {{#if listas.estado}}
-                                    <a href="#" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-unlock-alt"></i></a>
-                                    {{else}}
-                                    <a href="#" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm" onclick="desactivarPersona('{{listas.external_id}}')"><i class="fas fa-lock"></i></a>
-                                    {{/if}}
+                                    <form method="POST" action="/desactivarPersona">
+                                        <input type="hidden" value="{{listas.external_id}}" name="externalPersona" id="externalPersona">
+                                        {{#if listas.estado}}
+                                        <button type="button" id="descarttiva" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btn-sm"><i class="fas fa-unlock-alt"></i></button>
+                                        {{else}}
+                                        <button type="submit" data-toggle="modal" data-tooltip="tooltip" data-placement="top" title="Acivar" class="btn btn-danger btn-sm"><i class="fas fa-lock"></i></button>
+                                        {{/if}}
+                                    </form>
                                 </div>
                             </td>
                         </tr>

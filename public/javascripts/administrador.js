@@ -153,16 +153,20 @@ function cargardatosPersona(external) {
             $("#claveM").val(data.clave);
             $("#clave1M").val(data.clave);
             $("#userM").val(data.usuario);
-
             var html = '';
-            $.each(data.lista, function (index, item) {
-                if (data.external_idR == item.external_id) {
-                    html += '<option value="' + item.external_id + '" selected> ' + item.nombre + '</option>';
-                } else {
-                    html += '<option value="' + item.external_id + '">' + item.nombre + '</option>';
-                }
-                console.log("External rol: " + data.external_idR + "," + "External lista rol: " + item.external_id);
-            });
+            if (data.rolnombre === "Administrador" && data.external_idLogin == external) {
+                html += '<option value="' + data.external_idR + '" selected> ' + data.rolnombre + '</option>';
+            } else {
+                $.each(data.lista, function (index, item) {
+                    if (data.external_idR == item.external_id) {
+                        html += '<option value="' + item.external_id + '" selected> ' + item.nombre + '</option>';
+                    } else {
+                        html += '<option value="' + item.external_id + '">' + item.nombre + '</option>';
+                    }
+                    console.log("External rol: " + data.external_idR + "," + "External lista rol: " + item.external_id);
+                });
+            }
+
             $("#txtrolM").html(html);
         }
     });

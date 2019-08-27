@@ -380,9 +380,6 @@ function styleEditar(form) {
     form.find("input[name=txtnombreM]").prop("readonly", false);
     form.find("input[name=txtnombreM]").removeClass("form-control-plaintext");
     form.find("input[name=txtnombreM]").addClass("form-control");
-    form.find("input[name=txtcorreoM]").prop("readonly", false);
-    form.find("input[name=txtcorreoM]").removeClass("form-control-plaintext");
-    form.find("input[name=txtcorreoM]").addClass("form-control");
     form.find("input[name=txtdireccionM]").prop("readonly", false);
     form.find("input[name=txtdireccionM]").removeClass("form-control-plaintext");
     form.find("input[name=txtdireccionM]").addClass("form-control");
@@ -420,9 +417,6 @@ function styleCancelar(form) {
     form.find("input[name=txtdireccionM]").prop("readonly", true);
     form.find("input[name=txtdireccionM]").addClass("form-control-plaintext");
     form.find("input[name=txtdireccionM]").removeClass("form-control");
-    form.find("input[name=txtcorreoM]").prop("readonly", true);
-    form.find("input[name=txtcorreoM]").addClass("form-control-plaintext");
-    form.find("input[name=txtcorreoM]").removeClass("form-control");
     form.find("input[name=txtcelularM]").prop("readonly", true);
     form.find("input[name=txtcelularM]").addClass("form-control-plaintext");
     form.find("input[name=txtcelularM]").removeClass("form-control");
